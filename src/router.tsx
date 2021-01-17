@@ -6,7 +6,7 @@ import LocalizationContext from './context/localizationContext';
 
 // screens
 import Login from './screens/Login';
-import AreaCode from './screens/AreaCode';
+import Welcome from './screens/Welcome';
 import SurveyList from './screens/SurveyList';
 import SurveyTypePicker from './screens/SurveyTypePicker';
 import SurveyEditor from './screens/SurveyEditor';
@@ -21,7 +21,7 @@ import { APP_FONTS, APP_THEME } from './constants';
 
 export type StackParamList = {
   Login: undefined;
-  AreaCode: undefined;
+  Welcome: undefined;
   SurveyList: {
     isLocalizationPrepared?: boolean;
   };
@@ -50,12 +50,8 @@ function MainStackScreen() {
         }}
       />
       <MainStack.Screen
-        name="AreaCode"
-        component={AreaCode}
-        options={{
-          title: t('ENTER_AREA_CODE'),
-          ...headerStyle,
-        }}
+        name="Welcome"
+        component={Welcome}
       />
       <MainStack.Screen
         name="SurveyList"

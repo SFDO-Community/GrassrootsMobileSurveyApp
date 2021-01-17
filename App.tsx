@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import * as Font from 'expo-font';
 import FlashMessage from 'react-native-flash-message';
 
-import Router from './src/router';
+import Router from './src/Router';
 import i18n from './src/config/i18n';
 import { initializeStorage } from './src/utility/storage';
 import LocalizationContext from './src/context/localizationContext';

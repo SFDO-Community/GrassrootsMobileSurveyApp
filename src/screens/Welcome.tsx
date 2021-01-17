@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, ImageBackground, ActivityIndicator } from 'react-native';
 import { Input } from 'react-native-elements';
 
 import { getCDWContact, storeContacts } from '../services/api/salesforce/contact';
@@ -7,7 +7,7 @@ import { storeOnlineSurveys } from '../services/survey';
 import { retrieveAllMetadata } from '../services/describe';
 import LocalizationContext from '../context/localizationContext';
 
-import { CustomButton, Loader } from '../components';
+import { TextIcon } from '../components';
 
 import {
   APP_FONTS,
@@ -20,28 +20,17 @@ import {
 import { logger } from '../utility/logger';
 import { notifyError } from '../utility/notification';
 
-export default function AreaCode({ navigation }) {
-  const [areaCode, setAreaCode] = useState('');
-  const [areaCodeError, setAreaCodeError] = useState('');
-  const [showsSpinner, setShowsSpinner] = useState(false);
+export default function Welcome({ navigation }) {
+  const [loading, setLoading] = useState(true);
 
   const { t } = useContext(LocalizationContext);
 
-  /**
-   * @description Validate area code. Only empty check here.
-   */
-  const validateInput = () => {
-    if (areaCode.length == 0) {
-      setAreaCodeError(t('ENTER_AREA_CODE'));
-      throw new Error('Validation error');
-    }
-    setAreaCodeError(undefined);
-  };
-
+  
   /**
    * @description Retrieve contact detail from Salesforce
    */
   const retrieveContactDetail = async () => {
+    const areaCode = '';
     const records = await getCDWContact(areaCode);
     if (records && records.length > 0) {
       // TODO: For multiple records?
@@ -67,32 +56,8 @@ export default function AreaCode({ navigation }) {
     }
   };
 
-  const { flex1, flex2, inputBoxesView, container, inputButton, font, errorStyle } = styles;
-  return (
-    <ImageBackground source={BACKGROUND_IMAGE_SOURCE} style={BACKGROUND_STYLE} imageStyle={BACKGROUND_IMAGE_STYLE}>
-      <KeyboardAvoidingView style={flex1}>
-        <Loader loading={showsSpinner} />
-        <View style={container} />
-        <View style={inputBoxesView}>
-          <Input
-            onChangeText={areaCode => {
-              setAreaCode(areaCode);
-            }}
-            value={areaCode}
-            label={t('AREA_CODE')}
-            labelStyle={font}
-            inputStyle={font}
-            placeholder="3A2276BB"
-            errorStyle={errorStyle}
-            errorMessage={areaCodeError}
-          />
-          <View style={inputButton}>
-            <CustomButton
-              title={t('GO_TO_SURVEY')}
-              onPress={async () => {
-                try {
-                  validateInput();
-                  setShowsSpinner(true);
+  /*
+  setShowsSpinner(true);
                   await retrieveContactDetail();
                   await storeContacts();
                   await retrieveAllMetadata();
@@ -104,12 +69,18 @@ export default function AreaCode({ navigation }) {
                 } finally {
                   setShowsSpinner(false);
                 }
-              }}
-            />
-          </View>
+  */
+
+  return (
+    <ImageBackground source={BACKGROUND_IMAGE_SOURCE} style={BACKGROUND_STYLE} imageStyle={BACKGROUND_IMAGE_STYLE}>
+      <View style={styles.container}>
+        <ActivityIndicator animating={loading} size="large" hidesWhenStopped color={APP_THEME.APP_BASE_COLOR} />
+        <View>
+          <TextIcon icon="check-circle" color="#04844b">Prepare contact records</TextIcon>
+          <TextIcon icon="check-circle" color="#04844b">Prepare survey fields and layouts</TextIcon>
+          <TextIcon icon="check-circle" color="#04844b">Download online surveys</TextIcon>
         </View>
-        <View style={flex2} />
-      </KeyboardAvoidingView>
+      </View>
     </ImageBackground>
   );
 }
@@ -118,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   logoStyle: { height: 61, width: 181 },
   inputBoxesView: {

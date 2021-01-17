@@ -24,7 +24,6 @@ export const ASYNC_STORAGE_KEYS = {
   SALESFORCE_INSTANCE_URL: '@SalesforceInstanceURL',
   CDW_WORKED_ID: '@CdwWorkedId',
   CDW_WORKED_NAME: '@CdwWorkedName',
-  AREA_CODE: '@AreaCode',
   NETWORK_CONNECTIVITY: '@NetworkConnectivity',
   LANGUAGE: '@Language', // Will be deprecated for using device locale
   FIELD_TYPE: '@FieldType',

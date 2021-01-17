@@ -27,33 +27,27 @@ export default function Login({ navigation }) {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showsSpinner, setShowsSpinner] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const { t } = useContext(LocalizationContext);
 
-  useEffect(() => {
-    hasLoggedIn();
-  }, []);
-
-  /**
-   * @description Check the user has logged in or not yet.
-   */
-  const hasLoggedIn = async () => {
-    setShowsSpinner(true);
-
-    const cdwWorkedId = await storage
+  if (!mounted) {
+    storage
       .load({
         key: ASYNC_STORAGE_KEYS.CDW_WORKED_ID,
+      })
+      .then(userContactId => {
+        logger('INFO', 'Login', `User is already logged in as ${userContactId}`);
+        navigation.navigate('SurveyList');
       })
       .catch(() => {
         logger('INFO', 'Login', 'User has not logged in yet');
       });
-    setShowsSpinner(false);
-    //if user already logged in (= has CDW Id), navigate to survey list
-    if (cdwWorkedId) {
-      logger('INFO', 'Login', `User is already logged in as ${cdwWorkedId}`);
-      navigation.navigate('SurveyList');
-    }
-  };
+  }
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const validateInput = () => {
     if (email.length == 0) {
@@ -83,13 +77,15 @@ export default function Login({ navigation }) {
     try {
       setShowsSpinner(true);
       const loginResponse = await authenticate(email, password);
-      await SecureStore.setItemAsync('email', email);
-      await SecureStore.setItemAsync('password', password);
-      logger('DEBUG', 'Login', `${JSON.stringify(loginResponse)}`);
-      // TODO: Re-login from survey list screen
-      navigation.navigate('AreaCode');
+      if (loginResponse.success) {
+        await SecureStore.setItemAsync('email', email);
+        await SecureStore.setItemAsync('password', password);
+        navigation.navigate('Welcome');
+      } else {
+        notifyError(loginResponse.error_description);
+      }
     } catch (error) {
-      notifyError(error.error_description);
+      notifyError(error.message);
     } finally {
       setShowsSpinner(false);
     }
@@ -102,7 +98,7 @@ export default function Login({ navigation }) {
       <KeyboardAwareScrollView style={flex1}>
         <Loader loading={showsSpinner} />
         <View style={container}>
-          <Image source={require('../../assets/images/haydenhallicon.png')} style={logoStyle} />
+          <Image source={require('../../assets/images/icon.png')} style={logoStyle} />
         </View>
         <View style={inputBoxesView}>
           <Input
