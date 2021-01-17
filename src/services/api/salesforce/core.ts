@@ -15,13 +15,18 @@ const SALESFORCE_API_VERSION = 'v49.0';
 export const fetchSalesforceRecords = async (query: string) => {
   const endPoint = (await buildEndpointUrl()) + `/query?q=${query}`;
   const response = await fetchRetriable(endPoint, 'GET', undefined);
-  console.log(response);
-  logger('FINE', 'fetchSalesforceRecords', response.records);
-  const records = response.records.map(r => {
-    delete r.attributes;
-    return r;
-  });
-  return records;
+  // Error response of Salesforce REST API is array format.
+  const hasError = Array.isArray(response);
+  if (hasError) {
+    logger('ERROR', 'fetchSalesforceRecords', response);
+    return Promise.reject();
+  }
+  return response.totalSize === 0
+    ? []
+    : response.records.map(r => {
+        delete r.attributes;
+        return r;
+      });
 };
 
 /**
