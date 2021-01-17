@@ -46,6 +46,8 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
   top: Dimensions.get('window').height / 2 + height / 2,
 };
 
+export const SURVEY_OBJECT = 'GRSM_Survey__c';
+
 // TODO: Capitalize
 export const DB_TABLE = {
   RecordType: 'RecordType',
