@@ -17,7 +17,7 @@ import { upsertLocalSurvey } from '../services/survey';
 import { APP_THEME, APP_FONTS, DB_TABLE } from '../constants';
 // types
 import { SurveyLayout } from '../types/survey';
-import { Survey, RecordType } from '../types/sqlite';
+import { SQLiteSurvey, SQLiteRecordType } from '../types/sqlite';
 import { StackParamList } from '../router';
 type SurveyEditorNavigationProp = StackNavigationProp<StackParamList, 'SurveyEditor'>;
 type SurveyEditorRouteProp = RouteProp<StackParamList, 'SurveyEditor'>;
@@ -46,11 +46,11 @@ export default function SurveyEditor({ route, navigation }: Props) {
         setLayout(result);
       } else if (MODE === 'EDIT_OR_VIEW') {
         // query existing survey from local database
-        const storedSurveys: Array<Survey> = await getRecords(
+        const storedSurveys: Array<SQLiteSurvey> = await getRecords(
           DB_TABLE.SURVEY,
           `where localId = ${route.params.localId}`
         );
-        const storedRecordTypes: Array<RecordType> = await getRecords(
+        const storedRecordTypes: Array<SQLiteRecordType> = await getRecords(
           DB_TABLE.RecordType,
           `where recordTypeId ='${storedSurveys[0].RecordTypeId}'`
         );

@@ -3,7 +3,7 @@ import { View, FlatList, ImageBackground } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { getAllRecordTypes } from '../services/describe';
+import { getAllRecordTypes } from '../services/database/metadata';
 import { ListItem } from '../components';
 
 import LocalizationContext from '../context/localizationContext';
