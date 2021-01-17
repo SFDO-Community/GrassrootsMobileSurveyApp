@@ -4,3 +4,4 @@ export * from './TextSubheading';
 export * from './ListItem';
 export * from './Loader';
 export * from './SearchBar';
+export * from './TextIcon';
