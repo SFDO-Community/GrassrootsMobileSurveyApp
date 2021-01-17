@@ -49,7 +49,13 @@ function MainStackScreen() {
           ...headerStyle,
         }}
       />
-      <MainStack.Screen name="Welcome" component={Welcome} />
+      <MainStack.Screen
+        name="Welcome"
+        component={Welcome}
+        options={{
+          headerLeft: null,
+        }}
+      />
       <MainStack.Screen
         name="SurveyList"
         component={SurveyList}

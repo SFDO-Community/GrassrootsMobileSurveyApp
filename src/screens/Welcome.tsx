@@ -33,7 +33,9 @@ export default function Welcome({ navigation }) {
    */
   useEffect(() => {
     if (!loading) {
-      navigation.navigate('SurveyList');
+      setTimeout(() => {
+        navigation.navigate('SurveyList');
+      }, 1000);
     } else {
       const prepare = async () => {
         try {
@@ -62,7 +64,7 @@ export default function Welcome({ navigation }) {
   return (
     <ImageBackground source={BACKGROUND_IMAGE_SOURCE} style={BACKGROUND_STYLE} imageStyle={BACKGROUND_IMAGE_STYLE}>
       <View style={styles.container}>
-        <ActivityIndicator animating={loading} size="large" hidesWhenStopped color={APP_THEME.APP_BASE_COLOR} />
+        <ActivityIndicator size="large" color={APP_THEME.APP_BASE_COLOR} />
         <View>
           <TextIcon icon="check-circle" color={contactIconColor}>
             Prepare contact records
