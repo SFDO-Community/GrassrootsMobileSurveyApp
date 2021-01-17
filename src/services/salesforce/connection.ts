@@ -1,8 +1,8 @@
 import * as SecureStore from 'expo-secure-store';
 
-import { authenticate, LoginResponse } from '../../auth';
-import { ASYNC_STORAGE_KEYS } from '../../../constants';
-import { logger } from '../../../utility/logger';
+import { authenticate, LoginResponse } from '../auth';
+import { ASYNC_STORAGE_KEYS } from '../../constants';
+import { logger } from '../../utility/logger';
 
 /**
  * @description Call Salesforce REST endpoint using fetch() API. Retry with a refreshed access token if expired.

@@ -1,4 +1,4 @@
-import { authenticate } from '../../src/services/api/auth';
+import { authenticate } from '../../src/services/auth';
 import { mockAuthSuccessResponse, mockAuthFailureResponse } from './mockResponse';
 
 describe('auth', () => {

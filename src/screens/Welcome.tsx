@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, ImageBackground, ActivityIndicator } from 'react-native';
 
-import { getCurrentUserContact, storeContacts } from '../services/api/salesforce/contact';
+import { getCurrentUserContact, storeContacts } from '../services/salesforce/contact';
 import { storeOnlineSurveys } from '../services/survey';
 import { retrieveAllMetadata } from '../services/describe';
 import { forceLogout } from '../services/session';

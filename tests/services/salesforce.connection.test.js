@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { fetchRetriable } from '../../src/services/api/salesforce/connection';
+import { fetchRetriable } from '../../src/services/salesforce/connection';
 import { mockLoginResponse, mockQuerySuccessResponse, mockQueryFailureResponse } from './mockResponse';
 
-jest.mock('../../src/services/api/auth', () => ({
+jest.mock('../../src/services/auth', () => ({
   authenticate: jest.fn().mockImplementation(() => Promise.resolve(mockLoginResponse)),
 }));
 

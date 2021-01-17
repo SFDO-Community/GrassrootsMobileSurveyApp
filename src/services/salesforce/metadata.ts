@@ -1,11 +1,11 @@
 import { describeLayoutResult, describeLayout, fetchSalesforceRecords } from './core';
-import { saveRecords } from '../../database/database';
+import { saveRecords } from '../database/database';
 
-import { RecordType, PageLayoutSection, PageLayoutItem, PicklistValue, Localization } from '../../../types/sqlite';
-import { DescribeLayoutResult, DescribeLayout, LocalizationCustomMetadata } from '../../../types/metadata';
+import { RecordType, PageLayoutSection, PageLayoutItem, PicklistValue, Localization } from '../../types/sqlite';
+import { DescribeLayoutResult, DescribeLayout, LocalizationCustomMetadata } from '../../types/metadata';
 
-import { logger } from '../../../utility/logger';
-import { DB_TABLE, SURVEY_OBJECT } from '../../../constants';
+import { logger } from '../../utility/logger';
+import { DB_TABLE, SURVEY_OBJECT } from '../../constants';
 
 /**
  * @description Query record types by REST API (describe layouts) and save the results to local database.

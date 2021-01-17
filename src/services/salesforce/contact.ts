@@ -1,10 +1,10 @@
 import * as SecureStore from 'expo-secure-store';
 
 import { fetchSalesforceRecords } from './core';
-import { clearTable, saveRecords } from '../../database/database';
-import { logger } from '../../../utility/logger';
-import { DB_TABLE, ASYNC_STORAGE_KEYS } from '../../../constants';
-import { SQLiteContact } from '../../../types/sqlite';
+import { clearTable, saveRecords } from '../database/database';
+import { logger } from '../../utility/logger';
+import { DB_TABLE, ASYNC_STORAGE_KEYS } from '../../constants';
+import { SQLiteContact } from '../../types/sqlite';
 
 /**
  * @description Fetch contact record by logged in email. Throw an errow when record is not found or multiple records are found.

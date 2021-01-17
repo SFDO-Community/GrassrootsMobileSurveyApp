@@ -1,4 +1,4 @@
-import { storeRecordTypes, storePageLayoutItems, storeLocalization } from './api/salesforce/metadata';
+import { storeRecordTypes, storePageLayoutItems, storeLocalization } from './salesforce/metadata';
 import { saveRecords, getAllRecords, getRecords, clearTable } from './database/database';
 
 import { RecordType, PageLayoutSection, PageLayoutItem, PicklistValue } from '../types/sqlite';

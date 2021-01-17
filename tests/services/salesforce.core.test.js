@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { fetchSalesforceRecords } from '../../src/services/api/salesforce/core';
+import { fetchSalesforceRecords } from '../../src/services/salesforce/core';
 import { mockResolvedQueryResult } from './mockResponse';
 
-jest.mock('../../src/services/api/salesforce/connection', () => ({
+jest.mock('../../src/services/salesforce/connection', () => ({
   fetchRetriable: jest.fn().mockImplementation(() => Promise.resolve(mockResolvedQueryResult)),
 }));
 

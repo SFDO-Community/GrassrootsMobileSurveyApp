@@ -1,4 +1,4 @@
-import { createSalesforceRecords, fetchSalesforceRecords } from './api/salesforce/core';
+import { createSalesforceRecords, fetchSalesforceRecords } from './salesforce/core';
 import {
   updateRecord,
   updateFieldValue,
