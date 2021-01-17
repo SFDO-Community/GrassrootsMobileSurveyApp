@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 import { logger } from '../../utility/logger';
-import { FieldTypeMapping } from '../../types/sqlite';
+import { SQLiteFieldTypeMapping } from '../../types/sqlite';
 import { DB_TABLE } from '../../constants';
 
 const database = SQLite.openDatabase('AppDatabase.db');
@@ -106,7 +106,7 @@ export const saveRecords = (tableName: string, records, primaryKey: string) => {
     if (records.length === 0) {
       return resolve([]);
     }
-    const fieldTypeMappings: Array<FieldTypeMapping> = getFieldTypeMappings(records[0]);
+    const fieldTypeMappings: Array<SQLiteFieldTypeMapping> = getFieldTypeMappings(records[0]);
     await prepareTable(tableName, fieldTypeMappings, primaryKey);
 
     const keys = fieldTypeMappings.map(field => field.name).join(','); // e.g., 'developerName', 'recordTypeId', ...
@@ -202,7 +202,11 @@ export const deleteRecord = (tableName, localId) => {
  * @param fieldTypeMappings Array of field type mapping
  * @param primaryKey Field name of primary key
  */
-export const prepareTable = (tableName: string, fieldTypeMappings: Array<FieldTypeMapping>, primaryKey: string) => {
+export const prepareTable = (
+  tableName: string,
+  fieldTypeMappings: Array<SQLiteFieldTypeMapping>,
+  primaryKey: string
+) => {
   return new Promise((resolve, reject) => {
     const fieldsWithType = fieldTypeMappings
       .map(field => {
@@ -232,8 +236,8 @@ export const prepareTable = (tableName: string, fieldTypeMappings: Array<FieldTy
  * e.g., {field1: 'hello', field2: 123} => [{field: 'field1', type: 'text', field: 'field2', type: 'integer'}]
  * @param record
  */
-const getFieldTypeMappings = (record: Record<string, any>): Array<FieldTypeMapping> => {
-  const result: Array<FieldTypeMapping> = [];
+const getFieldTypeMappings = (record: Record<string, any>): Array<SQLiteFieldTypeMapping> => {
+  const result: Array<SQLiteFieldTypeMapping> = [];
   for (const [name, value] of Object.entries(record)) {
     let type;
     if (typeof value === 'number' || typeof value === 'boolean') {
