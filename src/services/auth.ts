@@ -1,6 +1,6 @@
-import { ASYNC_STORAGE_KEYS } from '../../constants';
+import { ASYNC_STORAGE_KEYS } from '../constants';
 import { LOGIN_API_URL, REFRESH_KEY } from '@env';
-import { logger } from '../../utility/logger';
+import { logger } from '../utility/logger';
 
 export interface LoginResponse {
   success: boolean;

@@ -1,6 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 
-import { authenticate, LoginResponse } from '../auth';
+import { authenticate, LoginResponse } from '../../auth';
 import { ASYNC_STORAGE_KEYS } from '../../../constants';
 import { logger } from '../../../utility/logger';
 

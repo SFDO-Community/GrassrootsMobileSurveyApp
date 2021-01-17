@@ -18,7 +18,7 @@ import {
 } from '../constants';
 import LocalizationContext from '../context/localizationContext';
 
-import { authenticate } from '../services/api/auth';
+import { authenticate } from '../services/auth';
 import { notifyError } from '../utility/notification';
 
 export default function Login({ navigation }) {
