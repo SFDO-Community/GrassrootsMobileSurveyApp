@@ -7,8 +7,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 // components
 import { SearchBar, ListItem, Loader } from '../components';
-import FilterButtonGroup from './surveyListFilter';
-import SurveyListHeader from './surveyListHeader';
+import FilterButtonGroup from './SurveyListFilter';
+import SurveyListHeader from './SurveyListHeader';
 // services
 import { buildDictionary } from '../services/describe';
 import { deleteRecord } from '../services/database';
