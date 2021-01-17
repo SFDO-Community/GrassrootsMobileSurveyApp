@@ -1,4 +1,5 @@
 import { getAllRecords } from './database/database';
+import { prepareLocalizationTable } from './database/localization';
 import { getAllRecordTypes } from './database/metadata';
 
 import { logger } from '../utility/logger';
@@ -26,11 +27,11 @@ export const buildDictionary = async () => {
     result[`${L10N_PREFIX.PageLayoutItem}${current.fieldName}`] = current.fieldLabel;
     return result;
   }, {});
-
   const originalLabels = { ...recordTypeLabels, ...sectionLabels, ...fieldLabels };
   logger('FINE', 'buildDictionary', originalLabels);
-  // localization.
-  // TODO: create localization table first for no records in salesforce
+
+  // Create localization table first for no records in salesforce
+  await prepareLocalizationTable();
   const translatedRecordTypes = await getAllRecords(DB_TABLE.Localization);
   const translatedLabels = translatedRecordTypes.reduce((result, current) => {
     result[`${L10N_PREFIX[current.type]}${current.name}`] = current.label;
@@ -48,5 +49,4 @@ export const buildDictionary = async () => {
       ...translatedLabels,
     },
   };
-  // field
 };

@@ -12,6 +12,7 @@ import { APP_THEME, BACKGROUND_IMAGE_SOURCE, BACKGROUND_STYLE, BACKGROUND_IMAGE_
 import { logger } from '../utility/logger';
 import { notifySuccess, notifyError } from '../utility/notification';
 import { storeOnlineSurveys } from '../services/survey';
+import { buildDictionary } from '../services/dictionary';
 
 type Language = {
   name: string;
@@ -78,6 +79,7 @@ export default function Settings({ navigation }) {
             setShowsSpinner(true);
             try {
               await retrieveAllMetadata();
+              await buildDictionary();
               notifySuccess('Successfully refreshed metadata.');
             } catch (e) {
               notifyError('Unexpected error occcured while refreshing. Contact your administrator and login again.');
