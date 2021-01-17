@@ -1,89 +1,67 @@
+import * as SecureStore from 'expo-secure-store';
+
 import { fetchSalesforceRecords } from './core';
-import { ASYNC_STORAGE_KEYS } from '../../../constants';
-import { clearTable, getRecords, saveRecords } from '../../database';
+import { clearTable, saveRecords } from '../../database';
 import { logger } from '../../../utility/logger';
-import { DB_TABLE } from '../../../constants';
-import { Contact } from '../../../types/sqlite';
+import { DB_TABLE, ASYNC_STORAGE_KEYS } from '../../../constants';
+import { SQLiteContact } from '../../../types/sqlite';
+
+/**
+ * @description Fetch contact record by logged in email. Throw an errow when record is not found or multiple records are found.
+ * @return the contact record object
+ */
+export const getCurrentUserContact = async () => {
+  const appUserEmail = await SecureStore.getItemAsync('email');
+  const query = `SELECT Id, Name FROM Contact WHERE GRSM_LoginEmail__c = '${appUserEmail}' AND RecordType.DeveloperName = 'GRSM_User'`;
+  try {
+    const records = await fetchSalesforceRecords(query);
+    logger('DEBUG', 'getCurrentUserContact', records);
+    if (records.length !== 1) {
+      return Promise.reject({
+        message: 'User contact record is not found or duplicated. Check your Salesforce org.',
+      });
+    }
+    return records[0];
+  } catch {
+    throw new Error('Unexpected error occurred while retrieving your contact record. Contact your administrator.');
+  }
+};
 
 /**
  * @description Fetch contacts, resolve relationships and then save them to local database.
- * @param appUserId contact Id of community development worker
  */
 export const storeContacts = async () => {
-  await clearTable(DB_TABLE.CONTACT);
-  const appUserId = await getLoggedInCDWContact();
-  const junctionQuery = `SELECT Id, Child__c, Child__r.Name, Mother__c, Mother__r.Name, Mother__r.Ante_Natal_Mother__c, Beneficiary_Name__c, Beneficiary_Name__r.Name
-    FROM CDW_Client_Junction__c
-    WHERE Community_Development_Worker__c = '${appUserId}'`;
-  const junctionRecords = await fetchSalesforceRecords(junctionQuery);
-  const contacts: Array<Contact> = junctionRecords
-    .map(junctionRecord => {
-      if (junctionRecord.Child__c) {
-        return {
-          id: junctionRecord.Child__c,
-          name: junctionRecord.Child__r.Name,
-          type: 'Child',
-          motherId: junctionRecord.Mother__c || '',
-          userId: appUserId,
-        };
-      } else if (junctionRecord.Mother__c && !junctionRecord.Mother__r.Ante_Natal_Mother__c) {
-        return {
-          id: junctionRecord.Mother__c,
-          name: junctionRecord.Mother__r.Name,
-          type: 'Mother',
-          motherId: '',
-          userId: appUserId,
-        };
-      } else if (junctionRecord.Mother__c && junctionRecord.Mother__r.Ante_Natal_Mother__c) {
-        return {
-          id: junctionRecord.Mother__c,
-          name: junctionRecord.Mother__r.Name,
-          type: 'AnteNatelMother',
-          motherId: '',
-          userId: appUserId,
-        };
-      } else if (junctionRecord.Beneficiary__c) {
-        return {
-          id: junctionRecord.Beneficiary_Name__c,
-          name: junctionRecord.Beneficiary_Name__r.Name,
-          type: 'Beneficiary',
-          motherId: '',
-          userId: appUserId,
-        };
-      }
-      return undefined;
-    })
-    .filter(r => r !== undefined);
-
-  logger('DEBUG', 'storeContacts', contacts);
-  await saveRecords(DB_TABLE.CONTACT, contacts, 'id');
-  storage.save({
-    key: '@Contacts',
-    data: contacts,
+  const userContactId = await storage.load({
+    key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID,
   });
-};
-
-/**
- * @description Get contacts by type
- * @param type Contact type (Mother, Child, Beneficiary, AnteNatalMother)
- */
-export const getContactByType = async (type: string) => {
-  return await getRecords(DB_TABLE.CONTACT, `where type='${type}'`);
-};
-
-/**
- * @description Fetch contact by area code.
- * @param areaCode area code entered in area code screen
- */
-export const getCDWContact = async areaCode => {
-  const query = `SELECT Id, Name, Service_Role__c FROM contact WHERE Area_Code__c='${areaCode}' AND Service_Role__c = 'Health Worker'`;
-  const records = await fetchSalesforceRecords(query);
-  logger('DEBUG', 'Contact API', `${JSON.stringify(records)}`);
-  return records;
-};
-
-const getLoggedInCDWContact = async () => {
-  return await storage.load({
-    key: ASYNC_STORAGE_KEYS.CDW_WORKED_ID,
-  });
+  const junctionQuery = `SELECT Id, Client__c, Client__r.Name, Type__c
+    FROM GRSM_UserClientRelation__c 
+    WHERE User__c = '${userContactId}'`;
+  try {
+    const junctionRecords = await fetchSalesforceRecords(junctionQuery);
+    const contacts: Array<SQLiteContact> = junctionRecords.map(junctionRecord => ({
+      id: junctionRecord.Client__c,
+      name: junctionRecord.Client__r.Name,
+      type: junctionRecord.Type__c,
+      userId: userContactId,
+    }));
+    // TODO: id duplicates
+    logger('DEBUG', 'storeContacts', contacts);
+    await clearTable(DB_TABLE.CONTACT);
+    await saveRecords(DB_TABLE.CONTACT, contacts, 'id');
+    storage.save({
+      key: '@Contacts',
+      data: contacts,
+    });
+    return contacts;
+  } catch (error) {
+    if (error.origin === 'query') {
+      throw new Error(
+        'Unexpected error occurred while retrieving user-client relationship records. Contact your administrator.'
+      );
+    }
+    throw new Error(
+      'Unexpected error occurred while saving user-client relationship records. Contact your administrator.'
+    );
+  }
 };

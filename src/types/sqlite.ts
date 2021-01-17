@@ -40,7 +40,7 @@ export interface Localization {
  * sObject
  * TODO: Make this generic. Now this data model is specific for hayden hall.
  */
-export interface Contact {
+export interface SQLiteContact {
   id: string; // salesforce id,
   name: string;
   type: 'AnteNatelMother' | 'Mother' | 'Child' | 'Beneficiary';
