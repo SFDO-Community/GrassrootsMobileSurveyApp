@@ -18,7 +18,7 @@ import {
   ASYNC_STORAGE_KEYS,
 } from '../constants';
 import { logger } from '../utility/logger';
-import { notifyError, notifySuccess } from '../utility/notification';
+import { notifyError } from '../utility/notification';
 
 export default function Welcome({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -38,15 +38,14 @@ export default function Welcome({ navigation }) {
         storage.save({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID, data: userContact.Id });
         await storeContacts();
         setContactIconColor(APP_THEME.APP_SUCCESS_COLOR);
-        /*
+
         await retrieveAllMetadata();
         setSurveyMetaIconColor(APP_THEME.APP_SUCCESS_COLOR);
-        
+
         await storeOnlineSurveys();
         setSurveyRecordsIconColor(APP_THEME.APP_SUCCESS_COLOR);
-        */
-        notifySuccess('Successfully loaded!');
-        // navigation.navigate('SurveyList');
+
+        navigation.navigate('SurveyList');
       } catch (error) {
         logger('ERROR', 'Welcome', `${error}`);
         notifyError(error.message);

@@ -7,7 +7,7 @@ import {
   saveRecords,
   prepareTable,
 } from './database/database';
-import { ASYNC_STORAGE_KEYS, DB_TABLE } from '../constants';
+import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_OBJECT } from '../constants';
 import { SQLiteFieldTypeMapping, SQLitePageLayoutItem } from '../types/sqlite';
 import { logger } from '../utility/logger';
 
@@ -30,13 +30,13 @@ export const storeOnlineSurveys = async () => {
   serializedFieldSet.add(
     JSON.stringify({
       fieldName: 'RecordTypeId',
-      fieldType: 'text',
+      fieldType: 'reference',
     })
   );
   serializedFieldSet.add(
     JSON.stringify({
       fieldName: 'Name',
-      fieldType: 'text',
+      fieldType: 'string',
     })
   );
   const surveyFieldTypeMappings: Array<SQLiteFieldTypeMapping> = [...serializedFieldSet.values()].map(s => {
@@ -62,11 +62,9 @@ export const storeOnlineSurveys = async () => {
   fieldSet.add('RecordTypeId');
   const commaSeparetedFields = Array.from(fieldSet).join(',');
 
-  const areaCode = await storage.load({
-    key: ASYNC_STORAGE_KEYS.AREA_CODE,
-  });
+  const contactId = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
   const surveys = await fetchSalesforceRecords(
-    `SELECT ${commaSeparetedFields} FROM Survey__c WHERE Area_Code__c = '${areaCode}'`
+    `SELECT ${commaSeparetedFields} FROM ${SURVEY_OBJECT} WHERE UserContact__c = '${contactId}'`
   );
   if (surveys.length === 0) {
     return;
@@ -104,7 +102,7 @@ export const uploadSurveyListToSalesforce = async surveys => {
     delete s.Name;
     return s;
   });
-  return await createSalesforceRecords('Survey__c', records);
+  return await createSalesforceRecords(SURVEY_OBJECT, records);
 };
 
 /**
