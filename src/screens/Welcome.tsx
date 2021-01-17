@@ -32,30 +32,32 @@ export default function Welcome({ navigation }) {
    * @description Retrieve contact detail from Salesforce
    */
   useEffect(() => {
-    const prepare = async () => {
-      try {
-        const userContact = await getCurrentUserContact();
-        storage.save({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID, data: userContact.Id });
-        await storeContacts();
-        setContactIconColor(APP_THEME.APP_SUCCESS_COLOR);
+    if (!loading) {
+      navigation.navigate('SurveyList');
+    } else {
+      const prepare = async () => {
+        try {
+          const userContact = await getCurrentUserContact();
+          storage.save({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID, data: userContact.Id });
+          await storeContacts();
+          setContactIconColor(APP_THEME.APP_SUCCESS_COLOR);
 
-        await retrieveAllMetadata();
-        setSurveyMetaIconColor(APP_THEME.APP_SUCCESS_COLOR);
+          await retrieveAllMetadata();
+          setSurveyMetaIconColor(APP_THEME.APP_SUCCESS_COLOR);
 
-        await storeOnlineSurveys();
-        setSurveyRecordsIconColor(APP_THEME.APP_SUCCESS_COLOR);
-
-        navigation.navigate('SurveyList');
-      } catch (error) {
-        logger('ERROR', 'Welcome', `${error}`);
-        notifyError(error.message);
-        await forceLogout(navigation);
-      } finally {
-        setLoading(false);
-      }
-    };
-    prepare();
-  }, []);
+          await storeOnlineSurveys();
+          setSurveyRecordsIconColor(APP_THEME.APP_SUCCESS_COLOR);
+        } catch (error) {
+          logger('ERROR', 'Welcome', `${error}`);
+          notifyError(error.message);
+          await forceLogout(navigation);
+        } finally {
+          setLoading(false);
+        }
+      };
+      prepare();
+    }
+  }, [loading]);
 
   return (
     <ImageBackground source={BACKGROUND_IMAGE_SOURCE} style={BACKGROUND_STYLE} imageStyle={BACKGROUND_IMAGE_STYLE}>
