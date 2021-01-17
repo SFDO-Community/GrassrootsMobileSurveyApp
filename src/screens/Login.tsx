@@ -34,7 +34,7 @@ export default function Login({ navigation }) {
   if (!mounted) {
     storage
       .load({
-        key: ASYNC_STORAGE_KEYS.CDW_WORKED_ID,
+        key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID,
       })
       .then(userContactId => {
         logger('INFO', 'Login', `User is already logged in as ${userContactId}`);
