@@ -32,7 +32,7 @@ export const notifyError = (description: string) => {
       icon: 'danger',
       position: 'left',
     },
-    duration: 4500,
+    autoHide: false,
     backgroundColor: '#c23934',
   });
 };
