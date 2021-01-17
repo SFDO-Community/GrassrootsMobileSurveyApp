@@ -19,7 +19,7 @@ export const fetchSalesforceRecords = async (query: string) => {
   const hasError = Array.isArray(response);
   if (hasError) {
     logger('ERROR', 'fetchSalesforceRecords', response);
-    return Promise.reject();
+    return Promise.reject({ origin: 'query' });
   }
   return response.totalSize === 0
     ? []
