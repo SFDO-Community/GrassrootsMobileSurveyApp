@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, ImageBackground, ActivityIndicator } from 'react-native';
-import { Input } from 'react-native-elements';
+import React, { useState, useContext, useEffect } from 'react';
+import { View, StyleSheet, ImageBackground, ActivityIndicator } from 'react-native';
 
-import { getCDWContact, storeContacts } from '../services/api/salesforce/contact';
+import { getCurrentUserContact, storeContacts } from '../services/api/salesforce/contact';
 import { storeOnlineSurveys } from '../services/survey';
 import { retrieveAllMetadata } from '../services/describe';
+import { forceLogout } from '../services/session';
 import LocalizationContext from '../context/localizationContext';
 
 import { TextIcon } from '../components';
@@ -12,73 +12,66 @@ import { TextIcon } from '../components';
 import {
   APP_FONTS,
   APP_THEME,
-  ASYNC_STORAGE_KEYS,
   BACKGROUND_IMAGE_SOURCE,
   BACKGROUND_STYLE,
   BACKGROUND_IMAGE_STYLE,
+  ASYNC_STORAGE_KEYS,
 } from '../constants';
 import { logger } from '../utility/logger';
-import { notifyError } from '../utility/notification';
+import { notifyError, notifySuccess } from '../utility/notification';
 
 export default function Welcome({ navigation }) {
   const [loading, setLoading] = useState(true);
+  const [contactIconColor, setContactIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
+  const [surveyMetaIconColor, setSurveyMetaIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
+  const [surveyRecordsIconColor, setSurveyRecordsIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
 
   const { t } = useContext(LocalizationContext);
 
-  
   /**
    * @description Retrieve contact detail from Salesforce
    */
-  const retrieveContactDetail = async () => {
-    const areaCode = '';
-    const records = await getCDWContact(areaCode);
-    if (records && records.length > 0) {
-      // TODO: For multiple records?
-      const workerContact = records[0];
-      storage.save({
-        key: ASYNC_STORAGE_KEYS.CDW_WORKED_ID,
-        data: workerContact.Id,
-      });
-      storage.save({
-        key: ASYNC_STORAGE_KEYS.AREA_CODE,
-        data: areaCode,
-      });
-      storage.save({
-        key: ASYNC_STORAGE_KEYS.CDW_WORKED_NAME,
-        data: workerContact.Name,
-      });
-    } else {
-      setTimeout(() => {
-        alert(t('AREA_CODE_NOT_FOUND'));
-      }, 500);
-      // TODO: query error handling
-      throw new Error(`Retrieve contact details. ${JSON.stringify(records)}`);
-    }
-  };
-
-  /*
-  setShowsSpinner(true);
-                  await retrieveContactDetail();
-                  await storeContacts();
-                  await retrieveAllMetadata();
-                  await storeOnlineSurveys();
-                  navigation.navigate('SurveyList');
-                } catch (error) {
-                  logger('ERROR', 'AreaCode', `${error}`);
-                  notifyError(JSON.stringify(error));
-                } finally {
-                  setShowsSpinner(false);
-                }
-  */
+  useEffect(() => {
+    const prepare = async () => {
+      try {
+        const userContact = await getCurrentUserContact();
+        storage.save({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID, data: userContact.Id });
+        await storeContacts();
+        setContactIconColor(APP_THEME.APP_SUCCESS_COLOR);
+        /*
+        await retrieveAllMetadata();
+        setSurveyMetaIconColor(APP_THEME.APP_SUCCESS_COLOR);
+        
+        await storeOnlineSurveys();
+        setSurveyRecordsIconColor(APP_THEME.APP_SUCCESS_COLOR);
+        */
+        notifySuccess('Successfully loaded!');
+        // navigation.navigate('SurveyList');
+      } catch (error) {
+        logger('ERROR', 'Welcome', `${error}`);
+        notifyError(error.message);
+        await forceLogout(navigation);
+      } finally {
+        setLoading(false);
+      }
+    };
+    prepare();
+  }, []);
 
   return (
     <ImageBackground source={BACKGROUND_IMAGE_SOURCE} style={BACKGROUND_STYLE} imageStyle={BACKGROUND_IMAGE_STYLE}>
       <View style={styles.container}>
         <ActivityIndicator animating={loading} size="large" hidesWhenStopped color={APP_THEME.APP_BASE_COLOR} />
         <View>
-          <TextIcon icon="check-circle" color="#04844b">Prepare contact records</TextIcon>
-          <TextIcon icon="check-circle" color="#04844b">Prepare survey fields and layouts</TextIcon>
-          <TextIcon icon="check-circle" color="#04844b">Download online surveys</TextIcon>
+          <TextIcon icon="check-circle" color={contactIconColor}>
+            Prepare contact records
+          </TextIcon>
+          <TextIcon icon="check-circle" color={surveyMetaIconColor}>
+            Prepare survey settings
+          </TextIcon>
+          <TextIcon icon="check-circle" color={surveyRecordsIconColor}>
+            Download online surveys
+          </TextIcon>
         </View>
       </View>
     </ImageBackground>
