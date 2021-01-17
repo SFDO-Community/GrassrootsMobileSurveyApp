@@ -1,5 +1,12 @@
 import { createSalesforceRecords, fetchSalesforceRecords } from './api/salesforce/core';
-import { updateRecord, updateFieldValue, clearTable, getAllRecords, saveRecords, prepareTable } from './database';
+import {
+  updateRecord,
+  updateFieldValue,
+  clearTable,
+  getAllRecords,
+  saveRecords,
+  prepareTable,
+} from './database/database';
 import { ASYNC_STORAGE_KEYS, DB_TABLE } from '../constants';
 import { FieldTypeMapping, PageLayoutItem } from '../types/sqlite';
 import { logger } from '../utility/logger';

@@ -1,5 +1,5 @@
 import { storeRecordTypes, storePageLayoutItems, storeLocalization } from './api/salesforce/metadata';
-import { saveRecords, getAllRecords, getRecords, clearTable } from './database';
+import { saveRecords, getAllRecords, getRecords, clearTable } from './database/database';
 
 import { RecordType, PageLayoutSection, PageLayoutItem, PicklistValue } from '../types/sqlite';
 import { SurveyLayout } from '../types/survey';

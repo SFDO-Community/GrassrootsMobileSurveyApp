@@ -11,7 +11,7 @@ import FilterButtonGroup from './SurveyListFilter';
 import SurveyListHeader from './SurveyListHeader';
 // services
 import { buildDictionary } from '../services/describe';
-import { deleteRecord } from '../services/database';
+import { deleteRecord } from '../services/database/database';
 import { forceLogout } from '../services/session';
 // store
 import { surveyFilterReducer } from '../reducers/surveyFilterReducer';
@@ -24,7 +24,7 @@ import { notifyError } from '../utility/notification';
 import { APP_FONTS, APP_THEME, DB_TABLE } from '../constants';
 // types
 import { StackParamList } from '../router';
-import { getAllRecordsWithCallback } from '../services/database';
+import { getAllRecordsWithCallback } from '../services/database/database';
 type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyList'>;
 
 type Props = {

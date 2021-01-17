@@ -9,7 +9,7 @@ import SurveyEditorItem from './SurveyEditorItem';
 import LocalizationContext from '../context/localizationContext';
 import { useSelector, useDispatch } from '../state/surveyEditorState';
 // services
-import { getRecords } from '../services/database';
+import { getRecords } from '../services/database/database';
 import { buildLayoutDetail } from '../services/describe';
 import { notifySuccess } from '../utility/notification';
 import { upsertLocalSurvey } from '../services/survey';

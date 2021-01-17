@@ -4,8 +4,8 @@ import { Input, Divider } from 'react-native-elements';
 import Constants from 'expo-constants';
 import { ListItem } from '../components';
 import { APP_FONTS, APP_THEME, DB_TABLE, LOOKUP_TO_CONTACT } from '../constants';
-import { getRecordsWithCallback } from '../services/database';
-import { Contact } from '../types/sqlite';
+import { getRecordsWithCallback } from '../services/database/database';
+import { SQLiteContact } from '../types/sqlite';
 
 import { useDispatch } from '../state/surveyEditorState';
 
@@ -21,7 +21,7 @@ export default function LookupSearch({ navigation, route }: LookupProps) {
   const fieldName = route.params.fieldName;
   const title = route.params.title;
   const [searchTerm, setSearchTerm] = useState('');
-  const [result, setResult] = useState<Array<Contact>>([]);
+  const [result, setResult] = useState<Array<SQLiteContact>>([]);
 
   const dispatchSurvey = useDispatch();
 

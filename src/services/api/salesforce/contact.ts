@@ -1,7 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 
 import { fetchSalesforceRecords } from './core';
-import { clearTable, saveRecords } from '../../database';
+import { clearTable, saveRecords } from '../../database/database';
 import { logger } from '../../../utility/logger';
 import { DB_TABLE, ASYNC_STORAGE_KEYS } from '../../../constants';
 import { SQLiteContact } from '../../../types/sqlite';

@@ -1,7 +1,7 @@
 import * as SQLite from 'expo-sqlite';
-import { logger } from '../utility/logger';
-import { FieldTypeMapping } from '../types/sqlite';
-import { DB_TABLE } from '../constants';
+import { logger } from '../../utility/logger';
+import { FieldTypeMapping } from '../../types/sqlite';
+import { DB_TABLE } from '../../constants';
 
 const database = SQLite.openDatabase('AppDatabase.db');
 

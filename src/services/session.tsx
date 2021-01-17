@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 
-import { clearDatabase } from './database';
+import { clearDatabase } from './database/database';
 import { clearStorage } from '../utility/storage';
 
 export const logout = (navigation, t) => {

@@ -1,5 +1,5 @@
 import { describeLayoutResult, describeLayout, fetchSalesforceRecords } from './core';
-import { saveRecords } from '../../database';
+import { saveRecords } from '../../database/database';
 
 import { RecordType, PageLayoutSection, PageLayoutItem, PicklistValue, Localization } from '../../../types/sqlite';
 import { DescribeLayoutResult, DescribeLayout, LocalizationCustomMetadata } from '../../../types/metadata';

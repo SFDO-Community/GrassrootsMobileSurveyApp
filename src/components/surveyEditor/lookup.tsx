@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
-import { getRecords } from '../../services/database';
+import { getRecords } from '../../services/database/database';
 import { APP_THEME, APP_FONTS, DB_TABLE } from '../../constants';
 
 type LookupPropType = {
