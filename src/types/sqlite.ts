@@ -1,35 +1,35 @@
-export interface RecordType {
+export interface SQLiteRecordType {
   name: string; // Primary key
   label: string;
   recordTypeId: string;
   layoutId: string;
 }
 
-export interface FieldTypeMapping {
+export interface SQLiteFieldTypeMapping {
   name: string;
   type: 'text' | 'integer' | 'blob'; // NOTICE: sqlite cannot have boolean type
 }
 
-export interface PageLayoutSection {
+export interface SQLitePageLayoutSection {
   id: string; // Primary key
   layoutId: string;
   sectionLabel: string;
 }
 
-export interface PageLayoutItem {
+export interface SQLitePageLayoutItem {
   sectionId: string;
   fieldName: string;
   fieldLabel: string;
   fieldType: string;
 }
 
-export interface PicklistValue {
+export interface SQLitePicklistValue {
   fieldName: string;
   label: string;
   value: string;
 }
 
-export interface Localization {
+export interface SQLiteLocalization {
   type: string; // TODO: 'RecordType' | 'PageLayoutSection' | 'PageLayoutItem';
   locale: string; // TODO: 'en' | 'ne'
   name: string;
@@ -51,7 +51,7 @@ export interface SQLiteContact {
 /**
  * sObject.
  */
-export interface Survey {
+export interface SQLiteSurvey {
   syncStatus: 'Unsynced' | 'Synced';
   localId: string;
   RecordTypeId: string;

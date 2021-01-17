@@ -8,7 +8,7 @@ import {
   prepareTable,
 } from './database/database';
 import { ASYNC_STORAGE_KEYS, DB_TABLE } from '../constants';
-import { FieldTypeMapping, PageLayoutItem } from '../types/sqlite';
+import { SQLiteFieldTypeMapping, SQLitePageLayoutItem } from '../types/sqlite';
 import { logger } from '../utility/logger';
 
 /**
@@ -17,7 +17,7 @@ import { logger } from '../utility/logger';
  */
 export const storeOnlineSurveys = async () => {
   // Build field list from page layout items
-  const fields: Array<PageLayoutItem> = await getAllRecords(DB_TABLE.PageLayoutItem);
+  const fields: Array<SQLitePageLayoutItem> = await getAllRecords(DB_TABLE.PageLayoutItem);
   // Prepare local survey table
   const serializedFieldSet = new Set(
     fields.map(f =>
@@ -39,15 +39,15 @@ export const storeOnlineSurveys = async () => {
       fieldType: 'text',
     })
   );
-  const surveyFieldTypeMappings: Array<FieldTypeMapping> = [...serializedFieldSet.values()].map(s => {
+  const surveyFieldTypeMappings: Array<SQLiteFieldTypeMapping> = [...serializedFieldSet.values()].map(s => {
     const item = JSON.parse(s);
-    const result: FieldTypeMapping = {
+    const result: SQLiteFieldTypeMapping = {
       name: item.fieldName,
       type: ['double', 'boolean', 'percent', 'currency'].includes(item.fieldType) ? 'integer' : 'text',
     };
     return result;
   });
-  const localFields: Array<FieldTypeMapping> = [
+  const localFields: Array<SQLiteFieldTypeMapping> = [
     {
       name: 'syncStatus',
       type: 'text',

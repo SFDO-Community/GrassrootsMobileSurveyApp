@@ -1,7 +1,13 @@
 import { describeLayoutResult, describeLayout, fetchSalesforceRecords } from './core';
 import { saveRecords } from '../database/database';
 
-import { RecordType, PageLayoutSection, PageLayoutItem, PicklistValue, Localization } from '../../types/sqlite';
+import {
+  SQLiteRecordType,
+  SQLitePageLayoutSection,
+  SQLitePageLayoutItem,
+  SQLitePicklistValue,
+  SQLiteLocalization,
+} from '../../types/sqlite';
 import { DescribeLayoutResult, DescribeLayout, LocalizationCustomMetadata } from '../../types/metadata';
 
 import { logger } from '../../utility/logger';
@@ -13,7 +19,7 @@ import { DB_TABLE, SURVEY_OBJECT } from '../../constants';
  */
 export const storeRecordTypes = async () => {
   const response: DescribeLayoutResult = await describeLayoutResult(SURVEY_OBJECT);
-  const recordTypes: Array<RecordType> = response.recordTypeMappings
+  const recordTypes: Array<SQLiteRecordType> = response.recordTypeMappings
     .filter(r => r.active && r.name !== 'Master') // TODO: For single record type and navigation
     .map(r => ({
       name: r.developerName,
@@ -40,7 +46,7 @@ export const storeRecordTypes = async () => {
  */
 export const storePageLayoutItems = async (recordTypeId: string) => {
   const response: DescribeLayout = await describeLayout(SURVEY_OBJECT, recordTypeId);
-  const pageLayoutSections: Array<PageLayoutSection> = response.editLayoutSections
+  const pageLayoutSections: Array<SQLitePageLayoutSection> = response.editLayoutSections
     .filter(section => section.useHeading)
     .map(section => ({
       id: section.layoutSectionId,
@@ -51,7 +57,7 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
   await saveRecords(DB_TABLE.PageLayoutSection, pageLayoutSections, 'id');
 
   const serializedPicklistValueSet: Set<string> = new Set();
-  const pageLayoutItems: Array<PageLayoutItem> = response.editLayoutSections
+  const pageLayoutItems: Array<SQLitePageLayoutItem> = response.editLayoutSections
     .filter(section => section.useHeading)
     .map(section => {
       return section.layoutRows.map(row => {
@@ -60,7 +66,7 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
             .filter(c => c.type !== 'EmptySpace')
             .map(c => {
               if (c.details.type === 'picklist') {
-                const values: Array<PicklistValue> = c.details.picklistValues
+                const values: Array<SQLitePicklistValue> = c.details.picklistValues
                   .filter(v => v.active)
                   .map(v => ({
                     fieldName: c.details.name,
@@ -100,7 +106,7 @@ export const storeLocalization = async () => {
   if (records.length === 0) {
     return;
   }
-  const localizations: Array<Localization> = records.map(r => {
+  const localizations: Array<SQLiteLocalization> = records.map(r => {
     return {
       locale: r.Locale__c,
       type: r.Type__c,
