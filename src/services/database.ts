@@ -103,6 +103,9 @@ export const getRecordsWithCallback = (tableName: string, whereClause: string, o
  */
 export const saveRecords = (tableName: string, records, primaryKey: string) => {
   return new Promise(async (resolve, reject) => {
+    if (records.length === 0) {
+      return resolve([]);
+    }
     const fieldTypeMappings: Array<FieldTypeMapping> = getFieldTypeMappings(records[0]);
     await prepareTable(tableName, fieldTypeMappings, primaryKey);
 
