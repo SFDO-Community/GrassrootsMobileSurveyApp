@@ -10,7 +10,7 @@ import { SearchBar, ListItem, Loader } from '../components';
 import FilterButtonGroup from './SurveyListFilter';
 import SurveyListHeader from './SurveyListHeader';
 // services
-import { buildDictionary } from '../services/describe';
+import { buildDictionary } from '../services/dictionary';
 import { deleteRecord } from '../services/database/database';
 import { forceLogout } from '../services/session';
 // store
