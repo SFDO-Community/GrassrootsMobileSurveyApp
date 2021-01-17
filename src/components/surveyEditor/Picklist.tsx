@@ -4,7 +4,7 @@ import RNPickerSelect from 'react-native-picker-select';
 
 import { APP_THEME, APP_FONTS, L10N_PREFIX } from '../../constants';
 import LocalizationContext from '../../context/localizationContext';
-import { getPicklistValues } from '../../services/describe';
+import { getPicklistValues } from '../../services/database/metadata';
 
 type PicklistPropType = {
   fieldName: string;
