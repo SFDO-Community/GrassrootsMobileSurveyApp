@@ -1,0 +1,44 @@
+name: unit test
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - name: 'Checkout source code'
+        uses: actions/checkout@v2
+
+      # Setup node.js and yarn
+      - name: 'Setup node.js'
+        uses: actions/setup-node@v1
+
+      # Install npm dependencies
+      - name: 'Install dependencies'
+        run: yarn install
+
+      # Eslint
+      - name: 'Validate'
+        run: yarn validate
+
+      # Create mock .env
+      - name: 'Create mock env file'
+        run: echo LOGIN_API_URL=https://test.herokuapp.com/login > .env
+
+      # Unit Test
+      - name: 'Unit test'
+        run: yarn test
+
+      # Delete mock .env
+      - name: 'Delete mock env file'
+        run: rm -f .env
+
+      # Upload code coverage data
+      - name: 'Upload code coverage to Codecov.io'
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
