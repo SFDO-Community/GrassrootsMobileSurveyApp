@@ -1,12 +1,10 @@
 import { storeRecordTypes, storePageLayoutItems, storeLocalization } from './salesforce/metadata';
-import { saveRecords, getAllRecords, getRecords, clearTable } from './database/database';
-import { getAllRecordTypes } from './database/metadata';
+import { saveRecords, getRecords, clearTable } from './database/database';
 import { SQLitePageLayoutSection, SQLitePageLayoutItem } from '../types/sqlite';
 import { SurveyLayout } from '../types/survey';
 
 import { logger } from '../utility/logger';
-import { ASYNC_STORAGE_KEYS, DB_TABLE, L10N_PREFIX } from '../constants';
-import i18n from '../config/i18n';
+import { ASYNC_STORAGE_KEYS, DB_TABLE } from '../constants';
 
 /**
  * @description Download record types, all the page layouts, and localization custom metadata.
