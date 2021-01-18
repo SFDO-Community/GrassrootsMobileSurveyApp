@@ -1,0 +1,94 @@
+import { storeRecordTypes, storePageLayoutItems, storeLocalization } from './salesforce/metadata';
+import { saveRecords, getRecords, clearTable } from './database/database';
+import { SQLitePageLayoutSection, SQLitePageLayoutItem } from '../types/sqlite';
+import { SurveyLayout } from '../types/survey';
+
+import { logger } from '../utility/logger';
+import { ASYNC_STORAGE_KEYS, DB_TABLE } from '../constants';
+
+/**
+ * @description Download record types, all the page layouts, and localization custom metadata.
+ */
+export const retrieveAllMetadata = async () => {
+  try {
+    // Record types
+    await clearTable(DB_TABLE.RECORD_TYPE);
+    const recordTypes = await storeRecordTypes();
+    // Page Layout
+    await clearTable(DB_TABLE.PAGE_LAYOUT_SECTION);
+    await clearTable(DB_TABLE.PAGE_LAYOUT_ITEM);
+    const serializedPicklistValueSet = new Set();
+    const serializedFieldTypeSet = new Set();
+    for (const rt of recordTypes) {
+      const pageLayoutResult = await storePageLayoutItems(rt.recordTypeId);
+      const currentSerializedPicklistValueSet = pageLayoutResult.serializedPicklistValueSet;
+      const currentSerializedFieldTypeSet = pageLayoutResult.serializedFieldTypeSet;
+      currentSerializedPicklistValueSet.forEach(serializedPicklistValueSet.add, serializedPicklistValueSet);
+      currentSerializedFieldTypeSet.forEach(serializedFieldTypeSet.add, serializedFieldTypeSet);
+    }
+    // Picklist options
+    await clearTable(DB_TABLE.PICKLIST_VALUE);
+    const picklistValues = [...serializedPicklistValueSet.values()].map(s => {
+      return JSON.parse(s as string);
+    });
+    await saveRecords(DB_TABLE.PICKLIST_VALUE, picklistValues, undefined);
+
+    // Field type object
+    const fieldType = [...serializedFieldTypeSet.values()]
+      .map(s => {
+        return JSON.parse(s as string);
+      })
+      .reduce((result, current) => {
+        result[current.name] = current.type;
+        return result;
+      }, {});
+    storage.save({ key: ASYNC_STORAGE_KEYS.FIELD_TYPE, data: fieldType });
+    // Localization
+    await clearTable(DB_TABLE.LOCALIZATION);
+    await storeLocalization();
+  } catch {
+    throw new Error('Unexpected error occured while retrieving survey settings. Contact your administrator.');
+  }
+};
+
+/**
+ * Construct page layout object from locally stored page layout sections and items
+ * @param layoutId
+ */
+export const buildLayoutDetail = async (layoutId: string): Promise<SurveyLayout> => {
+  // sections in the layout
+  const sections: Array<SQLitePageLayoutSection> = await getRecords(
+    DB_TABLE.PAGE_LAYOUT_SECTION,
+    `where layoutId='${layoutId}'`
+  );
+  // items used in the sections
+  const sectionIds = sections.map(s => s.id);
+  const items: Array<SQLitePageLayoutItem> = await getRecords(
+    DB_TABLE.PAGE_LAYOUT_ITEM,
+    `where sectionId in (${sectionIds.map(id => `'${id}'`).join(',')})`
+  );
+  logger('FINE', 'buildLayoutDetail', items);
+
+  // group items by section id
+  const sectionIdToItems = items.reduce(
+    (result, item) => ({
+      ...result,
+      [item.sectionId]: [...(result[item.sectionId] || []), item],
+    }),
+    {}
+  );
+
+  const layout: SurveyLayout = {
+    sections: sections.map(s => ({
+      id: s.id,
+      title: s.sectionLabel,
+      data: sectionIdToItems[s.id].map(item => ({
+        name: item.fieldName,
+        label: item.fieldLabel,
+        type: item.fieldType,
+      })),
+    })),
+  };
+
+  return layout;
+};
