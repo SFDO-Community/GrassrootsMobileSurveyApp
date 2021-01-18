@@ -1,5 +1,5 @@
 import { ASYNC_STORAGE_KEYS } from '../constants';
-import { LOGIN_API_URL, REFRESH_KEY } from '@env';
+import { LOGIN_API_URL } from '@env';
 import { logger } from '../utility/logger';
 
 export interface LoginResponse {
