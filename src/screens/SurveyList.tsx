@@ -106,7 +106,7 @@ export default function SurveyList({ navigation }) {
         );
       },
     });
-  }, [navigation]);
+  }, [navigation, surveys, isNetworkConnected]);
 
   const refreshSurveys = async () => {
     return await getAllRecordsWithCallback(DB_TABLE.SURVEY, setSurveys);
