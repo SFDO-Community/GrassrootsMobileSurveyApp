@@ -45,7 +45,7 @@ export const retrieveAllMetadata = async () => {
       }, {});
     storage.save({ key: ASYNC_STORAGE_KEYS.FIELD_TYPE, data: fieldType });
     // Localization
-    await clearTable(DB_TABLE.Localization);
+    await clearTable(DB_TABLE.LOCALIZATION);
     await storeLocalization();
   } catch {
     throw new Error('Unexpected error occured while retrieving survey settings. Contact your administrator.');

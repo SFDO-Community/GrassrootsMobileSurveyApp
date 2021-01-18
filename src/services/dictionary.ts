@@ -32,7 +32,7 @@ export const buildDictionary = async () => {
 
   // Create localization table first for no records in salesforce
   await prepareLocalizationTable();
-  const translatedRecordTypes = await getAllRecords(DB_TABLE.Localization);
+  const translatedRecordTypes = await getAllRecords(DB_TABLE.LOCALIZATION);
   const translatedLabels = translatedRecordTypes.reduce((result, current) => {
     result[`${L10N_PREFIX[current.type]}${current.name}`] = current.label;
     return result;

@@ -114,5 +114,5 @@ export const storeLocalization = async () => {
       label: r.TranslatedLabel__c ? r.TranslatedLabel__c.replace(/'/g, "''") : '', // escape single quote for sqlite
     };
   });
-  await saveRecords(DB_TABLE.Localization, localizations, undefined);
+  await saveRecords(DB_TABLE.LOCALIZATION, localizations, undefined);
 };
