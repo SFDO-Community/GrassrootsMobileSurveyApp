@@ -55,6 +55,7 @@ export interface DescribeFieldProperties {
   name: string; // Field API Name
   type: string; // Data, Reference,
   picklistValues?: Array<DescribePicklistValue>;
+  updateable: boolean;
 }
 
 export interface DescribePicklistValue {

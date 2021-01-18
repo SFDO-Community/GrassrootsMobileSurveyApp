@@ -63,7 +63,7 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
       return section.layoutRows.map(row => {
         return row.layoutItems.map(item => {
           return item.layoutComponents
-            .filter(c => c.type !== 'EmptySpace')
+            .filter(c => c.type !== 'EmptySpace' && c.details.updateable)
             .map(c => {
               if (c.details.type === 'picklist') {
                 const values: Array<SQLitePicklistValue> = c.details.picklistValues
