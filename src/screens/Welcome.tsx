@@ -22,6 +22,7 @@ import { notifyError } from '../utility/notification';
 
 export default function Welcome({ navigation }) {
   const [loading, setLoading] = useState(true);
+  const [prepared, setPrepared] = useState(false);
   const [contactIconColor, setContactIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
   const [surveyMetaIconColor, setSurveyMetaIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
   const [surveyRecordsIconColor, setSurveyRecordsIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
@@ -32,11 +33,16 @@ export default function Welcome({ navigation }) {
    * @description Retrieve contact detail from Salesforce
    */
   useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      e.preventDefault();
+    });
     if (!loading) {
       setTimeout(() => {
         navigation.navigate('SurveyList');
       }, 1000);
-    } else {
+    }
+    if (!prepared) {
+      setPrepared(true);
       const prepare = async () => {
         try {
           const userContact = await getCurrentUserContact();
@@ -59,7 +65,7 @@ export default function Welcome({ navigation }) {
       };
       prepare();
     }
-  }, [loading]);
+  }, [loading, prepared, navigation]);
 
   return (
     <ImageBackground source={BACKGROUND_IMAGE_SOURCE} style={BACKGROUND_STYLE} imageStyle={BACKGROUND_IMAGE_STYLE}>
