@@ -1,3 +1,4 @@
+[![Github Workflow](https://github.com/SFDO-Community-Sprints/GrassRootsSurveyMobileApp/workflows/unit%20test/badge.svg?branch=master)](https://github.com/SFDO-Community-Sprints/GrassRootsSurveyMobileApp/actions?query=workflow%3A%22unit%20test%22)
 # Grass Roots Mobile Survey App
 
 ![](img/screenshot.png)

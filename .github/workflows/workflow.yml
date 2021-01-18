@@ -38,7 +38,7 @@ jobs:
         run: rm -f .env
 
       # Upload code coverage data
-      - name: 'Upload code coverage to Codecov.io'
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      # - name: 'Upload code coverage to Codecov.io'
+        # uses: codecov/codecov-action@v1
+        # with:
+          # token: ${{ secrets.CODECOV_TOKEN }}
