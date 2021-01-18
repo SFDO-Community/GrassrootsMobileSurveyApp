@@ -43,7 +43,6 @@ export const storeContacts = async () => {
       id: junctionRecord.Client__c,
       name: junctionRecord.Client__r.Name,
       type: junctionRecord.Type__c,
-      userId: userContactId,
     }));
     // TODO: id duplicates
     logger('DEBUG', 'storeContacts', contacts);

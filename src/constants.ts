@@ -61,9 +61,3 @@ export const L10N_PREFIX = {
   PageLayoutSection: 'PAGE_LAYOUT_SECTION_',
   PageLayoutItem: 'PAGE_LAYOUT_ITEM_',
 };
-
-export const LOOKUP_TO_CONTACT = {
-  Mother__c: 'Mother',
-  Child__c: 'Child',
-  Beneficiary_Name__c: 'Beneficiary',
-};

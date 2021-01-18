@@ -3,8 +3,8 @@ import { Button, FlatList, SafeAreaView, Text, View, StyleSheet } from 'react-na
 import { Input, Divider } from 'react-native-elements';
 import Constants from 'expo-constants';
 import { ListItem } from '../components';
-import { APP_FONTS, APP_THEME, DB_TABLE, LOOKUP_TO_CONTACT } from '../constants';
-import { getRecordsWithCallback } from '../services/database/database';
+import { APP_FONTS, APP_THEME, DB_TABLE } from '../constants';
+import { getAllRecordsWithCallback } from '../services/database/database';
 import { SQLiteContact } from '../types/sqlite';
 
 import { useDispatch } from '../state/surveyEditorState';
@@ -27,7 +27,7 @@ export default function LookupSearch({ navigation, route }: LookupProps) {
 
   useEffect(() => {
     const loadRecords = async () => {
-      await getRecordsWithCallback(DB_TABLE.CONTACT, `where type = '${LOOKUP_TO_CONTACT[fieldName]}'`, setResult);
+      await getAllRecordsWithCallback(DB_TABLE.CONTACT, setResult);
     };
     loadRecords();
   }, []);

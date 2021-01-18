@@ -41,11 +41,9 @@ export interface SQLiteLocalization {
  * TODO: Make this generic. Now this data model is specific for hayden hall.
  */
 export interface SQLiteContact {
-  id: string; // salesforce id,
+  id: string; // salesforce contact record id,
   name: string;
-  type: 'AnteNatelMother' | 'Mother' | 'Child' | 'Beneficiary';
-  motherId: string;
-  userId: string; // cdw contactid
+  type: string; // Type__c field on relationship record
 }
 
 /**
