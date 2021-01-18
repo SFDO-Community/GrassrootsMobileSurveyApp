@@ -31,14 +31,13 @@ export interface SQLitePicklistValue {
 
 export interface SQLiteLocalization {
   type: string; // TODO: 'RecordType' | 'PageLayoutSection' | 'PageLayoutItem';
-  locale: string; // TODO: 'en' | 'ne'
+  locale: string;
   name: string;
   label: string;
 }
 
 /**
  * sObject
- * TODO: Make this generic. Now this data model is specific for hayden hall.
  */
 export interface SQLiteContact {
   id: string; // salesforce contact record id,
