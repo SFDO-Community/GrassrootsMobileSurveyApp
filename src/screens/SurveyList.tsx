@@ -202,8 +202,7 @@ export default function SurveyList({ navigation }) {
           setShowsSpinner={setShowsSpinner}
           refreshSurveys={refreshSurveys}
         />
-        <Text style={textStyleTotalSurvey}>{`${t('TOTAL_SURVEYS')} ${surveys.length}`}</Text>
-        <FilterButtonGroup dispatch={dispatchFilter} />
+        <FilterButtonGroup dispatch={dispatchFilter} surveys={surveys} />
         <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
         <SwipeListView
           data={filteredSurveys}

@@ -58,13 +58,6 @@ export default function SurveyListHeader(props: SurveyListHeaderProps) {
 
   return (
     <View style={styles.pendingSurveyContainer}>
-      <TextInput
-        underlineColorAndroid="transparent"
-        placeholder={t('SEARCH_SURVEYS')}
-        style={styles.textStylePendingSurvey}
-        value={`${localSurveys.length} - ${t('QUEUED_FOR_SYNC')}`} // dirtySurveyCount
-        editable={false}
-      />
       <View style={styles.syncIconStyle}>
         <Button
           containerStyle={styles.syncButtonContainer}
