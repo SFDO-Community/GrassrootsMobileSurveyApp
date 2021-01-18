@@ -10,7 +10,7 @@ import LocalizationContext from '../context/localizationContext';
 import { APP_THEME, BACKGROUND_IMAGE_SOURCE, BACKGROUND_STYLE, BACKGROUND_IMAGE_STYLE } from '../constants';
 import { logger } from '../utility/logger';
 
-import { StackParamList } from '../router';
+import { StackParamList } from '../Router';
 type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyTypePicker'>;
 
 type Props = {

@@ -18,7 +18,7 @@ import { APP_THEME, APP_FONTS, DB_TABLE } from '../constants';
 // types
 import { SurveyLayout } from '../types/survey';
 import { SQLiteSurvey, SQLiteRecordType } from '../types/sqlite';
-import { StackParamList } from '../router';
+import { StackParamList } from '../Router';
 type SurveyEditorNavigationProp = StackNavigationProp<StackParamList, 'SurveyEditor'>;
 type SurveyEditorRouteProp = RouteProp<StackParamList, 'SurveyEditor'>;
 

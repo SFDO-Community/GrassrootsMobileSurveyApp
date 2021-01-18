@@ -22,7 +22,7 @@ import { logger } from '../utility/logger';
 import { notifyError } from '../utility/notification';
 import { APP_FONTS, APP_THEME, DB_TABLE } from '../constants';
 // types
-import { StackParamList } from '../router';
+import { StackParamList } from '../Router';
 import { getAllRecordsWithCallback } from '../services/database/database';
 type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyList'>;
 
