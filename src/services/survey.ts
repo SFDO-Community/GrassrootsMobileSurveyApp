@@ -17,7 +17,7 @@ import { logger } from '../utility/logger';
  */
 export const storeOnlineSurveys = async () => {
   // Build field list from page layout items
-  const fields: Array<SQLitePageLayoutItem> = await getAllRecords(DB_TABLE.PageLayoutItem);
+  const fields: Array<SQLitePageLayoutItem> = await getAllRecords(DB_TABLE.PAGE_LAYOUT_ITEM);
   // Prepare local survey table
   const serializedFieldSet = new Set(
     fields.map(f =>

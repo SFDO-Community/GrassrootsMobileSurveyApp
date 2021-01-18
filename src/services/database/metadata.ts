@@ -6,7 +6,7 @@ import { DB_TABLE } from '../../constants';
  * @description Get all the record types of the survey object from local database
  */
 export const getAllRecordTypes = async (): Promise<Array<SQLiteRecordType>> => {
-  const recordTypes: Array<SQLiteRecordType> = await getAllRecords(DB_TABLE.RecordType);
+  const recordTypes: Array<SQLiteRecordType> = await getAllRecords(DB_TABLE.RECORD_TYPE);
   return recordTypes;
 };
 

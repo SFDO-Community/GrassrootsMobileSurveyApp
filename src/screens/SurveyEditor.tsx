@@ -51,7 +51,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
           `where localId = ${route.params.localId}`
         );
         const storedRecordTypes: Array<SQLiteRecordType> = await getRecords(
-          DB_TABLE.RecordType,
+          DB_TABLE.RECORD_TYPE,
           `where recordTypeId ='${storedSurveys[0].RecordTypeId}'`
         );
         console.log(JSON.stringify(storedSurveys[0])); // TODO: REMOVE

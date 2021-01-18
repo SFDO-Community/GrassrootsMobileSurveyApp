@@ -17,12 +17,12 @@ export const buildDictionary = async () => {
     result[`${L10N_PREFIX.RecordType}${current.name}`] = current.label;
     return result;
   }, {});
-  const sections = await getAllRecords(DB_TABLE.PageLayoutSection);
+  const sections = await getAllRecords(DB_TABLE.PAGE_LAYOUT_SECTION);
   const sectionLabels = sections.reduce((result, current) => {
     result[`${L10N_PREFIX.PageLayoutSection}${current.sectionLabel}`] = current.sectionLabel;
     return result;
   }, {});
-  const fields = await getAllRecords(DB_TABLE.PageLayoutItem);
+  const fields = await getAllRecords(DB_TABLE.PAGE_LAYOUT_ITEM);
   const fieldLabels = fields.reduce((result, current) => {
     result[`${L10N_PREFIX.PageLayoutItem}${current.fieldName}`] = current.fieldLabel;
     return result;

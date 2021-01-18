@@ -8,16 +8,15 @@ import { ASYNC_STORAGE_KEYS, DB_TABLE } from '../constants';
 
 /**
  * @description Download record types, all the page layouts, and localization custom metadata.
- * @todo For surveys and contacts?
  */
 export const retrieveAllMetadata = async () => {
   try {
     // Record types
-    await clearTable(DB_TABLE.RecordType);
+    await clearTable(DB_TABLE.RECORD_TYPE);
     const recordTypes = await storeRecordTypes();
     // Page Layout
-    await clearTable(DB_TABLE.PageLayoutSection);
-    await clearTable(DB_TABLE.PageLayoutItem);
+    await clearTable(DB_TABLE.PAGE_LAYOUT_SECTION);
+    await clearTable(DB_TABLE.PAGE_LAYOUT_ITEM);
     const serializedPicklistValueSet = new Set();
     const serializedFieldTypeSet = new Set();
     for (const rt of recordTypes) {
@@ -59,13 +58,13 @@ export const retrieveAllMetadata = async () => {
 export const buildLayoutDetail = async (layoutId: string): Promise<SurveyLayout> => {
   // sections in the layout
   const sections: Array<SQLitePageLayoutSection> = await getRecords(
-    DB_TABLE.PageLayoutSection,
+    DB_TABLE.PAGE_LAYOUT_SECTION,
     `where layoutId='${layoutId}'`
   );
   // items used in the sections
   const sectionIds = sections.map(s => s.id);
   const items: Array<SQLitePageLayoutItem> = await getRecords(
-    DB_TABLE.PageLayoutItem,
+    DB_TABLE.PAGE_LAYOUT_ITEM,
     `where sectionId in (${sectionIds.map(id => `'${id}'`).join(',')})`
   );
   logger('FINE', 'buildLayoutDetail', items);

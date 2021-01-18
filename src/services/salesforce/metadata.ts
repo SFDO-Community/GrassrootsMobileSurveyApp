@@ -31,7 +31,7 @@ export const storeRecordTypes = async () => {
     return Promise.reject({ error: 'no_record_types' });
   }
   logger('DEBUG', 'storeRecordTypes', `${JSON.stringify(recordTypes)}`);
-  await saveRecords(DB_TABLE.RecordType, recordTypes, 'name');
+  await saveRecords(DB_TABLE.RECORD_TYPE, recordTypes, 'name');
   storage.save({
     key: '@RecordTypes',
     data: recordTypes,
@@ -54,7 +54,7 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
       sectionLabel: section.heading,
     }));
   logger('FINE', 'storePageLayoutItems | sections', pageLayoutSections);
-  await saveRecords(DB_TABLE.PageLayoutSection, pageLayoutSections, 'id');
+  await saveRecords(DB_TABLE.PAGE_LAYOUT_SECTION, pageLayoutSections, 'id');
 
   const serializedPicklistValueSet: Set<string> = new Set();
   const pageLayoutItems: Array<SQLitePageLayoutItem> = response.editLayoutSections
@@ -89,7 +89,7 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
     })
     .flat(3);
   logger('DEBUG', 'storePageLayoutItems | items', pageLayoutItems);
-  await saveRecords(DB_TABLE.PageLayoutItem, pageLayoutItems, undefined);
+  await saveRecords(DB_TABLE.PAGE_LAYOUT_ITEM, pageLayoutItems, undefined);
 
   const serializedFieldTypeSet = [
     ...pageLayoutItems.map(item => JSON.stringify({ name: item.fieldName, type: item.fieldType })),

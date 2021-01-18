@@ -49,11 +49,10 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
 
 export const SURVEY_OBJECT = 'GRSM_Survey__c';
 
-// TODO: Capitalize
 export const DB_TABLE = {
-  RecordType: 'RecordType',
-  PageLayoutSection: 'PageLayoutSection',
-  PageLayoutItem: 'PageLayoutItem',
+  RECORD_TYPE: 'RecordType',
+  PAGE_LAYOUT_SECTION: 'PageLayoutSection',
+  PAGE_LAYOUT_ITEM: 'PageLayoutItem',
   PICKLIST_VALUE: 'PicklistValue',
   SURVEY: 'Survey',
   LOCALIZATION: 'Localization',
