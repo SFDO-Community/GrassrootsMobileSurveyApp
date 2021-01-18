@@ -24,8 +24,12 @@ export const logout = (navigation, t) => {
   );
 };
 
-export const forceLogout = async navigation => {
+export const clearLocal = async () => {
   clearStorage();
   await clearDatabase();
+};
+
+export const forceLogout = async navigation => {
+  await clearLocal();
   navigation.navigate('Login');
 };

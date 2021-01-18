@@ -40,6 +40,7 @@
     "react-native-flash-message": "^0.1.16",
     "react-native-gesture-handler": "~1.7.0",
     "react-native-keyboard-aware-scroll-view": "https://github.com/APSL/react-native-keyboard-aware-scroll-view#fb40649a9c84aa23d6a55355e9e0e432795967a6",
+    "react-native-modal": "^11.6.1",
     "react-native-modal-datetime-picker": "^9.0.0",
     "react-native-picker-select": "^8.0.0",
     "react-native-popover-view": "^2.0.1",

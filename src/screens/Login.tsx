@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as SecureStore from 'expo-secure-store';
 
+import Welcome from './Welcome';
 import { CustomButton, Loader } from '../components';
 import { Input } from 'react-native-elements';
 
@@ -28,6 +29,7 @@ export default function Login({ navigation }) {
   const [passwordError, setPasswordError] = useState('');
   const [showsSpinner, setShowsSpinner] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [showsWelcomeModal, setShowsWelcomeModal] = useState(false);
 
   const { t } = useContext(LocalizationContext);
 
@@ -80,7 +82,7 @@ export default function Login({ navigation }) {
       if (loginResponse.success) {
         await SecureStore.setItemAsync('email', email);
         await SecureStore.setItemAsync('password', password);
-        navigation.navigate('Welcome');
+        setShowsWelcomeModal(true);
       } else {
         notifyError(loginResponse.error_description);
       }
@@ -134,6 +136,7 @@ export default function Login({ navigation }) {
           </View>
         </View>
       </KeyboardAwareScrollView>
+      <Welcome isVisible={showsWelcomeModal} setVisible={setShowsWelcomeModal} navigation={navigation} />
     </ImageBackground>
   );
 }

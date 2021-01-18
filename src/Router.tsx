@@ -6,7 +6,6 @@ import LocalizationContext from './context/localizationContext';
 
 // screens
 import Login from './screens/Login';
-import Welcome from './screens/Welcome';
 import SurveyList from './screens/SurveyList';
 import SurveyTypePicker from './screens/SurveyTypePicker';
 import SurveyEditor from './screens/SurveyEditor';
@@ -21,7 +20,6 @@ import { APP_FONTS, APP_THEME } from './constants';
 
 export type StackParamList = {
   Login: undefined;
-  Welcome: undefined;
   SurveyList: {
     isLocalizationPrepared?: boolean;
   };
@@ -47,13 +45,6 @@ function MainStackScreen() {
         options={{
           title: t('LOGIN'),
           ...headerStyle,
-        }}
-      />
-      <MainStack.Screen
-        name="Welcome"
-        component={Welcome}
-        options={{
-          headerLeft: null,
         }}
       />
       <MainStack.Screen
