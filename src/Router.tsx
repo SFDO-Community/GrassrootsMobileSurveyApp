@@ -13,7 +13,7 @@ import Settings from './screens/Settings';
 import LookupSearch from './screens/LookupSearch';
 
 // components
-import { SettingsButton, LogoutButton } from './components/headerButtons';
+import { LogoutButton } from './components/headerButtons';
 
 // styles
 import { APP_FONTS, APP_THEME } from './constants';
@@ -53,7 +53,6 @@ function MainStackScreen() {
         options={({ navigation }) => ({
           title: t('SURVEYS'),
           headerLeft: () => LogoutButton(navigation, t),
-          headerRight: () => SettingsButton(navigation),
           ...headerStyle,
         })}
       />

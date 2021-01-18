@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useReducer, useEffect, useContext, useCallback, useLayoutEffect } from 'react';
 import { Alert, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon, Divider, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 // components
 import { ListItem, Loader } from '../components';
 import FilterButtonGroup from './SurveyListFilter';
-import SurveyListHeader from './SurveyListHeader';
+import { SurveyListRightButtons } from '../components/headerButtons';
 // services
 import { buildDictionary } from '../services/dictionary';
 import { deleteRecord } from '../services/database/database';
@@ -91,6 +91,22 @@ export default function SurveyList({ navigation }) {
       refresh();
     }, [])
   );
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: function HeaderRightButtons() {
+        return (
+          <SurveyListRightButtons
+            isNetworkConnected={isNetworkConnected}
+            surveys={surveys}
+            setShowsSpinner={setShowsSpinner}
+            refreshSurveys={refreshSurveys}
+            navigation={navigation}
+          />
+        );
+      },
+    });
+  }, [navigation]);
 
   const refreshSurveys = async () => {
     return await getAllRecordsWithCallback(DB_TABLE.SURVEY, setSurveys);
@@ -195,12 +211,6 @@ export default function SurveyList({ navigation }) {
           inputContainerStyle={styles.searchBarInputContainerStyle}
           containerStyle={styles.searchBarContainerStyle}
           onChangeText={searchTerm => setSearchTerm(searchTerm)}
-        />
-        <SurveyListHeader
-          isNetworkConnected={isNetworkConnected}
-          surveys={surveys}
-          setShowsSpinner={setShowsSpinner}
-          refreshSurveys={refreshSurveys}
         />
         <FilterButtonGroup dispatch={dispatchFilter} surveys={surveys} />
         <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
