@@ -20,7 +20,7 @@ import { DB_TABLE, SURVEY_OBJECT } from '../../constants';
 export const storeRecordTypes = async () => {
   const response: DescribeLayoutResult = await describeLayoutResult(SURVEY_OBJECT);
   const recordTypes: Array<SQLiteRecordType> = response.recordTypeMappings
-    .filter(r => r.active && r.name !== 'Master') // TODO: For single record type and navigation
+    .filter(r => r.active && r.name !== 'Master')
     .map(r => ({
       name: r.developerName,
       label: r.name,
