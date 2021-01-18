@@ -17,7 +17,6 @@ import { forceLogout } from '../services/session';
 import { surveyFilterReducer } from '../reducers/surveyFilterReducer';
 import LocalizationContext from '../context/localizationContext';
 // util, constants
-import { getSurveyTitleOnList } from '../utility';
 import { formatISOStringToCalendarDateString } from '../utility/date';
 import { logger } from '../utility/logger';
 import { notifyError } from '../utility/notification';
@@ -137,7 +136,7 @@ export default function SurveyList({ navigation }) {
           survey.Visit_Clinic_Date__c ? formatISOStringToCalendarDateString(survey.Visit_Clinic_Date__c) : ''
         }`,
         showCaret: survey.syncStatus === 'Unsynced',
-        title: getSurveyTitleOnList(recordTypes, contacts, survey),
+        title: `Survey #${survey.localId}`,
       };
     });
 
