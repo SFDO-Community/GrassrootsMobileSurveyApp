@@ -1,12 +1,12 @@
 import React, { useState, useReducer, useEffect, useContext, useCallback } from 'react';
 import { Alert, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Icon, Divider } from 'react-native-elements';
+import { Icon, Divider, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import NetInfo from '@react-native-community/netinfo';
 import { useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 // components
-import { SearchBar, ListItem, Loader } from '../components';
+import { ListItem, Loader } from '../components';
 import FilterButtonGroup from './SurveyListFilter';
 import SurveyListHeader from './SurveyListHeader';
 // services
@@ -190,6 +190,10 @@ export default function SurveyList({ navigation }) {
         <SearchBar
           placeholder={t('SEARCH_SURVEYS')}
           value={searchTerm}
+          round={true}
+          inputStyle={styles.searchBarInputStyle}
+          inputContainerStyle={styles.searchBarInputContainerStyle}
+          containerStyle={styles.searchBarContainerStyle}
           onChangeText={searchTerm => setSearchTerm(searchTerm)}
         />
         <SurveyListHeader
@@ -240,6 +244,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  searchBarInputStyle: {
+    fontFamily: APP_FONTS.FONT_REGULAR,
+    fontSize: 16,
+  },
+  searchBarInputContainerStyle: {
+    backgroundColor: APP_THEME.APP_GRAY_BACKGROUND_COLOR,
+  },
+  searchBarContainerStyle: {
+    backgroundColor: '#FFFFFF',
+    borderBottomColor: APP_THEME.APP_BORDER_COLOR,
+    borderTopColor: APP_THEME.APP_BORDER_COLOR,
   },
   flex1: {
     flex: 1,

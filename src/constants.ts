@@ -18,6 +18,7 @@ export const APP_THEME = {
   APP_LIST_HEADER_COLOR: '#e1f5fe',
   APP_WHITE: 'white',
   APP_SUCCESS_COLOR: '#04844b',
+  APP_GRAY_BACKGROUND_COLOR: '#f3f2f2',
 };
 
 export const ASYNC_STORAGE_KEYS = {
