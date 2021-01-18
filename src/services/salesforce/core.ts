@@ -51,12 +51,13 @@ export const createSalesforceRecords = async (sObjectType: string, records) => {
         }
       });
       r.attributes = {
-        type: 'Survey__c',
+        type: sObjectType,
         referenceId: `ref${index}`,
       };
       return r;
     }),
   };
+  logger('DEBUG', 'createSalesforceRecords', body);
   const response = await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
   return response;
 };
