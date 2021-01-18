@@ -93,7 +93,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       {layout.sections && (
         <KeyboardAwareSectionList
           sections={layout.sections}
