@@ -101,7 +101,7 @@ export const getRecordsWithCallback = (tableName: string, whereClause: string, o
  * @param records
  * @param primaryKey
  */
-export const saveRecords = (tableName: string, records, primaryKey: string) => {
+export const saveRecords = (tableName: string, records: Array<any>, primaryKey: string) => {
   return new Promise(async (resolve, reject) => {
     if (records.length === 0) {
       return resolve([]);
