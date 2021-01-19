@@ -11,7 +11,7 @@ import { Loader } from '../components';
 import { APP_THEME, BACKGROUND_IMAGE_SOURCE, BACKGROUND_STYLE, BACKGROUND_IMAGE_STYLE, APP_FONTS } from '../constants';
 import { logger } from '../utility/logger';
 import { notifySuccess, notifyError } from '../utility/notification';
-import { storeOnlineSurveys } from '../services/survey';
+import { storeOnlineSurveys } from '../services/salesforce/survey';
 import { buildDictionary } from '../services/dictionary';
 
 type Language = {
