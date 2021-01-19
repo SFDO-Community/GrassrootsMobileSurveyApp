@@ -56,6 +56,7 @@ export interface DescribeFieldProperties {
   type: string; // Data, Reference,
   picklistValues?: Array<DescribePicklistValue>;
   updateable: boolean;
+  referenceTo: Array<string>;
 }
 
 export interface DescribePicklistValue {

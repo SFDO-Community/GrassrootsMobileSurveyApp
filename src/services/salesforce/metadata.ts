@@ -65,7 +65,11 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
           // Avoid adding empty space, read-only field, and user contact lookup field
           return item.layoutComponents
             .filter(
-              c => c.type !== 'EmptySpace' && c.details.updateable && c.details.name !== USER_CONTACT_FIELD_ON_SURVEY
+              c =>
+                c.type !== 'EmptySpace' &&
+                c.details.updateable &&
+                c.details.name !== USER_CONTACT_FIELD_ON_SURVEY &&
+                (c.details.referenceTo.length === 0 || c.details.referenceTo[0] === 'Contact')
             )
             .map(c => {
               if (c.details.type === 'picklist') {
