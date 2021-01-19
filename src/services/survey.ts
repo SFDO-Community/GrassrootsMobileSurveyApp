@@ -39,6 +39,12 @@ export const storeOnlineSurveys = async () => {
       fieldType: 'string',
     })
   );
+  serializedFieldSet.add(
+    JSON.stringify({
+      fieldName: USER_CONTACT_FIELD_ON_SURVEY,
+      fieldType: 'reference',
+    })
+  );
   const surveyFieldTypeMappings: Array<SQLiteFieldTypeMapping> = [...serializedFieldSet.values()].map(s => {
     const item = JSON.parse(s);
     const result: SQLiteFieldTypeMapping = {
