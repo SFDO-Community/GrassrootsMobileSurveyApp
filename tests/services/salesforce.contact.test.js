@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { getCurrentUserContact, storeContacts } from '../../src/services/salesforce/contact';
 import { fetchSalesforceRecords } from '../../src/services/salesforce/core';
 
@@ -8,6 +9,7 @@ jest.mock('../../src/services/salesforce/core', () => ({
 jest.mock('../../src/services/database/database', () => ({
   clearTable: jest.fn().mockImplementation(() => Promise.resolve()),
   saveRecords: jest.fn().mockImplementation(() => Promise.resolve()),
+  prepareTable: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
 
 describe('getCurrentUserContact', () => {
@@ -63,6 +65,19 @@ describe('storeContacts', () => {
 
     await storeContacts();
   });
+
+  it('multiple result', async () => {
+    fetchSalesforceRecords.mockImplementation(() => Promise.resolve(mockFetchedJunctionRecords));
+
+    const clients = await storeContacts();
+    expect(clients).toHaveLength(2);
+  });
+  it('duplicated result', async () => {
+    fetchSalesforceRecords.mockImplementation(() => Promise.resolve(mockFetchedDuplicatedJunctionRecords));
+
+    const clients = await storeContacts();
+    expect(clients).toHaveLength(1);
+  });
 });
 
 const mockFetchedCurrentContact = [
@@ -80,5 +95,59 @@ const mockFetchedMultipleContacts = [
   {
     Id: '0010k00000vJjNzAAJ',
     Name: 'Test',
+  },
+];
+
+mockFetchedJunctionRecords = [
+  {
+    Id: 'a015h0000086YjEAAU',
+    Client__c: '0035h000001jAKPAA2',
+    Client__r: {
+      attributes: {
+        type: 'Contact',
+        url: '/services/data/v50.0/sobjects/Contact/0035h000001jAKPAA2',
+      },
+      Name: 'Mary Jones',
+    },
+    Type__c: null,
+  },
+  {
+    Id: 'a015h0000086Yj9AAE',
+    Client__c: '0035h000001jAKPAA3',
+    Client__r: {
+      attributes: {
+        type: 'Contact',
+        url: '/services/data/v50.0/sobjects/Contact/0035h000001jAKPAA3',
+      },
+      Name: 'Kary Grant',
+    },
+    Type__c: null,
+  },
+];
+
+mockFetchedDuplicatedJunctionRecords = [
+  {
+    Id: 'a015h0000086YjEAAU',
+    Client__c: '0035h000001jAKPAA2',
+    Client__r: {
+      attributes: {
+        type: 'Contact',
+        url: '/services/data/v50.0/sobjects/Contact/0035h000001jAKPAA2',
+      },
+      Name: 'Mary Jones',
+    },
+    Type__c: null,
+  },
+  {
+    Id: 'a015h0000086Yj9AAE',
+    Client__c: '0035h000001jAKPAA2',
+    Client__r: {
+      attributes: {
+        type: 'Contact',
+        url: '/services/data/v50.0/sobjects/Contact/0035h000001jAKPAA2',
+      },
+      Name: 'MaryJ ones',
+    },
+    Type__c: null,
   },
 ];
