@@ -6,7 +6,7 @@ import LocalizationContext from '../context/localizationContext';
 
 import { logout } from '../services/session';
 import { uploadSurveyListToSalesforce } from '../services/salesforce/survey';
-import { updateSurveyStatusSynced } from '../services/survey';
+import { updateSurveyStatusSynced } from '../services/database/localSurvey';
 
 import { notifySuccess, notifyError } from '../utility/notification';
 import { logger } from '../utility/logger';

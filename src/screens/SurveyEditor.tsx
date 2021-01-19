@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from '../state/surveyEditorState';
 import { getRecords } from '../services/database/database';
 import { buildLayoutDetail } from '../services/describe';
 import { notifySuccess } from '../utility/notification';
-import { upsertLocalSurvey } from '../services/survey';
+import { upsertLocalSurvey } from '../services/database/localSurvey';
 // constatns
 import { APP_THEME, APP_FONTS, DB_TABLE } from '../constants';
 // types
