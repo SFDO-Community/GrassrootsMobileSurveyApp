@@ -11,7 +11,7 @@ import {
 import { DescribeLayoutResult, DescribeLayout, LocalizationCustomMetadata } from '../../types/metadata';
 
 import { logger } from '../../utility/logger';
-import { DB_TABLE, SURVEY_OBJECT } from '../../constants';
+import { DB_TABLE, SURVEY_OBJECT, USER_CONTACT_FIELD_ON_SURVEY } from '../../constants';
 
 /**
  * @description Query record types by REST API (describe layouts) and save the results to local database.
@@ -62,8 +62,11 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
     .map(section => {
       return section.layoutRows.map(row => {
         return row.layoutItems.map(item => {
+          // Avoid adding empty space, read-only field, and user contact lookup field
           return item.layoutComponents
-            .filter(c => c.type !== 'EmptySpace' && c.details.updateable)
+            .filter(
+              c => c.type !== 'EmptySpace' && c.details.updateable && c.details.name !== USER_CONTACT_FIELD_ON_SURVEY
+            )
             .map(c => {
               if (c.details.type === 'picklist') {
                 const values: Array<SQLitePicklistValue> = c.details.picklistValues

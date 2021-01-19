@@ -7,7 +7,7 @@ import {
   saveRecords,
   prepareTable,
 } from './database/database';
-import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_OBJECT } from '../constants';
+import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_OBJECT, USER_CONTACT_FIELD_ON_SURVEY } from '../constants';
 import { SQLiteFieldTypeMapping, SQLitePageLayoutItem } from '../types/sqlite';
 import { logger } from '../utility/logger';
 
@@ -64,7 +64,7 @@ export const storeOnlineSurveys = async () => {
 
   const contactId = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
   const surveys = await fetchSalesforceRecords(
-    `SELECT ${commaSeparetedFields} FROM ${SURVEY_OBJECT} WHERE UserContact__c = '${contactId}'`
+    `SELECT ${commaSeparetedFields} FROM ${SURVEY_OBJECT} WHERE ${USER_CONTACT_FIELD_ON_SURVEY} = '${contactId}'`
   );
   if (surveys.length === 0) {
     return;
@@ -81,6 +81,7 @@ export const storeOnlineSurveys = async () => {
  * @param survey
  */
 export const upsertLocalSurvey = async survey => {
+  survey[USER_CONTACT_FIELD_ON_SURVEY] = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
   logger('DEBUG', 'Saving survey', survey);
   if (survey.localId) {
     return await updateRecord(DB_TABLE.SURVEY, survey, `where localId = ${survey.localId}`);

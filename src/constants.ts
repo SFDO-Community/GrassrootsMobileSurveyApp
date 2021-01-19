@@ -45,6 +45,7 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
 };
 
 export const SURVEY_OBJECT = 'GRSM_Survey__c';
+export const USER_CONTACT_FIELD_ON_SURVEY = 'UserContact__c';
 
 export const DB_TABLE = {
   RECORD_TYPE: 'RecordType',
