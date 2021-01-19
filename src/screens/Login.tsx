@@ -16,6 +16,7 @@ import {
   BACKGROUND_IMAGE_STYLE,
   APP_FONTS,
   APP_THEME,
+  SECURE_STORE_KEYS,
 } from '../constants';
 import LocalizationContext from '../context/localizationContext';
 
@@ -80,8 +81,8 @@ export default function Login({ navigation }) {
       setShowsSpinner(true);
       const loginResponse = await authenticate(email, password);
       if (loginResponse.success) {
-        await SecureStore.setItemAsync('email', email);
-        await SecureStore.setItemAsync('password', password);
+        await SecureStore.setItemAsync(SECURE_STORE_KEYS.EMAIL, email);
+        await SecureStore.setItemAsync(SECURE_STORE_KEYS.PASSWORD, password);
         setShowsWelcomeModal(true);
       } else {
         notifyError(loginResponse.error_description);

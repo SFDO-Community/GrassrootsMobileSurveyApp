@@ -1,4 +1,6 @@
-import { ASYNC_STORAGE_KEYS } from '../constants';
+import * as SecureStore from 'expo-secure-store';
+
+import { ASYNC_STORAGE_KEYS, SECURE_STORE_KEYS } from '../constants';
 import { LOGIN_API_URL } from '@env';
 import { logger } from '../utility/logger';
 
@@ -23,7 +25,7 @@ export const authenticate = async (email: string, password: string): Promise<Log
       const success = response.ok;
       const responseJson = await response.json();
       const result: LoginResponse = { success, ...responseJson };
-      saveToken(result);
+      await saveToken(result);
       resolve(result);
     } catch (error) {
       logger('ERROR', 'services | auth', error);
@@ -32,12 +34,10 @@ export const authenticate = async (email: string, password: string): Promise<Log
   });
 };
 
-const saveToken = (result: LoginResponse) => {
+const saveToken = async (result: LoginResponse) => {
   if (result.success) {
-    storage.save({
-      key: ASYNC_STORAGE_KEYS.SALESFORCE_ACCESS_TOKEN,
-      data: result.access_token,
-    });
+    await SecureStore.setItemAsync(SECURE_STORE_KEYS.ACCESS_TOKEN, result.access_token);
+
     storage.save({
       key: ASYNC_STORAGE_KEYS.SALESFORCE_INSTANCE_URL,
       data: result.instance_url,

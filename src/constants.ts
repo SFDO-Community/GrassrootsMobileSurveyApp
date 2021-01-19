@@ -28,6 +28,12 @@ export const ASYNC_STORAGE_KEYS = {
   FIELD_TYPE: '@FieldType',
 };
 
+export const SECURE_STORE_KEYS = {
+  EMAIL: 'email',
+  PASSWORD: 'password',
+  ACCESS_TOKEN: 'token',
+};
+
 export const BACKGROUND_IMAGE_SOURCE = require('../assets/images/background.png');
 const ratio = Dimensions.get('window').width / 1050; // 1050 is image width
 const height = 534 * ratio;

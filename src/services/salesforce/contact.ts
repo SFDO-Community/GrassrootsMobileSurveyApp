@@ -2,7 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 
 import { fetchSalesforceRecords } from './core';
 import { clearTable, prepareTable, saveRecords } from '../database/database';
-import { DB_TABLE, ASYNC_STORAGE_KEYS } from '../../constants';
+import { DB_TABLE, ASYNC_STORAGE_KEYS, SECURE_STORE_KEYS } from '../../constants';
 
 import { logger } from '../../utility/logger';
 import { SQLiteContact, SQLiteFieldTypeMapping } from '../../types/sqlite';
@@ -12,7 +12,7 @@ import { SQLiteContact, SQLiteFieldTypeMapping } from '../../types/sqlite';
  * @return the contact record object
  */
 export const getCurrentUserContact = async () => {
-  const appUserEmail = await SecureStore.getItemAsync('email');
+  const appUserEmail = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
   const query = `SELECT Id, Name FROM Contact WHERE GRSM_LoginEmail__c = '${appUserEmail}' AND RecordType.DeveloperName = 'GRSM_User'`;
   try {
     const records = await fetchSalesforceRecords(query);
@@ -23,7 +23,8 @@ export const getCurrentUserContact = async () => {
       });
     }
     return records[0];
-  } catch {
+  } catch (e) {
+    logger('ERROR', 'getCurrentUserContact', e);
     throw new Error('Unexpected error occurred while retrieving your contact record. Contact your administrator.');
   }
 };
