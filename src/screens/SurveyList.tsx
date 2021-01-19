@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 // components
 import { ListItem, Loader } from '../components';
 import FilterButtonGroup from './SurveyListFilter';
-import { SurveyListRightButtons } from '../components/headerButtons';
+import { SurveyListRightButtons } from './SurveyListHeaderButtons';
 // services
 import { buildDictionary } from '../services/dictionary';
 import { deleteRecord } from '../services/database/database';

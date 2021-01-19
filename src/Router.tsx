@@ -13,7 +13,7 @@ import Settings from './screens/Settings';
 import LookupSearch from './screens/LookupSearch';
 
 // components
-import { LogoutButton } from './components/headerButtons';
+import { LogoutButton } from './screens/SurveyListHeaderButtons';
 
 // styles
 import { APP_FONTS, APP_THEME } from './constants';
