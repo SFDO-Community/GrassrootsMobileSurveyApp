@@ -27,7 +27,7 @@ export type StackParamList = {
   SurveyEditor: {
     selectedRecordTypeId: string;
     selectedLayoutId: string;
-    localId?: string;
+    _localId?: string;
   };
   Settings: undefined;
 };

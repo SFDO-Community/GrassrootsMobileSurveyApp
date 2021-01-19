@@ -35,20 +35,20 @@ export default function SurveyEditor({ route, navigation }: Props) {
 
   const { t } = useContext(LocalizationContext);
 
-  const MODE = route.params.localId ? 'EDIT_OR_VIEW' : 'NEW';
+  const MODE = route.params._localId ? 'EDIT_OR_VIEW' : 'NEW';
 
   useEffect(() => {
     setDoneButtonDisabled(true);
     const fetch = async () => {
       if (MODE === 'NEW') {
-        dispatchSurvey({ type: 'LOAD', detail: { syncStatus: 'Unsynced' } });
+        dispatchSurvey({ type: 'LOAD', detail: { _syncStatus: 'Unsynced' } });
         const result = await buildLayoutDetail(route.params.selectedLayoutId);
         setLayout(result);
       } else if (MODE === 'EDIT_OR_VIEW') {
         // query existing survey from local database
         const storedSurveys: Array<SQLiteSurvey> = await getRecords(
           DB_TABLE.SURVEY,
-          `where localId = ${route.params.localId}`
+          `where _localId = ${route.params._localId}`
         );
         const storedRecordTypes: Array<SQLiteRecordType> = await getRecords(
           DB_TABLE.RECORD_TYPE,
@@ -73,7 +73,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
   const SaveButton = () => {
     return (
       survey &&
-      survey.syncStatus === 'Unsynced' && (
+      survey._syncStatus === 'Unsynced' && (
         <Button
           onPress={async () => {
             setDoneButtonDisabled(true);
@@ -82,7 +82,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
             const record = { ...survey, RecordTypeId: recordTypeId };
             await upsertLocalSurvey(record);
             dispatchSurvey({ type: 'CLEAR' });
-            notifySuccess(`${survey.localId ? 'Updated the survey!' : 'Created a new survey!'}`);
+            notifySuccess(`${survey._localId ? 'Updated the survey!' : 'Created a new survey!'}`);
             navigation.navigate('SurveyList');
           }}
           disabled={doneButtonDisabled}

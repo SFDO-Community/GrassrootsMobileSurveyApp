@@ -121,8 +121,8 @@ export default function SurveyList({ navigation }) {
    */
   const filteredSurveys = surveys
     .filter(survey => {
-      if (filter === 'SHOW_UNSYNCED' && survey.syncStatus === 'Unsynced') return true;
-      if (filter === 'SHOW_SYNCED' && survey.syncStatus === 'Synced') return true;
+      if (filter === 'SHOW_UNSYNCED' && survey._syncStatus === 'Unsynced') return true;
+      if (filter === 'SHOW_SYNCED' && survey._syncStatus === 'Synced') return true;
       if (filter === 'SHOW_ALL') return true;
       return false;
     })
@@ -135,8 +135,8 @@ export default function SurveyList({ navigation }) {
         subtitle: `${getRecordTypeLabel(survey.RecordTypeId)} • ${
           survey.Visit_Clinic_Date__c ? formatISOStringToCalendarDateString(survey.Visit_Clinic_Date__c) : ''
         }`,
-        showCaret: survey.syncStatus === 'Unsynced',
-        title: `Survey #${survey.localId}`,
+        showCaret: survey._syncStatus === 'Unsynced',
+        title: `Survey #${survey._localId}`,
       };
     });
 
@@ -168,7 +168,7 @@ export default function SurveyList({ navigation }) {
         title={data.item.title}
         subtitle={data.item.subtitle}
         onPress={() => {
-          navigation.navigate('SurveyEditor', { localId: data.item.localId });
+          navigation.navigate('SurveyEditor', { _localId: data.item._localId });
         }}
         showCaret={data.item.showCaret}
       />
@@ -186,7 +186,7 @@ export default function SurveyList({ navigation }) {
             if (rowMap[index]) {
               rowMap[index].closeRow();
             }
-            await deleteRecord(DB_TABLE.SURVEY, item.localId);
+            await deleteRecord(DB_TABLE.SURVEY, item._localId);
             await refreshSurveys();
           },
         },
@@ -221,7 +221,7 @@ export default function SurveyList({ navigation }) {
             return <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />;
           }}
           renderHiddenItem={(data, rowMap) =>
-            data.item.syncStatus === 'Unsynced' ? (
+            data.item._syncStatus === 'Unsynced' ? (
               <View style={styles.rowBack}>
                 <TouchableOpacity
                   style={[styles.backRightBtn, styles.backRightBtnRight]}

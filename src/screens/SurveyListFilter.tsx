@@ -21,7 +21,7 @@ export default function FilterButtonGroup(props: FilterButtonGroupProps) {
       <View style={styles.singleButtonStyle}>
         <Text style={selectedFontStyle(0)}>{t('UNSYNCED')}</Text>
         <Icon name="cloud-off-outline" type="material-community" color={color(0)} />
-        <Text style={selectedFontStyle(0)}>{props.surveys.filter(s => s.syncStatus === 'Unsynced').length}</Text>
+        <Text style={selectedFontStyle(0)}>{props.surveys.filter(s => s._syncStatus === 'Unsynced').length}</Text>
       </View>
     );
   };
@@ -31,7 +31,7 @@ export default function FilterButtonGroup(props: FilterButtonGroupProps) {
       <View style={styles.singleButtonStyle}>
         <Text style={selectedFontStyle(1)}>{t('SYNCED')}</Text>
         <Icon name="cloud-check" type="material-community" color={color(1)} />
-        <Text style={selectedFontStyle(1)}>{props.surveys.filter(s => s.syncStatus === 'Synced').length}</Text>
+        <Text style={selectedFontStyle(1)}>{props.surveys.filter(s => s._syncStatus === 'Synced').length}</Text>
       </View>
     );
   };

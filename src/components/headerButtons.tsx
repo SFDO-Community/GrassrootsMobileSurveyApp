@@ -42,7 +42,7 @@ export function SurveyListRightButtons(props: SurveyListRightButtonProps) {
 
 export function SyncButton(props: SyncButtonProps) {
   const { t } = useContext(LocalizationContext);
-  const localSurveys = props.surveys.filter(s => s.syncStatus === 'Unsynced');
+  const localSurveys = props.surveys.filter(s => s._syncStatus === 'Unsynced');
 
   const confirmSync = () => {
     Alert.alert(

@@ -5,7 +5,7 @@ export interface SurveyListItem {
   title: string;
   subtitle: string;
   showCaret: boolean;
-  syncStatus: 'Unsynced' | 'Synced';
+  _syncStatus: 'Unsynced' | 'Synced';
 }
 
 /**

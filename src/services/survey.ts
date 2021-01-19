@@ -55,7 +55,7 @@ export const storeOnlineSurveys = async () => {
   });
   const localFields: Array<SQLiteFieldTypeMapping> = [
     {
-      name: 'syncStatus',
+      name: '_syncStatus',
       type: 'text',
     },
   ];
@@ -77,7 +77,7 @@ export const storeOnlineSurveys = async () => {
   }
   saveRecords(
     'Survey',
-    surveys.map(s => ({ ...s, syncStatus: 'Synced' })),
+    surveys.map(s => ({ ...s, _syncStatus: 'Synced' })),
     undefined
   );
 };
@@ -89,8 +89,8 @@ export const storeOnlineSurveys = async () => {
 export const upsertLocalSurvey = async survey => {
   survey[USER_CONTACT_FIELD_ON_SURVEY] = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
   logger('DEBUG', 'Saving survey', survey);
-  if (survey.localId) {
-    return await updateRecord(DB_TABLE.SURVEY, survey, `where localId = ${survey.localId}`);
+  if (survey._localId) {
+    return await updateRecord(DB_TABLE.SURVEY, survey, `where _localId = ${survey._localId}`);
   }
   return await saveRecords(DB_TABLE.SURVEY, [survey], undefined);
 };
@@ -100,12 +100,12 @@ export const upsertLocalSurvey = async survey => {
  * @param surveys
  */
 export const uploadSurveyListToSalesforce = async surveys => {
-  // create deep clone of array because the original array including localId is used for updating syncStatus.
+  // create deep clone of array because the original array including _localId is used for updating _syncStatus.
   const records = surveys.map(survey => {
     const s = Object.assign({}, survey);
     // Remove local or read only fields
-    delete s.localId;
-    delete s.syncStatus;
+    delete s._localId;
+    delete s._syncStatus;
     delete s.Name;
     return s;
   });
@@ -117,11 +117,11 @@ export const uploadSurveyListToSalesforce = async surveys => {
  * @param surveys Offline surveys
  */
 export const updateSurveyStatusSynced = async surveys => {
-  const commaSeparetedLocalIds = surveys.map(s => s.localId).join(',');
+  const commaSeparetedLocalIds = surveys.map(s => s._localId).join(',');
   return await updateFieldValue(
     DB_TABLE.SURVEY,
-    'syncStatus',
+    '_syncStatus',
     'Synced',
-    `where localId IN (${commaSeparetedLocalIds})`
+    `where _localId IN (${commaSeparetedLocalIds})`
   );
 };

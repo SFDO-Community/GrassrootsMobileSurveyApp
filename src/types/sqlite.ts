@@ -49,8 +49,8 @@ export interface SQLiteContact {
  * sObject.
  */
 export interface SQLiteSurvey {
-  syncStatus: 'Unsynced' | 'Synced';
-  localId: string;
+  _syncStatus: 'Unsynced' | 'Synced';
+  _localId: string;
   RecordTypeId: string;
   // Following the fields on the survey object in Salesforce
 }
