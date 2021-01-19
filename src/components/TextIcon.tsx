@@ -6,7 +6,7 @@ import { APP_FONTS } from '../constants';
 type TextIconPropType = {
   icon: string;
   color: string;
-  children: any;
+  children: React.ReactNode;
 };
 
 function TextIcon(props: TextIconPropType) {

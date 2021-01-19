@@ -3,7 +3,7 @@ import { StyleSheet, Text } from 'react-native';
 import { APP_THEME, APP_FONTS } from '../constants';
 
 type TextHeadingProps = {
-  children: any;
+  children: React.ReactNode;
 };
 
 function TextHeading({ children }: TextHeadingProps) {

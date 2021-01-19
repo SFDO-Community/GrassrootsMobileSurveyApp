@@ -3,7 +3,7 @@ import { StyleSheet, Text } from 'react-native';
 import { APP_THEME, APP_FONTS } from '../constants';
 
 type TextSubHeadingProps = {
-  children: any;
+  children: React.ReactNode;
 };
 
 function TextSubheading({ children }: TextSubHeadingProps) {
