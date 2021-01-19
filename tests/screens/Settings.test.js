@@ -3,9 +3,9 @@ import renderer from 'react-test-renderer';
 
 import i18n from '../../src/config/i18n';
 import LocalizationContext from '../../src/context/localizationContext';
-import Login from '../../src/screens/Login';
+import Settings from '../../src/screens/Settings';
 
-describe('<Login />', () => {
+describe('<Settings />', () => {
   it('render', () => {
     const locale = i18n.locale;
     const localizationContext = {
@@ -13,15 +13,13 @@ describe('<Login />', () => {
       locale,
       setLocale: jest.fn(),
     };
-    global.storage = { load: jest.fn().mockImplementation(() => Promise.resolve()) };
 
     const screen = renderer.create(
       <LocalizationContext.Provider value={localizationContext}>
-        <Login />
+        <Settings />
       </LocalizationContext.Provider>
     );
     const tree = screen.toJSON();
-    console.log(tree);
-    expect(tree.children).toHaveLength(3); // Image, RCTScrollView, Modal
+    expect(tree.children).toHaveLength(4); // Image, Modal, View, View
   });
 });
