@@ -1,10 +1,11 @@
 import * as SecureStore from 'expo-secure-store';
 
 import { fetchSalesforceRecords } from './core';
-import { clearTable, saveRecords } from '../database/database';
-import { logger } from '../../utility/logger';
+import { clearTable, prepareTable, saveRecords } from '../database/database';
 import { DB_TABLE, ASYNC_STORAGE_KEYS } from '../../constants';
-import { SQLiteContact } from '../../types/sqlite';
+
+import { logger } from '../../utility/logger';
+import { SQLiteContact, SQLiteFieldTypeMapping } from '../../types/sqlite';
 
 /**
  * @description Fetch contact record by logged in email. Throw an errow when record is not found or multiple records are found.
@@ -39,14 +40,26 @@ export const storeContacts = async () => {
     WHERE User__c = '${userContactId}'`;
   try {
     const junctionRecords = await fetchSalesforceRecords(junctionQuery);
-    const contacts: Array<SQLiteContact> = junctionRecords.map(junctionRecord => ({
-      id: junctionRecord.Client__c,
-      name: junctionRecord.Client__r.Name,
-      type: junctionRecord.Type__c,
-    }));
-    // TODO: id duplicates
+    const contactMap: Map<string, SQLiteContact> = new Map<string, SQLiteContact>(
+      junctionRecords.map(junctionRecord => [
+        junctionRecord.Client__c,
+        {
+          id: junctionRecord.Client__c,
+          name: junctionRecord.Client__r.Name,
+          type: junctionRecord.Type__c,
+        },
+      ])
+    );
+    // Prepare contact table
+    const fieldTypeMappings: Array<SQLiteFieldTypeMapping> = [
+      { name: 'id', type: 'text' },
+      { name: 'name', type: 'text' },
+      { name: 'type', type: 'text' },
+    ];
+    clearTable(DB_TABLE.CONTACT);
+    prepareTable(DB_TABLE.CONTACT, fieldTypeMappings, 'id');
+    const contacts = Array.from(contactMap.values());
     logger('DEBUG', 'storeContacts', contacts);
-    await clearTable(DB_TABLE.CONTACT);
     await saveRecords(DB_TABLE.CONTACT, contacts, 'id');
     storage.save({
       key: '@Contacts',
