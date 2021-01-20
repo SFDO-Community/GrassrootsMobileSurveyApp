@@ -96,6 +96,9 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
     })
     .flat(3);
   logger('DEBUG', 'storePageLayoutItems | items', pageLayoutItems);
+  if (pageLayoutItems.length === 0) {
+    return Promise.reject({ error: 'no_editable_fields' });
+  }
   await saveRecords(DB_TABLE.PAGE_LAYOUT_ITEM, pageLayoutItems, undefined);
 
   const serializedFieldTypeSet = [
