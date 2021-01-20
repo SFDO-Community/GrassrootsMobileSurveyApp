@@ -51,9 +51,9 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
   top: Dimensions.get('window').height / 2 + height / 2,
 };
 
-export const SURVEY_OBJECT = 'GRSM_Survey__c';
-export const USER_CONTACT_FIELD_ON_SURVEY = 'UserContact__c';
-export const SURVEY_DATE_FIELD = 'SurveyDate__c';
+export const SURVEY_OBJECT = 'GRMS_Survey__c';
+export const USER_CONTACT_FIELD_ON_SURVEY = 'GRMS_UserContact__c';
+export const SURVEY_DATE_FIELD = 'GRMS_SurveyDate__c';
 export const BACKGROUND_SURVEY_FIELDS = [
   { fieldName: 'Name', fieldType: 'string' },
   { fieldName: 'RecordTypeId', fieldType: 'reference' },

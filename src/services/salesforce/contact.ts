@@ -13,7 +13,7 @@ import { SQLiteContact, SQLiteFieldTypeMapping } from '../../types/sqlite';
  */
 export const getCurrentUserContact = async () => {
   const appUserEmail = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
-  const query = `SELECT Id, Name FROM Contact WHERE GRSM_LoginEmail__c = '${appUserEmail}' AND RecordType.DeveloperName = 'GRSM_User'`;
+  const query = `SELECT Id, Name FROM Contact WHERE GRMS_LoginEmail__c = '${appUserEmail}' AND RecordType.DeveloperName = 'GRMS_User'`;
   try {
     const records = await fetchSalesforceRecords(query);
     logger('DEBUG', 'getCurrentUserContact', records);
@@ -36,18 +36,18 @@ export const storeContacts = async () => {
   const userContactId = await storage.load({
     key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID,
   });
-  const junctionQuery = `SELECT Id, Client__c, Client__r.Name, Type__c
-    FROM GRSM_UserClientRelation__c 
-    WHERE User__c = '${userContactId}'`;
+  const junctionQuery = `SELECT Id, GRMS_Client__c, GRMS_Client__r.Name, GRMS_Type__c
+    FROM GRMS_UserClientRelation__c 
+    WHERE GRMS_User__c = '${userContactId}'`;
   try {
     const junctionRecords = await fetchSalesforceRecords(junctionQuery);
     const contactMap: Map<string, SQLiteContact> = new Map<string, SQLiteContact>(
       junctionRecords.map(junctionRecord => [
-        junctionRecord.Client__c,
+        junctionRecord.GRMS_Client__c,
         {
-          id: junctionRecord.Client__c,
-          name: junctionRecord.Client__r.Name,
-          type: junctionRecord.Type__c,
+          id: junctionRecord.GRMS_Client__c,
+          name: junctionRecord.GRMS_Client__r.Name,
+          type: junctionRecord.GRMS_Type__c,
         },
       ])
     );

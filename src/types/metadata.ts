@@ -70,8 +70,8 @@ export interface DescribePicklistValue {
 export interface LocalizationCustomMetadata {
   MasterLabel: string;
   DeveloperName: string;
-  Locale__c: string;
-  OriginalName__c: string;
-  TranslatedLabel__c: string;
-  Type__c: string;
+  GRMS_Locale__c: string;
+  GRMS_OriginalName__c: string;
+  GRMS_TranslatedLabel__c: string;
+  GRMS_Type__c: string;
 }

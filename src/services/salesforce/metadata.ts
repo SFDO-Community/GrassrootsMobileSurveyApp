@@ -111,17 +111,18 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
  * @description Retrieve Salesforce 'Localization__mdt' Custom Metadata records and save them to local database
  */
 export const storeLocalization = async () => {
-  const query = 'SELECT Type__c, Locale__c, OriginalName__c, TranslatedLabel__c FROM GRSM_Localization__mdt';
+  const query =
+    'SELECT GRMS_Type__c, GRMS_Locale__c, GRMS_OriginalName__c, GRMS_TranslatedLabel__c FROM GRMS_Localization__mdt';
   const records: Array<LocalizationCustomMetadata> = await fetchSalesforceRecords(query);
   if (records.length === 0) {
     return;
   }
   const localizations: Array<SQLiteLocalization> = records.map(r => {
     return {
-      locale: r.Locale__c,
-      type: r.Type__c,
-      name: r.OriginalName__c,
-      label: r.TranslatedLabel__c ? r.TranslatedLabel__c.replace(/'/g, "''") : '', // escape single quote for sqlite
+      locale: r.GRMS_Locale__c,
+      type: r.GRMS_Type__c,
+      name: r.GRMS_OriginalName__c,
+      label: r.GRMS_TranslatedLabel__c ? r.GRMS_TranslatedLabel__c.replace(/'/g, "''") : '', // escape single quote for sqlite
     };
   });
   await saveRecords(DB_TABLE.LOCALIZATION, localizations, undefined);
