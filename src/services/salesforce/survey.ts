@@ -32,10 +32,9 @@ export const storeOnlineSurveys = async () => {
   prepareTable(DB_TABLE.SURVEY, [...surveyFieldTypeMappings, ...LOCAL_SURVEY_FIELDS], undefined);
 
   // Query salesforce records and save them to local
-  const fieldSet = new Set(fields.map(f => f.fieldName));
-  fieldSet.add('Name');
-  fieldSet.add('RecordTypeId');
-  const commaSeparetedFields = Array.from(fieldSet).join(',');
+  const commaSeparetedFields = Array.from(fieldsMap.values())
+    .map(f => f.fieldName)
+    .join(',');
 
   const contactId = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
   const surveys = await fetchSalesforceRecords(
