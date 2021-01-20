@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Grass Roots Survey",
-    "slug": "grass-roots-survey",
+    "name": "Grass Roots Mobile Survey App",
+    "slug": "grass-roots-mobile-survey-app",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -9,11 +9,11 @@
       "web"
     ],
     "ios": {
-      "bundleIdentifier": "com.sfdo.community.grassrootssurvey",
+      "bundleIdentifier": "com.sfdo.community.grassrootsmobilesurveyapp",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.sfdo.community.grassrootssurvey",
+      "package": "com.sfdo.community.grassrootsmobilesurveyapp",
       "versionCode": 1
     },
     "version": "1.0.0",
@@ -31,6 +31,6 @@
       "**/*"
     ],
     "description": "The Grass Roots Mobile Survey App is focused on providing affordable field survey capacity to nonprofits worldwide.",
-    "githubUrl": "https://github.com/SFDO-Community-Sprints/GrassRootsSurveyMobileApp"
+    "githubUrl": "https://github.com/SFDO-Community-Sprints/GrassRootsMobileSurveyApp"
   }
 }
