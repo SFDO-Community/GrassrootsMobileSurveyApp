@@ -1,5 +1,5 @@
 import { updateRecord, updateFieldValue, saveRecords } from './database';
-import { ASYNC_STORAGE_KEYS, DB_TABLE, USER_CONTACT_FIELD_ON_SURVEY } from '../../constants';
+import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_DATE_FIELD, USER_CONTACT_FIELD_ON_SURVEY } from '../../constants';
 import { logger } from '../../utility/logger';
 
 /**
@@ -8,6 +8,7 @@ import { logger } from '../../utility/logger';
  */
 export const upsertLocalSurvey = async survey => {
   survey[USER_CONTACT_FIELD_ON_SURVEY] = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
+  survey[SURVEY_DATE_FIELD] = new Date().toISOString();
   logger('DEBUG', 'Saving survey', survey);
   if (survey._localId) {
     return await updateRecord(DB_TABLE.SURVEY, survey, `where _localId = ${survey._localId}`);

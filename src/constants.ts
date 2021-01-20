@@ -58,7 +58,7 @@ export const BACKGROUND_SURVEY_FIELDS = [
   { fieldName: 'Name', fieldType: 'string' },
   { fieldName: 'RecordTypeId', fieldType: 'reference' },
   { fieldName: USER_CONTACT_FIELD_ON_SURVEY, fieldType: 'reference' },
-  // { fieldName: SURVEY_DATE_FIELD, fieldType: 'datetime' },
+  { fieldName: SURVEY_DATE_FIELD, fieldType: 'datetime' },
 ];
 export const LOCAL_SURVEY_FIELDS: Array<SQLiteFieldTypeMapping> = [
   { name: '_syncStatus', type: 'text' },

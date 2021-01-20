@@ -11,7 +11,7 @@ import {
 import { DescribeLayoutResult, DescribeLayout, LocalizationCustomMetadata } from '../../types/metadata';
 
 import { logger } from '../../utility/logger';
-import { DB_TABLE, SURVEY_OBJECT, USER_CONTACT_FIELD_ON_SURVEY } from '../../constants';
+import { DB_TABLE, SURVEY_OBJECT, BACKGROUND_SURVEY_FIELDS } from '../../constants';
 
 /**
  * @description Query record types by REST API (describe layouts) and save the results to local database.
@@ -56,6 +56,7 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
   logger('FINE', 'storePageLayoutItems | sections', pageLayoutSections);
   await saveRecords(DB_TABLE.PAGE_LAYOUT_SECTION, pageLayoutSections, 'id');
 
+  const backgroundFields = BACKGROUND_SURVEY_FIELDS.map(f => f.fieldName);
   const serializedPicklistValueSet: Set<string> = new Set();
   const pageLayoutItems: Array<SQLitePageLayoutItem> = response.editLayoutSections
     .filter(section => section.useHeading)
@@ -68,8 +69,8 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
               c =>
                 c.type !== 'EmptySpace' &&
                 c.details.updateable &&
-                c.details.name !== USER_CONTACT_FIELD_ON_SURVEY &&
-                (c.details.referenceTo.length === 0 || c.details.referenceTo[0] === 'Contact')
+                (c.details.referenceTo.length === 0 || c.details.referenceTo[0] === 'Contact') &&
+                !backgroundFields.includes(c.details.name)
             )
             .map(c => {
               if (c.details.type === 'picklist') {
