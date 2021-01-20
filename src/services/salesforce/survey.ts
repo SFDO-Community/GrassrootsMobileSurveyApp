@@ -1,6 +1,13 @@
 import { createSalesforceRecords, fetchSalesforceRecords } from './core';
 import { clearTable, getAllRecords, saveRecords, prepareTable } from '../database/database';
-import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_OBJECT, USER_CONTACT_FIELD_ON_SURVEY } from '../../constants';
+import {
+  ASYNC_STORAGE_KEYS,
+  BACKGROUND_SURVEY_FIELDS,
+  DB_TABLE,
+  LOCAL_SURVEY_FIELDS,
+  SURVEY_OBJECT,
+  USER_CONTACT_FIELD_ON_SURVEY,
+} from '../../constants';
 import { SQLiteFieldTypeMapping, SQLitePageLayoutItem } from '../../types/sqlite';
 
 /**
@@ -11,52 +18,18 @@ export const storeOnlineSurveys = async () => {
   // Build field list from page layout items
   const fields: Array<SQLitePageLayoutItem> = await getAllRecords(DB_TABLE.PAGE_LAYOUT_ITEM);
   // Prepare local survey table
-  const serializedFieldSet = new Set(
-    fields.map(f =>
-      JSON.stringify({
-        fieldName: f.fieldName,
-        fieldType: f.fieldType,
-      })
-    )
+  const fieldsMap = new Map(
+    [...fields, ...BACKGROUND_SURVEY_FIELDS].map(f => [f.fieldName, { fieldName: f.fieldName, fieldType: f.fieldType }])
   );
-  serializedFieldSet.add(
-    JSON.stringify({
-      fieldName: 'RecordTypeId',
-      fieldType: 'reference',
-    })
-  );
-  serializedFieldSet.add(
-    JSON.stringify({
-      fieldName: 'Name',
-      fieldType: 'string',
-    })
-  );
-  serializedFieldSet.add(
-    JSON.stringify({
-      fieldName: USER_CONTACT_FIELD_ON_SURVEY,
-      fieldType: 'reference',
-    })
-  );
-  const surveyFieldTypeMappings: Array<SQLiteFieldTypeMapping> = [...serializedFieldSet.values()].map(s => {
-    const item = JSON.parse(s);
+  const surveyFieldTypeMappings: Array<SQLiteFieldTypeMapping> = Array.from(fieldsMap.values()).map(item => {
     const result: SQLiteFieldTypeMapping = {
       name: item.fieldName,
       type: ['double', 'boolean', 'percent', 'currency'].includes(item.fieldType) ? 'integer' : 'text',
     };
     return result;
   });
-  const localFields: Array<SQLiteFieldTypeMapping> = [
-    {
-      name: '_syncStatus',
-      type: 'text',
-    },
-    {
-      name: '_createdDate',
-      type: 'text',
-    },
-  ];
   clearTable('Survey');
-  prepareTable(DB_TABLE.SURVEY, [...surveyFieldTypeMappings, ...localFields], undefined);
+  prepareTable(DB_TABLE.SURVEY, [...surveyFieldTypeMappings, ...LOCAL_SURVEY_FIELDS], undefined);
 
   // Query salesforce records and save them to local
   const fieldSet = new Set(fields.map(f => f.fieldName));
