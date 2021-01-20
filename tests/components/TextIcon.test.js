@@ -3,6 +3,8 @@ import TestRenderer from 'react-test-renderer';
 
 import { TextIcon } from '../../src/components';
 
+jest.mock('react-native-elements/src/icons/Icon', () => 'View');
+
 describe('<TextIcon />', () => {
   it('Rendering', () => {
     const tree = TestRenderer.create(
