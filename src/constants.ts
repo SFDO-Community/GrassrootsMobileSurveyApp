@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { ImageStyle, ViewStyle, Dimensions } from 'react-native';
+import { SQLiteFieldTypeMapping } from './types/sqlite';
 
 export const APP_FONTS = {
   FONT_REGULAR: 'SalesforceSans-Regular',
@@ -52,6 +53,17 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
 
 export const SURVEY_OBJECT = 'GRSM_Survey__c';
 export const USER_CONTACT_FIELD_ON_SURVEY = 'UserContact__c';
+export const SURVEY_DATE_FIELD = 'SurveyDate__c';
+export const BACKGROUND_SURVEY_FIELDS = [
+  { fieldName: 'Name', fieldType: 'string' },
+  { fieldName: 'RecordTypeId', fieldType: 'reference' },
+  { fieldName: USER_CONTACT_FIELD_ON_SURVEY, fieldType: 'reference' },
+  // { fieldName: SURVEY_DATE_FIELD, fieldType: 'datetime' },
+];
+export const LOCAL_SURVEY_FIELDS: Array<SQLiteFieldTypeMapping> = [
+  { name: '_syncStatus', type: 'text' },
+  { name: '_createdDate', type: 'text' },
+];
 
 export const DB_TABLE = {
   RECORD_TYPE: 'RecordType',

@@ -3,7 +3,7 @@ import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import Modal from 'react-native-modal';
 
 import { getCurrentUserContact, storeContacts } from '../services/salesforce/contact';
-import { storeOnlineSurveys } from '../services/survey';
+import { storeOnlineSurveys } from '../services/salesforce/survey';
 import { retrieveAllMetadata } from '../services/describe';
 import { clearLocal } from '../services/session';
 import LocalizationContext from '../context/localizationContext';

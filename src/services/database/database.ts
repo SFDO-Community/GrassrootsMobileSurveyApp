@@ -180,11 +180,11 @@ export const updateFieldValue = (tableName: string, field: string, value: string
 /**
  * @description Delete a record in local table
  * @param tableName
- * @param LocalId
+ * @param _localId
  */
-export const deleteRecord = (tableName, localId) => {
+export const deleteRecord = (tableName, _localId) => {
   return new Promise((resolve, reject) => {
-    const statement = `delete from ${tableName} where localId = ${localId}`;
+    const statement = `delete from ${tableName} where _localId = ${_localId}`;
 
     executeTransaction(statement)
       .then(result => {
@@ -197,7 +197,7 @@ export const deleteRecord = (tableName, localId) => {
 };
 
 /**
- * @description Create table if not exists, given table name and field type mappings. 'name', 'id' or 'localId' field will be primary.
+ * @description Create table if not exists, given table name and field type mappings. 'name', 'id' or '_localId' field will be primary.
  * @param fieldName Name of table on sqlite
  * @param fieldTypeMappings Array of field type mapping
  * @param primaryKey Field name of primary key
@@ -217,8 +217,8 @@ export const prepareTable = (
         }
       })
       .join(',');
-    const localId = 'localId integer primary key autoincrement';
-    const fieldsInStatement = !primaryKey ? `${localId},${fieldsWithType}` : fieldsWithType;
+    const _localId = '_localId integer primary key autoincrement';
+    const fieldsInStatement = !primaryKey ? `${_localId},${fieldsWithType}` : fieldsWithType;
     logger('DEBUG', 'prepareTable', `create table if not exists ${tableName} (${fieldsInStatement});`);
 
     executeTransaction(`create table if not exists ${tableName} (${fieldsInStatement});`)

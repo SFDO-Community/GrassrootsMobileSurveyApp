@@ -5,7 +5,8 @@ import { Icon } from 'react-native-elements';
 import LocalizationContext from '../context/localizationContext';
 
 import { logout } from '../services/session';
-import { uploadSurveyListToSalesforce, updateSurveyStatusSynced } from '../services/survey';
+import { uploadSurveyListToSalesforce } from '../services/salesforce/survey';
+import { updateSurveyStatusSynced } from '../services/database/localSurvey';
 
 import { notifySuccess, notifyError } from '../utility/notification';
 import { logger } from '../utility/logger';
@@ -42,7 +43,7 @@ export function SurveyListRightButtons(props: SurveyListRightButtonProps) {
 
 export function SyncButton(props: SyncButtonProps) {
   const { t } = useContext(LocalizationContext);
-  const localSurveys = props.surveys.filter(s => s.syncStatus === 'Unsynced');
+  const localSurveys = props.surveys.filter(s => s._syncStatus === 'Unsynced');
 
   const confirmSync = () => {
     Alert.alert(
