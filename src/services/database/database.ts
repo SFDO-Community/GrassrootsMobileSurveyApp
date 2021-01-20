@@ -180,7 +180,7 @@ export const updateFieldValue = (tableName: string, field: string, value: string
 /**
  * @description Delete a record in local table
  * @param tableName
- * @param LocalId
+ * @param _localId
  */
 export const deleteRecord = (tableName, _localId) => {
   return new Promise((resolve, reject) => {
