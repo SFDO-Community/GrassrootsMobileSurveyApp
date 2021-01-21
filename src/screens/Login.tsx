@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Input, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 
 import Welcome from './Welcome';
-import { Loader } from '../components';
+import { Loader, LoginFormInput } from '../components';
 
 import { validateEmail } from '../utility';
-import { logger } from '../utility/logger';
 import {
   ASYNC_STORAGE_KEYS,
   BACKGROUND_IMAGE_SOURCE,
@@ -29,27 +28,20 @@ export default function Login({ navigation }) {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showsSpinner, setShowsSpinner] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [showsWelcomeModal, setShowsWelcomeModal] = useState(false);
 
   const { t } = useContext(LocalizationContext);
 
-  if (!mounted) {
-    storage
-      .load({
-        key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID,
-      })
-      .then(userContactId => {
-        logger('INFO', 'Login', `User is already logged in as ${userContactId}`);
-        navigation.navigate('SurveyList');
-      })
-      .catch(() => {
-        logger('INFO', 'Login', 'User has not logged in yet');
-      });
-  }
-
   useEffect(() => {
-    setMounted(true);
+    const prepare = async () => {
+      try {
+        const userContactId = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
+        if (userContactId) {
+          navigation.navgigate('SurveyList');
+        }
+      } catch {}
+    };
+    prepare();
   }, []);
 
   const validateInput = () => {
@@ -102,32 +94,22 @@ export default function Login({ navigation }) {
           <Image source={require('../../assets/images/icon.png')} style={styles.logoStyle} />
         </View>
         <View style={styles.inputBoxesView}>
-          <Input
-            onChangeText={email => {
-              setEmail(email);
-            }}
+          <LoginFormInput
+            onChangeText={value => setEmail(value)}
             value={email}
             label={t('EMAIL')}
             placeholder="yourname@example.com"
-            leftIcon={{ type: 'material-community', name: 'email-outline', color: APP_THEME.APP_LIGHT_FONT_COLOR }}
-            errorStyle={styles.errorStyle}
-            labelStyle={styles.font}
-            inputStyle={styles.font}
+            icon="email-outline"
             keyboardType="email-address"
             errorMessage={emailError}
           />
-          <Input
-            onChangeText={password => {
-              setPassword(password);
-            }}
+          <LoginFormInput
+            onChangeText={value => setPassword(value)}
             value={password}
             label={t('PASSWORD')}
             placeholder="password"
-            leftIcon={{ type: 'material-community', name: 'lock-outline', color: APP_THEME.APP_LIGHT_FONT_COLOR }}
-            errorStyle={styles.errorStyle}
-            labelStyle={styles.font}
-            inputStyle={styles.font}
-            secureTextEntry
+            icon="lock-outline"
+            isSecure
             errorMessage={passwordError}
           />
           <View style={styles.loginButtonContainer}>
@@ -156,19 +138,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logoStyle: { height: 181, width: 181 },
-  font: {
-    fontFamily: APP_FONTS.FONT_REGULAR,
-  },
   inputBoxesView: {
     flex: 3,
     width: '90%',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-  },
-  errorStyle: {
-    color: APP_THEME.APP_ERROR_COLOR,
-    fontFamily: APP_FONTS.FONT_REGULAR,
   },
   loginButtonContainer: { width: '40%', alignSelf: 'center', paddingTop: 20 },
   loginButtonBackground: {
