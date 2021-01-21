@@ -1,10 +1,17 @@
-import { storeRecordTypes, storePageLayoutItems, storeLocalization } from './salesforce/metadata';
+import {
+  storeRecordTypes,
+  storePageLayoutItems,
+  storePageLayoutSections,
+  storeLocalization,
+} from './salesforce/metadata';
 import { saveRecords, getRecords, clearTable } from './database/database';
 import { SQLitePageLayoutSection, SQLitePageLayoutItem } from '../types/sqlite';
 import { SurveyLayout } from '../types/survey';
+import { CompositeLayoutResponse, DescribeLayout } from '../types/metadata';
 
 import { logger } from '../utility/logger';
-import { ASYNC_STORAGE_KEYS, DB_TABLE } from '../constants';
+import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_OBJECT } from '../constants';
+import { describeLayouts } from './salesforce/core';
 
 /**
  * @description Download record types, all the page layouts, and localization custom metadata.
@@ -19,8 +26,17 @@ export const retrieveAllMetadata = async () => {
     await clearTable(DB_TABLE.PAGE_LAYOUT_ITEM);
     const serializedPicklistValueSet = new Set();
     const serializedFieldTypeSet = new Set();
-    for (const rt of recordTypes) {
-      const pageLayoutResult = await storePageLayoutItems(rt.recordTypeId);
+    const compositeLayoutResult: CompositeLayoutResponse = await describeLayouts(
+      SURVEY_OBJECT,
+      recordTypes.map(r => r.recordTypeId)
+    );
+    const layouts: Array<DescribeLayout> = Array.from(
+      new Map(compositeLayoutResult.compositeResponse.map(r => [r.body.id, r.body])).values()
+    );
+
+    for (const layout of layouts) {
+      await storePageLayoutSections(layout);
+      const pageLayoutResult = await storePageLayoutItems(layout);
       const currentSerializedPicklistValueSet = pageLayoutResult.serializedPicklistValueSet;
       const currentSerializedFieldTypeSet = pageLayoutResult.serializedFieldTypeSet;
       currentSerializedPicklistValueSet.forEach(serializedPicklistValueSet.add, serializedPicklistValueSet);

@@ -76,22 +76,6 @@ export const describeLayoutResult = async (sObjectType: string): Promise<Describ
 };
 
 /**
- * @deprecated
- * Retrieve page layout information
- * @param sObjectType
- * @param recordTypeId
- * @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_sobject_layouts.htm
- */
-export const describeLayout = async (sObjectType: string, recordTypeId: string): Promise<DescribeLayout> => {
-  const endPoint =
-    (await buildEndpointUrl()) + `/sobjects/${sObjectType}/describe/layouts/${recordTypeId ? recordTypeId : ''}`;
-  logger('DEBUG', 'describeLayout', endPoint);
-
-  const response = await fetchRetriable(endPoint, 'GET', undefined);
-  return response;
-};
-
-/**
  * Retrieve page layout information using composite resource
  */
 export const describeLayouts = async (

@@ -1,4 +1,4 @@
-import { describeLayoutResult, describeLayout, fetchSalesforceRecords } from './core';
+import { describeLayoutResult, fetchSalesforceRecords } from './core';
 import { saveRecords } from '../database/database';
 
 import {
@@ -37,24 +37,13 @@ export const storeRecordTypes = async () => {
 
 /**
  * @description Query layouts and fields including picklist values by Rest API (describe layout) and save the result to local database.
- * @param recordTypeId
+ * @param layout
  * @return serializedPicklistValueSet
  */
-export const storePageLayoutItems = async (recordTypeId: string) => {
-  const response: DescribeLayout = await describeLayout(SURVEY_OBJECT, recordTypeId);
-  const pageLayoutSections: Array<SQLitePageLayoutSection> = response.editLayoutSections
-    .filter(section => section.useHeading)
-    .map(section => ({
-      id: section.layoutSectionId,
-      layoutId: section.parentLayoutId,
-      sectionLabel: section.heading,
-    }));
-  logger('FINE', 'storePageLayoutItems | sections', pageLayoutSections);
-  await saveRecords(DB_TABLE.PAGE_LAYOUT_SECTION, pageLayoutSections, 'id');
-
+export const storePageLayoutItems = async (layout: DescribeLayout) => {
   const backgroundFields = BACKGROUND_SURVEY_FIELDS.map(f => f.fieldName);
   const serializedPicklistValueSet: Set<string> = new Set();
-  const pageLayoutItems: Array<SQLitePageLayoutItem> = response.editLayoutSections
+  const pageLayoutItems: Array<SQLitePageLayoutItem> = layout.editLayoutSections
     .filter(section => section.useHeading)
     .map(section => {
       return section.layoutRows.map(row => {
@@ -102,6 +91,18 @@ export const storePageLayoutItems = async (recordTypeId: string) => {
     ...pageLayoutItems.map(item => JSON.stringify({ name: item.fieldName, type: item.fieldType })),
   ];
   return { serializedPicklistValueSet, serializedFieldTypeSet };
+};
+
+export const storePageLayoutSections = async (layout: DescribeLayout) => {
+  const pageLayoutSections: Array<SQLitePageLayoutSection> = layout.editLayoutSections
+    .filter(section => section.useHeading)
+    .map(section => ({
+      id: section.layoutSectionId,
+      layoutId: section.parentLayoutId,
+      sectionLabel: section.heading,
+    }));
+  logger('DEBUG', 'storePageLayoutItems | sections', pageLayoutSections);
+  await saveRecords(DB_TABLE.PAGE_LAYOUT_SECTION, pageLayoutSections, 'id');
 };
 
 /**
