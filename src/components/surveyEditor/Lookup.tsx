@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+import { StackParamList } from '../../Router';
 import { getRecords } from '../../services/database/database';
 import { APP_THEME, APP_FONTS, DB_TABLE } from '../../constants';
+
+type SurveyEditorNavigationProp = StackNavigationProp<StackParamList, 'SurveyEditor'>;
 
 type LookupPropType = {
   fieldName: string;
   title: string;
   value: string;
-  navigation: any;
+  navigation: SurveyEditorNavigationProp;
   disabled?: boolean;
 };
 

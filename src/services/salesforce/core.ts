@@ -2,7 +2,7 @@ import { fetchRetriable } from './connection';
 
 import { ASYNC_STORAGE_KEYS } from '../../constants';
 import { logger } from '../../utility/logger';
-import { DescribeLayoutResult, DescribeLayout, CompositeLayoutResponse } from '../../../src/types/metadata';
+import { DescribeLayoutResult, CompositeLayoutResponse } from '../../../src/types/metadata';
 import { formatISOStringToAPIDate } from '../../utility/date';
 
 const SALESFORCE_API_VERSION = 'v49.0';

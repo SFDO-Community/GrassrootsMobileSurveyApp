@@ -30,6 +30,10 @@ export type StackParamList = {
     _localId?: string;
   };
   Settings: undefined;
+  Lookup: {
+    fieldName: string;
+    title: string;
+  };
 };
 
 const MainStack = createStackNavigator();

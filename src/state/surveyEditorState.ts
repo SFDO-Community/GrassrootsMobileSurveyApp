@@ -1,6 +1,7 @@
 import { useReducer } from 'react';
 
 import { createContainer } from 'react-tracked';
+import { SQLiteSurvey } from '../types/sqlite';
 
 type SurveyEditorAction = {
   type: SurveyEditorActionType;
@@ -8,7 +9,7 @@ type SurveyEditorAction = {
     name: string;
     value: any;
   };
-  detail?: any;
+  detail?: SQLiteSurvey;
 };
 
 const SurveyEditorActionType = {
@@ -31,7 +32,7 @@ const surveyReducer = (state: SurveyEditorState, action: SurveyEditorAction) => 
   }
 };
 
-const initialState = {
+const initialState: { survey: SQLiteSurvey } = {
   survey: {},
 };
 

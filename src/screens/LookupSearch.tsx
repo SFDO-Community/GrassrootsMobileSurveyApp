@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Button, FlatList, SafeAreaView, Text, View, StyleSheet } from 'react-native';
 import { Input, Divider } from 'react-native-elements';
-import Constants from 'expo-constants';
-import { ListItem } from '../components';
-import { APP_FONTS, APP_THEME, DB_TABLE } from '../constants';
-import { getAllRecordsWithCallback } from '../services/database/database';
-import { SQLiteContact } from '../types/sqlite';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/core';
 
 import { useDispatch } from '../state/surveyEditorState';
+import { getAllRecordsWithCallback } from '../services/database/database';
+import { ListItem } from '../components';
 
-type LookupProps = {
-  navigation: any;
-  route: any;
+import Constants from 'expo-constants';
+import { APP_FONTS, APP_THEME, DB_TABLE } from '../constants';
+
+import { StackParamList } from '../Router';
+import { SQLiteContact } from '../types/sqlite';
+
+type LookupSearchNavigationProp = StackNavigationProp<StackParamList, 'SurveyEditor'>;
+type LookupSearchRouteProp = RouteProp<StackParamList, 'SurveyEditor'>;
+
+type LookupSearchProps = {
+  route: LookupSearchRouteProp;
+  navigation: LookupSearchNavigationProp;
 };
-
 /**
  * @description Lookup search modal screen. Defined in router.tsx and called from lookup component (components/surveyEditor/lookup.tsx).
  */
-export default function LookupSearch({ navigation, route }: LookupProps) {
+export default function LookupSearch({ navigation, route }: LookupSearchProps) {
   const fieldName = route.params.fieldName;
   const title = route.params.title;
   const [searchTerm, setSearchTerm] = useState('');

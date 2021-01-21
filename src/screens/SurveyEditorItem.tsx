@@ -1,11 +1,15 @@
 import React, { memo } from 'react';
 import { Text, View } from 'react-native';
 import { TextInput, CheckboxButton, DatePicker, Picklist, Lookup } from '../components/surveyEditor';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { useSelector, useDispatch } from '../state/surveyEditorState';
+import { StackParamList } from '../Router';
+
+type SurveyEditorNavigationProp = StackNavigationProp<StackParamList, 'SurveyEditor'>;
 
 type SurveyItemProps = {
-  navigation: any;
+  navigation: SurveyEditorNavigationProp;
   title: string;
   name: string;
   type: string;

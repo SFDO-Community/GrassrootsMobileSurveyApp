@@ -157,8 +157,6 @@ export default function SurveyList({ navigation }) {
     );
   };
 
-  const { flex1, textStyleTotalSurvey } = styles;
-
   const keyExtractor = (item, index) => index.toString();
 
   const renderItem = data => {
@@ -198,9 +196,9 @@ export default function SurveyList({ navigation }) {
   };
 
   return (
-    <View style={flex1}>
+    <View style={styles.flex1}>
       <Loader loading={showsSpinner} />
-      <View style={flex1}>
+      <View style={styles.flex1}>
         <SearchBar
           placeholder={t('SEARCH_SURVEYS')}
           value={searchTerm}
@@ -266,13 +264,6 @@ const styles = StyleSheet.create({
   },
   flex1: {
     flex: 1,
-    backgroundColor: 'white',
-  },
-  textStyleTotalSurvey: {
-    paddingLeft: 10,
-    paddingBottom: 5,
-    fontSize: 14,
-    fontFamily: APP_FONTS.FONT_REGULAR,
     backgroundColor: 'white',
   },
   addButtonStyle: { position: 'absolute', bottom: 30, right: 30 },

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import Modal from 'react-native-modal';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { getCurrentUserContact, storeContacts } from '../services/salesforce/contact';
 import { storeOnlineSurveys } from '../services/salesforce/survey';
@@ -14,10 +15,13 @@ import { APP_THEME, ASYNC_STORAGE_KEYS } from '../constants';
 import { logger } from '../utility/logger';
 import { notifyError } from '../utility/notification';
 
+import { StackParamList } from '../Router';
+type LoginNavigationProp = StackNavigationProp<StackParamList, 'Login'>;
+
 type WelcomeModalProps = {
   isVisible: boolean;
   setVisible(isVisible: boolean): void;
-  navigation: any;
+  navigation: LoginNavigationProp;
 };
 
 export default function Welcome({ isVisible, setVisible, navigation }: WelcomeModalProps) {
