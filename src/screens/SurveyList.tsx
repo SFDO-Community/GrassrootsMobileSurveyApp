@@ -57,8 +57,7 @@ export default function SurveyList({ navigation }) {
     setShowsSpinner(true);
     const prepare = async () => {
       try {
-        const rt = await storage.load({ key: '@RecordTypes' });
-        setRecordTypes(rt);
+        await getAllRecordsWithCallback(DB_TABLE.SURVEY, setRecordTypes);
         const cont = await storage.load({ key: '@Contacts' });
         setContacts(cont);
         await buildDictionary();

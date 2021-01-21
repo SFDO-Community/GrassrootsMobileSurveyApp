@@ -32,10 +32,6 @@ export const storeRecordTypes = async () => {
   }
   logger('DEBUG', 'storeRecordTypes', `${JSON.stringify(recordTypes)}`);
   await saveRecords(DB_TABLE.RECORD_TYPE, recordTypes, 'name');
-  storage.save({
-    key: '@RecordTypes',
-    data: recordTypes,
-  });
   return recordTypes;
 };
 
