@@ -1,4 +1,3 @@
-export * from './CustomButton';
 export * from './TextHeading';
 export * from './TextSubheading';
 export * from './ListItem';

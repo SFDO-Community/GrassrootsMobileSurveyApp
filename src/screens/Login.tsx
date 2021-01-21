@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Input, Button } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 
 import Welcome from './Welcome';
-import { CustomButton, Loader } from '../components';
-import { Input } from 'react-native-elements';
+import { Loader } from '../components';
 
 import { validateEmail } from '../utility';
 import { logger } from '../utility/logger';
@@ -94,16 +94,14 @@ export default function Login({ navigation }) {
     }
   };
 
-  const { flex1, inputBoxesView, container, logoStyle, inputButton, errorStyle, font } = styles;
-
   return (
     <ImageBackground source={BACKGROUND_IMAGE_SOURCE} style={BACKGROUND_STYLE} imageStyle={BACKGROUND_IMAGE_STYLE}>
-      <KeyboardAwareScrollView style={flex1}>
+      <KeyboardAwareScrollView style={styles.flex1}>
         <Loader loading={showsSpinner} />
-        <View style={container}>
-          <Image source={require('../../assets/images/icon.png')} style={logoStyle} />
+        <View style={styles.container}>
+          <Image source={require('../../assets/images/icon.png')} style={styles.logoStyle} />
         </View>
-        <View style={inputBoxesView}>
+        <View style={styles.inputBoxesView}>
           <Input
             onChangeText={email => {
               setEmail(email);
@@ -112,9 +110,9 @@ export default function Login({ navigation }) {
             label={t('EMAIL')}
             placeholder="yourname@example.com"
             leftIcon={{ type: 'material-community', name: 'email-outline', color: APP_THEME.APP_LIGHT_FONT_COLOR }}
-            errorStyle={errorStyle}
-            labelStyle={font}
-            inputStyle={font}
+            errorStyle={styles.errorStyle}
+            labelStyle={styles.font}
+            inputStyle={styles.font}
             keyboardType="email-address"
             errorMessage={emailError}
           />
@@ -126,14 +124,19 @@ export default function Login({ navigation }) {
             label={t('PASSWORD')}
             placeholder="password"
             leftIcon={{ type: 'material-community', name: 'lock-outline', color: APP_THEME.APP_LIGHT_FONT_COLOR }}
-            errorStyle={errorStyle}
-            labelStyle={font}
-            inputStyle={font}
+            errorStyle={styles.errorStyle}
+            labelStyle={styles.font}
+            inputStyle={styles.font}
             secureTextEntry
             errorMessage={passwordError}
           />
-          <View style={inputButton}>
-            <CustomButton title={t('LOGIN')} onPress={() => login()} />
+          <View style={styles.loginButtonContainer}>
+            <Button
+              title={t('LOGIN')}
+              onPress={() => login()}
+              buttonStyle={styles.loginButtonBackground}
+              titleStyle={styles.loginButtonText}
+            />
           </View>
         </View>
       </KeyboardAwareScrollView>
@@ -149,7 +152,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginTop: 20,
   },
+  flex1: {
+    flex: 1,
+  },
   logoStyle: { height: 181, width: 181 },
+  font: {
+    fontFamily: APP_FONTS.FONT_REGULAR,
+  },
   inputBoxesView: {
     flex: 3,
     width: '90%',
@@ -157,18 +166,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
   },
-  flex1: {
-    flex: 1,
-  },
-  flex2: {
-    flex: 2,
-  },
-  font: {
-    fontFamily: APP_FONTS.FONT_REGULAR,
-  },
-  inputButton: { width: '40%', alignSelf: 'center', paddingTop: 20 },
   errorStyle: {
     color: APP_THEME.APP_ERROR_COLOR,
+    fontFamily: APP_FONTS.FONT_REGULAR,
+  },
+  loginButtonContainer: { width: '40%', alignSelf: 'center', paddingTop: 20 },
+  loginButtonBackground: {
+    backgroundColor: APP_THEME.APP_BASE_FONT_COLOR,
+    borderRadius: 5,
+  },
+  loginButtonText: {
+    fontSize: 16,
     fontFamily: APP_FONTS.FONT_REGULAR,
   },
 });
