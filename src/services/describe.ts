@@ -21,11 +21,11 @@ export const retrieveAllMetadata = async () => {
     // Record types
     await clearTable(DB_TABLE.RECORD_TYPE);
     const recordTypes = await storeRecordTypes();
-    // Page Layout
+    // Page layout sections and fields
     await clearTable(DB_TABLE.PAGE_LAYOUT_SECTION);
     await clearTable(DB_TABLE.PAGE_LAYOUT_ITEM);
-    const serializedPicklistValueSet = new Set();
-    const serializedFieldTypeSet = new Set();
+    const picklistOptionsMap = new Map();
+    const fieldTypesMap = new Map();
     const compositeLayoutResult: CompositeLayoutResponse = await describeLayouts(
       SURVEY_OBJECT,
       recordTypes.map(r => r.recordTypeId)
@@ -37,27 +37,19 @@ export const retrieveAllMetadata = async () => {
     for (const layout of layouts) {
       await storePageLayoutSections(layout);
       const pageLayoutResult = await storePageLayoutItems(layout);
-      const currentSerializedPicklistValueSet = pageLayoutResult.serializedPicklistValueSet;
-      const currentSerializedFieldTypeSet = pageLayoutResult.serializedFieldTypeSet;
-      currentSerializedPicklistValueSet.forEach(serializedPicklistValueSet.add, serializedPicklistValueSet);
-      currentSerializedFieldTypeSet.forEach(serializedFieldTypeSet.add, serializedFieldTypeSet);
+      pageLayoutResult.picklistValuesMap.forEach((v, k) => picklistOptionsMap.set(k, v));
+      pageLayoutResult.fieldTypesMap.forEach((v, k) => fieldTypesMap.set(k, v));
     }
     // Picklist options
     await clearTable(DB_TABLE.PICKLIST_VALUE);
-    const picklistValues = [...serializedPicklistValueSet.values()].map(s => {
-      return JSON.parse(s as string);
-    });
+    const picklistValues = Array.from(picklistOptionsMap.values());
     await saveRecords(DB_TABLE.PICKLIST_VALUE, picklistValues, undefined);
 
     // Field type object
-    const fieldType = [...serializedFieldTypeSet.values()]
-      .map(s => {
-        return JSON.parse(s as string);
-      })
-      .reduce((result, current) => {
-        result[current.name] = current.type;
-        return result;
-      }, {});
+    const fieldType = Array.from(fieldTypesMap.values()).reduce((result, current) => {
+      result[current.name] = current.type;
+      return result;
+    }, {});
     storage.save({ key: ASYNC_STORAGE_KEYS.FIELD_TYPE, data: fieldType });
     // Localization
     await clearTable(DB_TABLE.LOCALIZATION);

@@ -36,13 +36,13 @@ export const storeRecordTypes = async () => {
 };
 
 /**
- * @description Query layouts and fields including picklist values by Rest API (describe layout) and save the result to local database.
+ * @description Extract editable fields and picklist values from layout metadata and save them to local database.
  * @param layout
- * @return serializedPicklistValueSet
+ * @return { fieldTypesMap, picklistValuesMap }
  */
 export const storePageLayoutItems = async (layout: DescribeLayout) => {
   const backgroundFields = BACKGROUND_SURVEY_FIELDS.map(f => f.fieldName);
-  const serializedPicklistValueSet: Set<string> = new Set();
+  const picklistValuesMap: Map<string, SQLitePicklistValue> = new Map<string, SQLitePicklistValue>();
   const pageLayoutItems: Array<SQLitePageLayoutItem> = layout.editLayoutSections
     .filter(section => section.useHeading)
     .map(section => {
@@ -67,7 +67,7 @@ export const storePageLayoutItems = async (layout: DescribeLayout) => {
                     value: v.value,
                   }));
                 values.forEach(v => {
-                  serializedPicklistValueSet.add(JSON.stringify(v));
+                  picklistValuesMap.set(v.fieldName, v);
                 });
               }
               return {
@@ -87,12 +87,16 @@ export const storePageLayoutItems = async (layout: DescribeLayout) => {
   }
   await saveRecords(DB_TABLE.PAGE_LAYOUT_ITEM, pageLayoutItems, undefined);
 
-  const serializedFieldTypeSet = [
-    ...pageLayoutItems.map(item => JSON.stringify({ name: item.fieldName, type: item.fieldType })),
-  ];
-  return { serializedPicklistValueSet, serializedFieldTypeSet };
+  const fieldTypesMap = new Map(
+    pageLayoutItems.map(item => [item.fieldName, { name: item.fieldName, type: item.fieldType }])
+  );
+  return { fieldTypesMap, picklistValuesMap };
 };
 
+/**
+ * @description Extract section data from layout metadata and save it to local database.
+ * @param layout
+ */
 export const storePageLayoutSections = async (layout: DescribeLayout) => {
   const pageLayoutSections: Array<SQLitePageLayoutSection> = layout.editLayoutSections
     .filter(section => section.useHeading)
