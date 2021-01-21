@@ -2,7 +2,7 @@ import { fetchRetriable } from './connection';
 
 import { ASYNC_STORAGE_KEYS } from '../../constants';
 import { logger } from '../../utility/logger';
-import { DescribeLayoutResult, DescribeLayout } from '../../../src/types/metadata';
+import { DescribeLayoutResult, DescribeLayout, CompositeLayoutResponse } from '../../../src/types/metadata';
 import { formatISOStringToAPIDate } from '../../utility/date';
 
 const SALESFORCE_API_VERSION = 'v49.0';
@@ -94,7 +94,10 @@ export const describeLayout = async (sObjectType: string, recordTypeId: string):
 /**
  * Retrieve page layout information using composite resource
  */
-export const describeLayouts = async (sObjectType: string, recordTypeIds: Array<string>) => {
+export const describeLayouts = async (
+  sObjectType: string,
+  recordTypeIds: Array<string>
+): Promise<CompositeLayoutResponse> => {
   const endPoint = (await buildEndpointUrl()) + '/composite';
   const body = {
     allOrNone: true,
