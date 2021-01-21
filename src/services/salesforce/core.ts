@@ -76,6 +76,7 @@ export const describeLayoutResult = async (sObjectType: string): Promise<Describ
 };
 
 /**
+ * @deprecated
  * Retrieve page layout information
  * @param sObjectType
  * @param recordTypeId
@@ -88,6 +89,47 @@ export const describeLayout = async (sObjectType: string, recordTypeId: string):
 
   const response = await fetchRetriable(endPoint, 'GET', undefined);
   return response;
+};
+
+/**
+ * Retrieve page layout information using composite resource
+ */
+export const describeLayouts = async (sObjectType: string, recordTypeIds: Array<string>) => {
+  const endPoint = (await buildEndpointUrl()) + '/composite';
+  const body = {
+    allOrNone: true,
+    compositeRequest: [],
+  };
+  for (const recordTypeId of recordTypeIds) {
+    body.compositeRequest.push({
+      method: 'GET',
+      referenceId: recordTypeId,
+      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/describe/layouts/${recordTypeId}`,
+    });
+  }
+
+  const result = await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
+  return result;
+};
+
+/**
+ * Retrieve compact layout information using composite resource
+ */
+export const describeCompactLayouts = async (sObjectType: string, recordTypeIds: Array<string>) => {
+  const endPoint = (await buildEndpointUrl()) + '/composite';
+  const body = {
+    allOrNone: true,
+    compositeRequest: [],
+  };
+  for (const recordTypeId of recordTypeIds) {
+    body.compositeRequest.push({
+      method: 'GET',
+      referenceId: recordTypeId,
+      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/describe/compactLayouts/${recordTypeId}`,
+    });
+  }
+
+  return await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
 };
 
 const buildEndpointUrl = async () => {
