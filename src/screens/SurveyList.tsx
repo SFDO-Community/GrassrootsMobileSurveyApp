@@ -20,7 +20,7 @@ import LocalizationContext from '../context/localizationContext';
 import { formatISOStringToCalendarDateString } from '../utility/date';
 import { logger } from '../utility/logger';
 import { notifyError } from '../utility/notification';
-import { APP_FONTS, APP_THEME, DB_TABLE } from '../constants';
+import { APP_FONTS, APP_THEME, DB_TABLE, SURVEY_DATE_FIELD } from '../constants';
 // types
 import { StackParamList } from '../Router';
 import { getAllRecordsWithCallback } from '../services/database/database';
@@ -57,7 +57,7 @@ export default function SurveyList({ navigation }) {
     setShowsSpinner(true);
     const prepare = async () => {
       try {
-        await getAllRecordsWithCallback(DB_TABLE.SURVEY, setRecordTypes);
+        await getAllRecordsWithCallback(DB_TABLE.RECORD_TYPE, setRecordTypes);
         const cont = await storage.load({ key: '@Contacts' });
         setContacts(cont);
         await buildDictionary();
@@ -131,9 +131,9 @@ export default function SurveyList({ navigation }) {
     .map(survey => {
       return {
         ...survey,
-        subtitle: `${getRecordTypeLabel(survey.RecordTypeId)} • ${
-          survey.Visit_Clinic_Date__c ? formatISOStringToCalendarDateString(survey.Visit_Clinic_Date__c) : ''
-        }`,
+        subtitle: `${getRecordTypeLabel(survey.RecordTypeId)} • ${formatISOStringToCalendarDateString(
+          survey[SURVEY_DATE_FIELD]
+        )}`,
         showCaret: survey._syncStatus === 'Unsynced',
         title: `Survey #${survey._localId}`,
       };
