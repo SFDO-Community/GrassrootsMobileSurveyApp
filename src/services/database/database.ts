@@ -325,7 +325,7 @@ const executeTransaction = (statement: string) => {
             resolve(result);
           },
           (txn, error) => {
-            logger('ERROR', 'sqlite', `${JSON.stringify(error)} ${JSON.stringify(txn)}`);
+            logger('ERROR', 'sqlite', `${error.message}`);
             reject(error);
             return false;
           }

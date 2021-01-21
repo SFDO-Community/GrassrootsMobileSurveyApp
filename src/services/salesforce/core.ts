@@ -2,7 +2,7 @@ import { fetchRetriable } from './connection';
 
 import { ASYNC_STORAGE_KEYS } from '../../constants';
 import { logger } from '../../utility/logger';
-import { DescribeLayoutResult, DescribeLayout } from '../../../src/types/metadata';
+import { DescribeLayoutResult, DescribeLayout, CompositeLayoutResponse } from '../../../src/types/metadata';
 import { formatISOStringToAPIDate } from '../../utility/date';
 
 const SALESFORCE_API_VERSION = 'v49.0';
@@ -76,18 +76,47 @@ export const describeLayoutResult = async (sObjectType: string): Promise<Describ
 };
 
 /**
- * Retrieve page layout information
- * @param sObjectType
- * @param recordTypeId
- * @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_sobject_layouts.htm
+ * Retrieve page layout information using composite resource
  */
-export const describeLayout = async (sObjectType: string, recordTypeId: string): Promise<DescribeLayout> => {
-  const endPoint =
-    (await buildEndpointUrl()) + `/sobjects/${sObjectType}/describe/layouts/${recordTypeId ? recordTypeId : ''}`;
-  logger('DEBUG', 'describeLayout', endPoint);
+export const describeLayouts = async (
+  sObjectType: string,
+  recordTypeIds: Array<string>
+): Promise<CompositeLayoutResponse> => {
+  const endPoint = (await buildEndpointUrl()) + '/composite';
+  const body = {
+    allOrNone: true,
+    compositeRequest: [],
+  };
+  for (const recordTypeId of recordTypeIds) {
+    body.compositeRequest.push({
+      method: 'GET',
+      referenceId: recordTypeId,
+      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/describe/layouts/${recordTypeId}`,
+    });
+  }
 
-  const response = await fetchRetriable(endPoint, 'GET', undefined);
-  return response;
+  const result = await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
+  return result;
+};
+
+/**
+ * Retrieve compact layout information using composite resource
+ */
+export const describeCompactLayouts = async (sObjectType: string, recordTypeIds: Array<string>) => {
+  const endPoint = (await buildEndpointUrl()) + '/composite';
+  const body = {
+    allOrNone: true,
+    compositeRequest: [],
+  };
+  for (const recordTypeId of recordTypeIds) {
+    body.compositeRequest.push({
+      method: 'GET',
+      referenceId: recordTypeId,
+      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/describe/compactLayouts/${recordTypeId}`,
+    });
+  }
+
+  return await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
 };
 
 const buildEndpointUrl = async () => {

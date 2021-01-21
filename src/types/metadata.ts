@@ -26,6 +26,7 @@ export interface RecordTypeMapping {
  */
 export interface DescribeLayout {
   editLayoutSections: Array<DescribeLayoutSection>;
+  id: string;
 }
 
 export interface DescribeLayoutSection {
@@ -74,4 +75,11 @@ export interface LocalizationCustomMetadata {
   GRMS_OriginalName__c: string;
   GRMS_TranslatedLabel__c: string;
   GRMS_Type__c: string;
+}
+
+export interface CompositeLayoutResponse {
+  compositeResponse: Array<CompositeLayoutResult>;
+}
+export interface CompositeLayoutResult {
+  body: DescribeLayout;
 }
