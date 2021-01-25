@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import * as Font from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
 import FlashMessage from 'react-native-flash-message';
 
 import Router from './src/Router';
@@ -40,6 +41,7 @@ export default function App() {
         <Router />
       </Provider>
       <FlashMessage position="top" />
+      <StatusBar style="dark" />
     </LocalizationContext.Provider>
   ) : null;
 }
