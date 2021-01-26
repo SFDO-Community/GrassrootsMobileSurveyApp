@@ -104,6 +104,12 @@ export default function SurveyList({ navigation }: SurveyListProps) {
     return await getLocalSurveysForList(setSurveys);
   };
 
+  const getSurveyTitle = survey => {
+    return survey.titleFieldName && survey[survey.titleFieldName]
+      ? survey[survey.titleFieldName]
+      : `Survey #${survey._localId}`;
+  };
+
   /**
    * @description Filter surveys by button selection, and then by search term.
    */
@@ -122,7 +128,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
         ...survey,
         subtitle: `${survey.label} • ${formatISOStringToCalendarDateString(survey[SURVEY_DATE_FIELD])}`,
         showCaret: survey._syncStatus === 'Unsynced',
-        title: `Survey #${survey._localId}`,
+        title: `${getSurveyTitle(survey)}`,
       };
     });
 
