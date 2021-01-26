@@ -26,12 +26,12 @@ import { StackParamList } from '../Router';
 import { getAllRecordsWithCallback } from '../services/database/database';
 type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyList'>;
 
-type Props = {
+type SurveyListProps = {
   navigation: SurveyTypePickerNavigationProp;
 };
 // TODO: navigate to login screen when session timeout
 
-export default function SurveyList({ navigation }) {
+export default function SurveyList({ navigation }: SurveyListProps) {
   const [surveys, setSurveys] = useState([]);
   const [filter, dispatchFilter] = useReducer(surveyFilterReducer, 'SHOW_UNSYNCED');
 
@@ -40,7 +40,6 @@ export default function SurveyList({ navigation }) {
   const [isNetworkConnected, setIsNetworkConnected] = useState(false);
 
   const [recordTypes, setRecordTypes] = useState([]);
-  const [contacts, setContacts] = useState([]);
 
   const { t } = useContext(LocalizationContext);
 
@@ -58,8 +57,6 @@ export default function SurveyList({ navigation }) {
     const prepare = async () => {
       try {
         await getAllRecordsWithCallback(DB_TABLE.RECORD_TYPE, setRecordTypes);
-        const cont = await storage.load({ key: '@Contacts' });
-        setContacts(cont);
         await buildDictionary();
         await refreshSurveys();
       } catch {
