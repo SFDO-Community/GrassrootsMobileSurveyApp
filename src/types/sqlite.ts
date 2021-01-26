@@ -3,6 +3,8 @@ export interface SQLiteRecordType {
   label: string;
   recordTypeId: string;
   layoutId: string;
+  titleFieldName?: string;
+  titleFieldType?: string;
 }
 
 export interface SQLiteFieldTypeMapping {
@@ -16,10 +18,13 @@ export interface SQLitePageLayoutSection {
   sectionLabel: string;
 }
 
-export interface SQLitePageLayoutItem {
+export interface SQLitePageLayoutItem extends SObjectField {
   sectionId: string;
+  fieldType: string;
+}
+
+export interface SObjectField {
   fieldName: string;
-  fieldLabel: string;
   fieldType: string;
 }
 
