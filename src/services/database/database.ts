@@ -39,7 +39,7 @@ export const getAllRecordsWithCallback = (tableName: string, onSuccess) => {
         });
       },
       error => {
-        logger('ERROR', 'getAllRecordsWithCallback', error);
+        logger('ERROR', 'getAllRecordsWithCallback', error.message);
         reject(error);
       }
     );
@@ -87,7 +87,7 @@ export const getRecordsWithCallback = (statement: string, onSuccess) => {
         });
       },
       error => {
-        logger('ERROR', 'getAllRecordsWithCallback', error);
+        logger('ERROR', 'getRecordsWithCallback', error.message);
         reject(error);
       }
     );
