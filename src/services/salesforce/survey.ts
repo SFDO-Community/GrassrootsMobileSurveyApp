@@ -8,7 +8,12 @@ import {
   SURVEY_OBJECT,
   USER_CONTACT_FIELD_ON_SURVEY,
 } from '../../constants';
-import { SQLiteFieldTypeMapping, SQLitePageLayoutItem } from '../../types/sqlite';
+import {
+  SQLiteFieldTypeMapping,
+  SQLitePageLayoutItem,
+  SQLiteRawRecordTypeObject,
+  SQLiteSurveyTitleObject,
+} from '../../types/sqlite';
 
 /**
  * @description Retrieve all the surveys from Salesforce by area code, and store them to local database
@@ -58,10 +63,13 @@ export const uploadSurveyListToSalesforce = async surveys => {
   // create deep clone of array because the original array including _localId is used for updating _syncStatus.
   const records = surveys.map(survey => {
     const s = Object.assign({}, survey);
-    // Remove local or read only fields
-    delete s._localId;
+    // Remove local or read only fields (except for _localId)
     delete s._syncStatus;
-    delete s.Name;
+    delete s.Name; // TODO: title fields
+    // Remove joined record types
+    Object.keys({ ...SQLiteRawRecordTypeObject, ...SQLiteSurveyTitleObject }).forEach(key => {
+      delete s[key];
+    });
     return s;
   });
   return await createSalesforceRecords(SURVEY_OBJECT, records);

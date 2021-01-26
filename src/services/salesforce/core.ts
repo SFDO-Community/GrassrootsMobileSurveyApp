@@ -73,8 +73,9 @@ export const createSalesforceRecords = async (sObjectType: string, records) => {
       });
       r.attributes = {
         type: sObjectType,
-        referenceId: r._localId,
+        referenceId: `${r._localId}`,
       };
+      delete r._localId;
       return r;
     }),
   };
