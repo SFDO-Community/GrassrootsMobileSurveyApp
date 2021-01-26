@@ -58,7 +58,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
     titleFieldType: recordTypeIdToTitleFieldMap.get(rt.recordTypeId).titleFieldType,
   }));
   logger('DEBUG', 'storeRecordTypes', `${JSON.stringify(recordTypesWithTitle)}`);
-  await saveRecords(DB_TABLE.RECORD_TYPE, recordTypesWithTitle, 'name');
+  await saveRecords(DB_TABLE.RECORD_TYPE, recordTypesWithTitle, 'developerName');
   return recordTypes;
 };
 
