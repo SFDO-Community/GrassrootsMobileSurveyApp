@@ -48,9 +48,9 @@ export const storeRecordTypesWithCompactLayout = async () => {
         const dlc = f.layoutComponents[0];
         return dlc.details.referenceTo.length === 0;
       });
-      const titleFieldName = titleField ? titleField.layoutComponents[0].details.name : 'Name';
-      const titleFieldType = titleField ? titleField.layoutComponents[0].details.type : 'string';
-      const titleFieldUpdateable = titleField ? titleField.layoutComponents[9].details.updateable : false;
+      const titleFieldName = titleField?.layoutComponents[0].details.name;
+      const titleFieldType = titleField?.layoutComponents[0].details.type;
+      const titleFieldUpdateable = titleField?.layoutComponents[9].details.updateable;
       return [cl.referenceId, { titleFieldName, titleFieldType, titleFieldUpdateable }];
     })
   );
