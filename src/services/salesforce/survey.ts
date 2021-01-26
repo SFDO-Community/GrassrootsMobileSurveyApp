@@ -12,6 +12,7 @@ import {
   SQLiteFieldTypeMapping,
   SQLitePageLayoutItem,
   SQLiteRawRecordTypeObject,
+  SQLiteRecordType,
   SQLiteSurveyTitleObject,
 } from '../../types/sqlite';
 
@@ -22,9 +23,20 @@ import {
 export const storeOnlineSurveys = async () => {
   // Build field list from page layout items
   const fields: Array<SQLitePageLayoutItem> = await getAllRecords(DB_TABLE.PAGE_LAYOUT_ITEM);
+  // Titles fields related to record types
+  const recordTypes: Array<SQLiteRecordType> = await getAllRecords(DB_TABLE.RECORD_TYPE);
+  const titleFields = recordTypes
+    .filter(rt => !!rt.titleFieldName)
+    .map(rt => ({
+      fieldName: rt.titleFieldName,
+      fieldType: rt.titleFieldType,
+    }));
   // Prepare local survey table
   const fieldsMap = new Map(
-    [...fields, ...BACKGROUND_SURVEY_FIELDS].map(f => [f.fieldName, { fieldName: f.fieldName, fieldType: f.fieldType }])
+    [...fields, ...titleFields, ...BACKGROUND_SURVEY_FIELDS].map(f => [
+      f.fieldName,
+      { fieldName: f.fieldName, fieldType: f.fieldType },
+    ])
   );
   const surveyFieldTypeMappings: Array<SQLiteFieldTypeMapping> = Array.from(fieldsMap.values()).map(item => {
     const result: SQLiteFieldTypeMapping = {
@@ -60,12 +72,21 @@ export const storeOnlineSurveys = async () => {
  * @param surveys
  */
 export const uploadSurveyListToSalesforce = async surveys => {
+  const recordTypes: Array<SQLiteRecordType> = await getAllRecords(DB_TABLE.RECORD_TYPE);
+  const readonlyTitleFields = recordTypes
+    .filter(rt => !!rt.titleFieldName && !rt.titleFieldUpdateable)
+    .map(rt => rt.titleFieldName);
   // create deep clone of array because the original array including _localId is used for updating _syncStatus.
   const records = surveys.map(survey => {
     const s = Object.assign({}, survey);
     // Remove local or read only fields (except for _localId)
-    delete s._syncStatus;
-    delete s.Name; // TODO: title fields
+    Object.values(LOCAL_SURVEY_FIELDS).forEach(v => {
+      delete s[v.name];
+    });
+    // Remove read-only title fields
+    for (const titleField of readonlyTitleFields) {
+      delete s[titleField];
+    }
     // Remove joined record types
     Object.keys({ ...SQLiteRawRecordTypeObject, ...SQLiteSurveyTitleObject }).forEach(key => {
       delete s[key];
