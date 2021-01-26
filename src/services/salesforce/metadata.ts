@@ -37,7 +37,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
   }
 
   const compositeCompactLayoutResponse: CompositeCompactLayoutResponse = await describeCompactLayouts(
-    DB_TABLE.SURVEY,
+    SURVEY_OBJECT,
     recordTypes.map(r => r.recordTypeId)
   );
   const recordTypeIdToTitleFieldMap: Map<string, { titleFieldName: string; titleFieldType: string }> = new Map(
