@@ -1,5 +1,5 @@
 import {
-  storeRecordTypes,
+  storeRecordTypesWithCompactLayout,
   storePageLayoutItems,
   storePageLayoutSections,
   storeLocalization,
@@ -18,9 +18,9 @@ import { describeLayouts } from './salesforce/core';
  */
 export const retrieveAllMetadata = async () => {
   try {
-    // Record types
+    // Record types with compact layout title
     await clearTable(DB_TABLE.RECORD_TYPE);
-    const recordTypes = await storeRecordTypes();
+    const recordTypes = await storeRecordTypesWithCompactLayout();
     // Page layout sections and fields
     await clearTable(DB_TABLE.PAGE_LAYOUT_SECTION);
     await clearTable(DB_TABLE.PAGE_LAYOUT_ITEM);

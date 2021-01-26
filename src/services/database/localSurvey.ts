@@ -1,6 +1,15 @@
-import { updateRecord, updateFieldValue, saveRecords } from './database';
+import { updateRecord, updateFieldValue, saveRecords, getRecordsWithCallback } from './database';
 import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_DATE_FIELD, USER_CONTACT_FIELD_ON_SURVEY } from '../../constants';
 import { logger } from '../../utility/logger';
+
+/**
+ * @description Get local surveys with record type
+ * @param onSuccess callback
+ */
+export const getLocalSurveysForList = async onSuccess => {
+  const statement = `SELECT * FROM Survey LEFT JOIN RecordType ON Survey.RecordTypeId = RecordType.recordTypeId`;
+  return await getRecordsWithCallback(statement, onSuccess);
+};
 
 /**
  * @description Create a new survey in local database

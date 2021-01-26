@@ -23,24 +23,21 @@ import { notifyError } from '../utility/notification';
 import { APP_FONTS, APP_THEME, DB_TABLE, SURVEY_DATE_FIELD } from '../constants';
 // types
 import { StackParamList } from '../Router';
-import { getAllRecordsWithCallback } from '../services/database/database';
+import { getLocalSurveysForList } from '../services/database/localSurvey';
 type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyList'>;
 
-type Props = {
+type SurveyListProps = {
   navigation: SurveyTypePickerNavigationProp;
 };
 // TODO: navigate to login screen when session timeout
 
-export default function SurveyList({ navigation }) {
+export default function SurveyList({ navigation }: SurveyListProps) {
   const [surveys, setSurveys] = useState([]);
   const [filter, dispatchFilter] = useReducer(surveyFilterReducer, 'SHOW_UNSYNCED');
 
   const [searchTerm, setSearchTerm] = useState('');
   const [showsSpinner, setShowsSpinner] = useState(false);
   const [isNetworkConnected, setIsNetworkConnected] = useState(false);
-
-  const [recordTypes, setRecordTypes] = useState([]);
-  const [contacts, setContacts] = useState([]);
 
   const { t } = useContext(LocalizationContext);
 
@@ -57,9 +54,6 @@ export default function SurveyList({ navigation }) {
     setShowsSpinner(true);
     const prepare = async () => {
       try {
-        await getAllRecordsWithCallback(DB_TABLE.RECORD_TYPE, setRecordTypes);
-        const cont = await storage.load({ key: '@Contacts' });
-        setContacts(cont);
         await buildDictionary();
         await refreshSurveys();
       } catch {
@@ -107,12 +101,7 @@ export default function SurveyList({ navigation }) {
   }, [navigation, surveys, isNetworkConnected]);
 
   const refreshSurveys = async () => {
-    return await getAllRecordsWithCallback(DB_TABLE.SURVEY, setSurveys);
-  };
-
-  const getRecordTypeLabel = recordTypeId => {
-    const rt = recordTypes.find(r => r.recordTypeId === recordTypeId);
-    return rt ? rt.label : '';
+    return await getLocalSurveysForList(setSurveys);
   };
 
   /**
@@ -131,9 +120,7 @@ export default function SurveyList({ navigation }) {
     .map(survey => {
       return {
         ...survey,
-        subtitle: `${getRecordTypeLabel(survey.RecordTypeId)} • ${formatISOStringToCalendarDateString(
-          survey[SURVEY_DATE_FIELD]
-        )}`,
+        subtitle: `${survey.label} • ${formatISOStringToCalendarDateString(survey[SURVEY_DATE_FIELD])}`,
         showCaret: survey._syncStatus === 'Unsynced',
         title: `Survey #${survey._localId}`,
       };

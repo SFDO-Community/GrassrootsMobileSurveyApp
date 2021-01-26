@@ -1,10 +1,18 @@
-export interface SQLiteRecordType {
-  name: string; // Primary key
-  label: string;
-  recordTypeId: string;
-  layoutId: string;
-}
+export const SQLiteRawRecordTypeObject = {
+  developerName: 'string',
+  label: 'string',
+  recordTypeId: 'string',
+  layoutId: 'string',
+};
 
+export const SQLiteSurveyTitleObject = {
+  titleFieldName: 'string',
+  titleFieldType: 'string',
+};
+
+export type SQLiteRawRecordType = typeof SQLiteRawRecordTypeObject;
+export type SQLiteSurveyTitle = typeof SQLiteSurveyTitleObject;
+export type SQLiteRecordType = SQLiteRawRecordType & SQLiteSurveyTitle;
 export interface SQLiteFieldTypeMapping {
   name: string;
   type: 'text' | 'integer' | 'blob'; // NOTICE: sqlite cannot have boolean type
@@ -16,10 +24,13 @@ export interface SQLitePageLayoutSection {
   sectionLabel: string;
 }
 
-export interface SQLitePageLayoutItem {
+export interface SQLitePageLayoutItem extends SObjectField {
   sectionId: string;
+  fieldType: string;
+}
+
+export interface SObjectField {
   fieldName: string;
-  fieldLabel: string;
   fieldType: string;
 }
 

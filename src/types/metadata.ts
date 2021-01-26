@@ -82,4 +82,19 @@ export interface CompositeLayoutResponse {
 }
 export interface CompositeLayoutResult {
   body: DescribeLayout;
+  httpStatusCode: number;
+  referenceId: string;
+}
+
+export interface CompositeCompactLayoutResponse {
+  compositeResponse: Array<CompositeCompactLayoutResult>;
+}
+
+export interface CompositeCompactLayoutResult {
+  body: {
+    fieldItems: Array<DescribeLayoutItem>;
+    name: string;
+  };
+  httpStatusCode: number;
+  referenceId: string;
 }

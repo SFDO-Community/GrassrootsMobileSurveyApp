@@ -30,6 +30,27 @@ export const fetchSalesforceRecords = async (query: string) => {
 };
 
 /**
+ * @description Retrieve record details using composite resource
+ * @param sObjectType
+ * @param records
+ */
+export const fetchSalesforceRecordsByIds = async (sObjectType: string, recordIds: Array<string>) => {
+  const endPoint = (await buildEndpointUrl()) + '/composite';
+  const body = {
+    allOrNone: true,
+    compositeRequest: [],
+  };
+  for (const recordId of recordIds) {
+    body.compositeRequest.push({
+      method: 'GET',
+      referenceId: recordId,
+      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}?fields=Name`,
+    });
+  }
+  return await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
+};
+
+/**
  * @description Create multiple records using composite resource.
  * @param records
  * @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_composite_sobject_tree_flat.htm
@@ -38,7 +59,7 @@ export const createSalesforceRecords = async (sObjectType: string, records) => {
   const endPoint = (await buildEndpointUrl()) + `/composite/tree/${sObjectType}`;
   const fieldType = await storage.load({ key: ASYNC_STORAGE_KEYS.FIELD_TYPE });
   const body = {
-    records: records.map((r, index) => {
+    records: records.map(r => {
       Object.entries(r).forEach(([key, value]) => {
         // Remove null fields
         if (value === null) {
@@ -52,8 +73,9 @@ export const createSalesforceRecords = async (sObjectType: string, records) => {
       });
       r.attributes = {
         type: sObjectType,
-        referenceId: `ref${index}`,
+        referenceId: `${r._localId}`,
       };
+      delete r._localId;
       return r;
     }),
   };
