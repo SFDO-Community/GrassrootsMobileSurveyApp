@@ -1,4 +1,4 @@
-import { describeLayoutResult, fetchSalesforceRecords } from './core';
+import { describeCompactLayouts, describeLayoutResult, fetchSalesforceRecords } from './core';
 import { saveRecords } from '../database/database';
 
 import {
@@ -8,7 +8,12 @@ import {
   SQLitePicklistValue,
   SQLiteLocalization,
 } from '../../types/sqlite';
-import { DescribeLayoutResult, DescribeLayout, LocalizationCustomMetadata } from '../../types/metadata';
+import {
+  DescribeLayoutResult,
+  DescribeLayout,
+  LocalizationCustomMetadata,
+  CompositeCompactLayoutResponse,
+} from '../../types/metadata';
 
 import { logger } from '../../utility/logger';
 import { DB_TABLE, SURVEY_OBJECT, BACKGROUND_SURVEY_FIELDS } from '../../constants';
@@ -17,7 +22,7 @@ import { DB_TABLE, SURVEY_OBJECT, BACKGROUND_SURVEY_FIELDS } from '../../constan
  * @description Query record types by REST API (describe layouts) and save the results to local database.
  * Expect that at least one record type exists in the org.
  */
-export const storeRecordTypes = async () => {
+export const storeRecordTypesWithCompactLayout = async () => {
   const response: DescribeLayoutResult = await describeLayoutResult(SURVEY_OBJECT);
   const recordTypes: Array<SQLiteRecordType> = response.recordTypeMappings
     .filter(r => r.active && r.name !== 'Master')
@@ -30,8 +35,30 @@ export const storeRecordTypes = async () => {
   if (recordTypes.length === 0) {
     return Promise.reject({ error: 'no_record_types' });
   }
-  logger('DEBUG', 'storeRecordTypes', `${JSON.stringify(recordTypes)}`);
-  await saveRecords(DB_TABLE.RECORD_TYPE, recordTypes, 'name');
+
+  const compositeCompactLayoutResponse: CompositeCompactLayoutResponse = await describeCompactLayouts(
+    DB_TABLE.SURVEY,
+    recordTypes.map(r => r.recordTypeId)
+  );
+  const recordTypeIdToTitleFieldMap: Map<string, { titleFieldName: string; titleFieldType: string }> = new Map(
+    compositeCompactLayoutResponse.compositeResponse.map(cl => {
+      const titleField = cl.body.fieldItems.find(f => {
+        const dlc = f.layoutComponents[0];
+        return dlc.details.referenceTo.length === 0 || dlc.details.referenceTo[0] === 'Contact';
+      });
+      const titleFieldName = titleField ? titleField.layoutComponents[0].details.name : 'Name';
+      const titleFieldType = titleField ? titleField.layoutComponents[0].details.type : 'string';
+      return [cl.referenceId, { titleFieldName, titleFieldType }];
+    })
+  );
+
+  const recordTypesWithTitle: Array<SQLiteRecordType> = recordTypes.map(rt => ({
+    ...rt,
+    titleFieldName: recordTypeIdToTitleFieldMap.get(rt.recordTypeId).titleFieldName,
+    titleFieldType: recordTypeIdToTitleFieldMap.get(rt.recordTypeId).titleFieldType,
+  }));
+  logger('DEBUG', 'storeRecordTypes', `${JSON.stringify(recordTypesWithTitle)}`);
+  await saveRecords(DB_TABLE.RECORD_TYPE, recordTypesWithTitle, 'name');
   return recordTypes;
 };
 
