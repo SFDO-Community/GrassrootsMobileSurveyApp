@@ -30,6 +30,27 @@ export const fetchSalesforceRecords = async (query: string) => {
 };
 
 /**
+ * @description Retrieve record details using composite resource
+ * @param sObjectType
+ * @param records
+ */
+export const fetchSalesforceRecordsByIds = async (sObjectType: string, recordIds: Array<string>) => {
+  const endPoint = (await buildEndpointUrl()) + '/composite';
+  const body = {
+    allOrNone: true,
+    compositeRequest: [],
+  };
+  for (const recordId of recordIds) {
+    body.compositeRequest.push({
+      method: 'GET',
+      referenceId: recordId,
+      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}?fields=Name`,
+    });
+  }
+  return await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
+};
+
+/**
  * @description Create multiple records using composite resource.
  * @param records
  * @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_composite_sobject_tree_flat.htm
