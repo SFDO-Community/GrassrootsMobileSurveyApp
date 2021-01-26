@@ -26,7 +26,7 @@ export const storeOnlineSurveys = async () => {
   // Titles fields related to record types
   const recordTypes: Array<SQLiteRecordType> = await getAllRecords(DB_TABLE.RECORD_TYPE);
   const titleFields = recordTypes
-    .filter(rt => !!rt.titleFieldName)
+    .filter(rt => rt.titleFieldName)
     .map(rt => ({
       fieldName: rt.titleFieldName,
       fieldType: rt.titleFieldType,
@@ -74,7 +74,7 @@ export const storeOnlineSurveys = async () => {
 export const uploadSurveyListToSalesforce = async surveys => {
   const recordTypes: Array<SQLiteRecordType> = await getAllRecords(DB_TABLE.RECORD_TYPE);
   const readonlyTitleFields = recordTypes
-    .filter(rt => !!rt.titleFieldName && !rt.titleFieldUpdateable)
+    .filter(rt => rt.titleFieldName && !rt.titleFieldUpdateable)
     .map(rt => rt.titleFieldName);
   // create deep clone of array because the original array including _localId is used for updating _syncStatus.
   const records = surveys.map(survey => {
