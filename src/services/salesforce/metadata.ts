@@ -50,7 +50,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
       });
       const titleFieldName = titleField?.layoutComponents[0].details.name;
       const titleFieldType = titleField?.layoutComponents[0].details.type;
-      const titleFieldUpdateable = titleField?.layoutComponents[9].details.updateable;
+      const titleFieldUpdateable = titleField?.layoutComponents[0].details.updateable;
       return [cl.referenceId, { titleFieldName, titleFieldType, titleFieldUpdateable }];
     })
   );
