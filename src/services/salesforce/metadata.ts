@@ -27,7 +27,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
   const recordTypes: Array<SQLiteRecordType> = response.recordTypeMappings
     .filter(r => r.active && r.name !== 'Master')
     .map(r => ({
-      name: r.developerName,
+      developerName: r.developerName,
       label: r.name,
       recordTypeId: r.recordTypeId,
       layoutId: r.layoutId,

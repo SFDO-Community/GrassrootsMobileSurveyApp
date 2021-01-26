@@ -14,7 +14,7 @@ export const buildDictionary = async () => {
   // original labels
   const recordTypes = await getAllRecordTypes();
   const recordTypeLabels = recordTypes.reduce((result, current) => {
-    result[`${L10N_PREFIX.RecordType}${current.name}`] = current.label;
+    result[`${L10N_PREFIX.RecordType}${current.developerName}`] = current.label;
     return result;
   }, {});
   const sections = await getAllRecords(DB_TABLE.PAGE_LAYOUT_SECTION);

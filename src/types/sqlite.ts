@@ -1,5 +1,5 @@
 export interface SQLiteRecordType {
-  name: string; // Primary key
+  developerName: string; // Primary key
   label: string;
   recordTypeId: string;
   layoutId: string;

@@ -7,10 +7,18 @@ import { getAllRecordTypes } from '../services/database/metadata';
 import { ListItem } from '../components';
 
 import LocalizationContext from '../context/localizationContext';
-import { APP_THEME, BACKGROUND_IMAGE_SOURCE, BACKGROUND_STYLE, BACKGROUND_IMAGE_STYLE } from '../constants';
+import {
+  APP_THEME,
+  BACKGROUND_IMAGE_SOURCE,
+  BACKGROUND_STYLE,
+  BACKGROUND_IMAGE_STYLE,
+  L10N_PREFIX,
+} from '../constants';
 import { logger } from '../utility/logger';
 
 import { StackParamList } from '../Router';
+
+import { SQLiteRecordType } from '../types/sqlite';
 type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyTypePicker'>;
 
 type Props = {
@@ -18,7 +26,7 @@ type Props = {
 };
 
 export default function SurveyTypePicker({ navigation }: Props) {
-  const [recordTypes, setRecordTypes] = useState([]);
+  const [recordTypes, setRecordTypes] = useState<Array<SQLiteRecordType>>([]);
   const { t } = useContext(LocalizationContext);
 
   useEffect(() => {
@@ -39,7 +47,7 @@ export default function SurveyTypePicker({ navigation }: Props) {
           data={recordTypes}
           renderItem={({ item }) => (
             <ListItem
-              title={t(`RECORD_TYPE_${item.name}`)}
+              title={t(`${L10N_PREFIX.RecordType}${item.developerName}`)}
               onPress={() => {
                 logger('DEBUG', 'SurveyTypePicker', item.recordTypeId);
                 navigation.navigate('SurveyEditor', {
