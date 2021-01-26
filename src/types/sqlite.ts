@@ -8,6 +8,7 @@ export const SQLiteRawRecordTypeObject = {
 export const SQLiteSurveyTitleObject = {
   titleFieldName: 'string',
   titleFieldType: 'string',
+  titleFieldUpdateable: true,
 };
 
 export type SQLiteRawRecordType = typeof SQLiteRawRecordTypeObject;

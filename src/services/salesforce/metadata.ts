@@ -50,7 +50,8 @@ export const storeRecordTypesWithCompactLayout = async () => {
       });
       const titleFieldName = titleField ? titleField.layoutComponents[0].details.name : 'Name';
       const titleFieldType = titleField ? titleField.layoutComponents[0].details.type : 'string';
-      return [cl.referenceId, { titleFieldName, titleFieldType }];
+      const titleFieldUpdateable = titleField ? titleField.layoutComponents[9].details.updateable : false;
+      return [cl.referenceId, { titleFieldName, titleFieldType, titleFieldUpdateable }];
     })
   );
 
@@ -58,6 +59,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
     ...rt,
     titleFieldName: recordTypeIdToTitleFieldMap.get(rt.recordTypeId).titleFieldName,
     titleFieldType: recordTypeIdToTitleFieldMap.get(rt.recordTypeId).titleFieldType,
+    titleFieldUpdateable: recordTypeIdToTitleFieldMap.get(rt.recordTypeId).titleFieldUpdateable,
   }));
   logger('DEBUG', 'storeRecordTypes', `${JSON.stringify(recordTypesWithTitle)}`);
   await saveRecords(DB_TABLE.RECORD_TYPE, recordTypesWithTitle, 'developerName');
