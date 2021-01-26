@@ -59,7 +59,7 @@ export const createSalesforceRecords = async (sObjectType: string, records) => {
   const endPoint = (await buildEndpointUrl()) + `/composite/tree/${sObjectType}`;
   const fieldType = await storage.load({ key: ASYNC_STORAGE_KEYS.FIELD_TYPE });
   const body = {
-    records: records.map((r, index) => {
+    records: records.map(r => {
       Object.entries(r).forEach(([key, value]) => {
         // Remove null fields
         if (value === null) {
@@ -73,7 +73,7 @@ export const createSalesforceRecords = async (sObjectType: string, records) => {
       });
       r.attributes = {
         type: sObjectType,
-        referenceId: `ref${index}`,
+        referenceId: r._localId,
       };
       return r;
     }),
