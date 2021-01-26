@@ -48,9 +48,10 @@ export const storeRecordTypesWithCompactLayout = async () => {
         const dlc = f.layoutComponents[0];
         return dlc.details.referenceTo.length === 0;
       });
-      const titleFieldName = titleField ? titleField.layoutComponents[0].details.name : 'Name';
-      const titleFieldType = titleField ? titleField.layoutComponents[0].details.type : 'string';
-      return [cl.referenceId, { titleFieldName, titleFieldType }];
+      const titleFieldName = titleField?.layoutComponents[0].details.name;
+      const titleFieldType = titleField?.layoutComponents[0].details.type;
+      const titleFieldUpdateable = titleField?.layoutComponents[0].details.updateable;
+      return [cl.referenceId, { titleFieldName, titleFieldType, titleFieldUpdateable }];
     })
   );
 
@@ -58,6 +59,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
     ...rt,
     titleFieldName: recordTypeIdToTitleFieldMap.get(rt.recordTypeId).titleFieldName,
     titleFieldType: recordTypeIdToTitleFieldMap.get(rt.recordTypeId).titleFieldType,
+    titleFieldUpdateable: recordTypeIdToTitleFieldMap.get(rt.recordTypeId).titleFieldUpdateable,
   }));
   logger('DEBUG', 'storeRecordTypes', `${JSON.stringify(recordTypesWithTitle)}`);
   await saveRecords(DB_TABLE.RECORD_TYPE, recordTypesWithTitle, 'developerName');
@@ -70,7 +72,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
  * @return { fieldTypesMap, picklistValuesMap }
  */
 export const storePageLayoutItems = async (layout: DescribeLayout) => {
-  const backgroundFields = BACKGROUND_SURVEY_FIELDS.map(f => f.fieldName);
+  const backgroundFields = BACKGROUND_SURVEY_FIELDS.map(f => f.fieldName).filter(n => n !== 'Name');
   const picklistValuesMap: Map<string, SQLitePicklistValue> = new Map<string, SQLitePicklistValue>();
   const pageLayoutItems: Array<SQLitePageLayoutItem> = layout.editLayoutSections
     .filter(section => section.useHeading)
