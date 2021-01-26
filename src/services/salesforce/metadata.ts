@@ -44,7 +44,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
     compositeCompactLayoutResponse.compositeResponse.map(cl => {
       const titleField = cl.body.fieldItems.find(f => {
         const dlc = f.layoutComponents[0];
-        return dlc.details.referenceTo.length === 0 || dlc.details.referenceTo[0] === 'Contact';
+        return dlc.details.referenceTo.length === 0;
       });
       const titleFieldName = titleField ? titleField.layoutComponents[0].details.name : 'Name';
       const titleFieldType = titleField ? titleField.layoutComponents[0].details.type : 'string';
