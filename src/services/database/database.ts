@@ -71,15 +71,14 @@ export const getRecords = (tableName, whereClause): Promise<Array<any>> => {
 
 /**
  * @description Get records from a local table with condition
- * @param tableName
- * @param whereClause Required.
+ * @param statement
+ * @param onSuccess
  */
-export const getRecordsWithCallback = (tableName: string, whereClause: string, onSuccess) => {
+export const getRecordsWithCallback = (statement: string, onSuccess) => {
   return new Promise(async (resolve, reject) => {
-    if (!whereClause) {
-      reject('Specify where clause or use "getAllRecordsWithCallback" instead.');
+    if (!statement) {
+      reject('Specify sql statement or use "getAllRecordsWithCallback" instead.');
     }
-    const statement = `select * from ${tableName} ${whereClause}`;
     database.transaction(
       txn => {
         txn.executeSql(statement, [], (_, { rows: { _array } }) => {
