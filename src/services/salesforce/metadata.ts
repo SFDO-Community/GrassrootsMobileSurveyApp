@@ -2,6 +2,8 @@ import { describeCompactLayouts, describeLayoutResult, fetchSalesforceRecords } 
 import { saveRecords } from '../database/database';
 
 import {
+  SQLiteRawRecordType,
+  SQLiteSurveyTitle,
   SQLiteRecordType,
   SQLitePageLayoutSection,
   SQLitePageLayoutItem,
@@ -24,7 +26,7 @@ import { DB_TABLE, SURVEY_OBJECT, BACKGROUND_SURVEY_FIELDS } from '../../constan
  */
 export const storeRecordTypesWithCompactLayout = async () => {
   const response: DescribeLayoutResult = await describeLayoutResult(SURVEY_OBJECT);
-  const recordTypes: Array<SQLiteRecordType> = response.recordTypeMappings
+  const recordTypes: Array<SQLiteRawRecordType> = response.recordTypeMappings
     .filter(r => r.active && r.name !== 'Master')
     .map(r => ({
       developerName: r.developerName,
@@ -40,7 +42,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
     SURVEY_OBJECT,
     recordTypes.map(r => r.recordTypeId)
   );
-  const recordTypeIdToTitleFieldMap: Map<string, { titleFieldName: string; titleFieldType: string }> = new Map(
+  const recordTypeIdToTitleFieldMap: Map<string, SQLiteSurveyTitle> = new Map(
     compositeCompactLayoutResponse.compositeResponse.map(cl => {
       const titleField = cl.body.fieldItems.find(f => {
         const dlc = f.layoutComponents[0];
