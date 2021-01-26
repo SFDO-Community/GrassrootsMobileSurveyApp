@@ -7,7 +7,7 @@ import { logger } from '../../utility/logger';
  * @param onSuccess callback
  */
 export const getLocalSurveysForList = async onSuccess => {
-  const statement = `SELECT * LEFT JOIN RecordType ON Survey.RecordTypeId = RecordType.recordTypeId`;
+  const statement = `SELECT * FROM Survey LEFT JOIN RecordType ON Survey.RecordTypeId = RecordType.recordTypeId`;
   return await getRecordsWithCallback(statement, onSuccess);
 };
 
