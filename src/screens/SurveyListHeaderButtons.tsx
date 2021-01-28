@@ -53,30 +53,35 @@ export function SyncButton(props: SyncButtonProps) {
         {
           text: t('OK'),
           onPress: async () => {
-            props.setShowsSpinner(true);
-            const response = await uploadSurveyListToSalesforce(localSurveys);
-            logger('DEBUG', 'upload result', response);
-            if (
-              response.hasErrors === false &&
-              response.results &&
-              response.results.length > 0 &&
-              response.results.length === localSurveys.length
-            ) {
-              const references: Array<CompositeObjectCreateResultItem> = response.results;
-              const localIdToSurveyIdMap: Map<string, string> = new Map(references.map(r => [r.referenceId, r.id]));
-              const surveyIdToRefreshedSurveysMap = await fetchSurveysWithTitleFields(references.map(r => r.id));
-              const refreshedSurveys = [];
-              localIdToSurveyIdMap.forEach((surveyId, _localId) => {
-                refreshedSurveys.push({ _localId, ...surveyIdToRefreshedSurveysMap.get(surveyId) });
-              });
-              await updateSurveyStatusSynced(refreshedSurveys);
-              await props.refreshSurveys();
+            try {
+              props.setShowsSpinner(true);
+              const response = await uploadSurveyListToSalesforce(localSurveys);
+              logger('DEBUG', 'upload result', response);
+              if (
+                response.hasErrors === false &&
+                response.results &&
+                response.results.length > 0 &&
+                response.results.length === localSurveys.length
+              ) {
+                const references: Array<CompositeObjectCreateResultItem> = response.results;
+                const localIdToSurveyIdMap: Map<string, string> = new Map(references.map(r => [r.referenceId, r.id]));
+                const surveyIdToRefreshedSurveysMap = await fetchSurveysWithTitleFields(references.map(r => r.id));
+                const refreshedSurveys = [];
+                localIdToSurveyIdMap.forEach((surveyId, _localId) => {
+                  refreshedSurveys.push({ _localId, ...surveyIdToRefreshedSurveysMap.get(surveyId) });
+                });
+                await updateSurveyStatusSynced(refreshedSurveys);
+                await props.refreshSurveys();
+                notifySuccess('Surveys are successfully uploaded!');
+                return;
+              } else {
+                logger('ERROR', 'Survey Sync', response.results);
+                throw new Error('Unexpected error occued while uploading. Contact your adminsitrator.');
+              }
+            } catch (e) {
+              notifyError(e.message);
+            } finally {
               props.setShowsSpinner(false);
-              notifySuccess('Surveys are successfully uploaded!');
-              return;
-            } else {
-              props.setShowsSpinner(false);
-              notifyError('Unexpected error occued while uploading. Contact your adminsitrator.');
             }
           },
         },
