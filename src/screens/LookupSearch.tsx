@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   inputContainerStyle: {
-    backgroundColor: '#FFF',
+    backgroundColor: APP_THEME.APP_WHITE,
     height: 40,
     borderRadius: 4,
     borderWidth: 1,

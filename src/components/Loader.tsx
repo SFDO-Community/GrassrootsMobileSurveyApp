@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: APP_THEME.APP_WHITE,
     alignItems: 'center',
     opacity: 0.8,
   },

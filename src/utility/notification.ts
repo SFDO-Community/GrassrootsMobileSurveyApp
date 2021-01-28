@@ -1,4 +1,6 @@
 import { showMessage } from 'react-native-flash-message';
+import { APP_THEME } from '../constants';
+
 /**
  * Wrapper of react-native-flash-message to avoid redundant code
  */
@@ -15,7 +17,7 @@ export const notifySuccess = (description: string) => {
       icon: 'success',
       position: 'left',
     },
-    backgroundColor: '#04844b',
+    backgroundColor: APP_THEME.APP_SUCCESS_COLOR,
     duration: 3000,
   });
 };
@@ -33,6 +35,6 @@ export const notifyError = (description: string) => {
       position: 'left',
     },
     autoHide: false,
-    backgroundColor: '#c23934',
+    backgroundColor: APP_THEME.APP_ERROR_COLOR,
   });
 };

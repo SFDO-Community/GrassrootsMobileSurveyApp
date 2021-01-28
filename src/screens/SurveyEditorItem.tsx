@@ -5,6 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { useSelector, useDispatch } from '../state/surveyEditorState';
 import { StackParamList } from '../Router';
+import { APP_THEME } from '../constants';
 
 type SurveyEditorNavigationProp = StackNavigationProp<StackParamList, 'SurveyEditor'>;
 
@@ -72,7 +73,7 @@ function SurveyEditorItem({ navigation, title, name, type }: SurveyItemProps) {
       style={{
         // flex: 1,
         alignItems: 'flex-start',
-        backgroundColor: 'white',
+        backgroundColor: APP_THEME.APP_WHITE,
       }}
     >
       {renderItem()}

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   row: {
     minHeight: 44,
-    backgroundColor: '#FFF',
+    backgroundColor: APP_THEME.APP_WHITE,
   },
   triangleCorner: {
     width: 0,

@@ -47,7 +47,7 @@ export default function FilterButtonGroup(props: FilterButtonGroupProps) {
   };
 
   const color = index => {
-    return selectedIndex === index ? '#FFF' : APP_THEME.APP_DARK_FONT_COLOR;
+    return selectedIndex === index ? APP_THEME.APP_WHITE : APP_THEME.APP_DARK_FONT_COLOR;
   };
 
   const selectedFontStyle = index => {

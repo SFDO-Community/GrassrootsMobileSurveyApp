@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: APP_THEME.APP_WHITE,
     paddingTop: 30,
   },
 });

@@ -15,11 +15,12 @@ export const APP_THEME = {
   APP_DARK_FONT_COLOR: '#2b2826',
   APP_LIGHT_FONT_COLOR: '#706e6b',
   APP_BORDER_COLOR: '#dedcdb',
-  APP_ERROR_COLOR: '#94221c',
+  APP_ERROR_COLOR: '#c23934',
   APP_LIST_HEADER_COLOR: '#e1f5fe',
   APP_WHITE: 'white',
   APP_SUCCESS_COLOR: '#04844b',
   APP_GRAY_BACKGROUND_COLOR: '#f3f2f2',
+  APP_DISABLED_BACKGROUND_COLOR: '#c9c7c5',
 };
 
 export const ASYNC_STORAGE_KEYS = {
@@ -41,7 +42,7 @@ const height = 534 * ratio;
 // Style for background container
 export const BACKGROUND_STYLE: ViewStyle = {
   flex: 1,
-  backgroundColor: '#FFF',
+  backgroundColor: APP_THEME.APP_WHITE,
 };
 
 // Style for background image itself

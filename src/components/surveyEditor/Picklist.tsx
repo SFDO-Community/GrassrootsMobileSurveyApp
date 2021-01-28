@@ -46,8 +46,8 @@ function Picklist(props: PicklistPropType) {
           value={value}
           items={options}
           style={pickerSelectStyles}
-          // dropDownStyle={{ backgroundColor: '#FFF' }}
-          //placeholder={{}}
+          // dropDownStyle={{ backgroundColor: APP_THEME.APP_WHITE }}
+          // placeholder={{}}
           onValueChange={value => {
             onValueChange(value);
           }}

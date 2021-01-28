@@ -251,22 +251,22 @@ const styles = StyleSheet.create({
     backgroundColor: APP_THEME.APP_GRAY_BACKGROUND_COLOR,
   },
   searchBarContainerStyle: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: APP_THEME.APP_WHITE,
     borderBottomColor: APP_THEME.APP_BORDER_COLOR,
     borderTopColor: APP_THEME.APP_BORDER_COLOR,
   },
   flex1: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: APP_THEME.APP_WHITE,
   },
   addButtonStyle: { position: 'absolute', bottom: 30, right: 30 },
   backTextWhite: {
-    color: '#FFF',
+    color: APP_THEME.APP_WHITE,
     fontFamily: APP_FONTS.FONT_REGULAR,
   },
   rowBack: {
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    backgroundColor: APP_THEME.APP_WHITE,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -281,11 +281,11 @@ const styles = StyleSheet.create({
     width: 75,
   },
   backRightBtnRight: {
-    backgroundColor: '#c23934',
+    backgroundColor: APP_THEME.APP_ERROR_COLOR,
     right: 0,
   },
   backDisabledRightBtnRight: {
-    backgroundColor: '#c9c7c5',
+    backgroundColor: APP_THEME.APP_DISABLED_BACKGROUND_COLOR,
     right: 0,
   },
 });
