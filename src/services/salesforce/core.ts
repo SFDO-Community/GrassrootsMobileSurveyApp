@@ -48,7 +48,7 @@ export const fetchSalesforceRecordsByIds = async (
     body.compositeRequest.push({
       method: 'GET',
       referenceId: recordId,
-      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}?fields=${commaSeparetedFields}`,
+      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/${recordId}?fields=${commaSeparetedFields}`,
     });
   }
   return await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
