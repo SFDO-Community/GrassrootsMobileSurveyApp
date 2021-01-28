@@ -77,6 +77,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
         <Button
           onPress={async () => {
             setDoneButtonDisabled(true);
+            // TODO: Validation for required fields
             // For new survey, use record type id passed from picker screen. For existing survey, use stored record type id.
             const recordTypeId = route.params.selectedRecordTypeId || survey.RecordTypeId;
             const record = { ...survey, RecordTypeId: recordTypeId };
@@ -104,7 +105,13 @@ export default function SurveyEditor({ route, navigation }: Props) {
             </View>
           )}
           renderItem={({ item }) => (
-            <SurveyEditorItem navigation={navigation} title={item.label} name={item.name} type={item.type} />
+            <SurveyEditorItem
+              navigation={navigation}
+              title={item.label}
+              name={item.name}
+              type={item.type}
+              required={item.required}
+            />
           )}
         />
       )}

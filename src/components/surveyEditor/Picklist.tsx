@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
-import { APP_THEME, APP_FONTS, L10N_PREFIX } from '../../constants';
-import LocalizationContext from '../../context/localizationContext';
+import { APP_THEME, APP_FONTS } from '../../constants';
 import { getPicklistValues } from '../../services/database/metadata';
 
 type PicklistPropType = {
   fieldName: string;
+  fieldLabel: JSX.Element;
   value: string;
   onValueChange(value: string): void;
   disabled?: boolean;
@@ -16,7 +16,6 @@ type PicklistPropType = {
 
 function Picklist(props: PicklistPropType) {
   const [options, setOptions] = useState([]);
-  const { t } = useContext(LocalizationContext);
 
   useEffect(() => {
     const setPicklistValues = async () => {
@@ -26,11 +25,7 @@ function Picklist(props: PicklistPropType) {
     setPicklistValues();
   }, []);
 
-  const { onValueChange, value, disabled, fieldName } = props;
-
-  const displayLabel = () => {
-    return t(`${L10N_PREFIX.PageLayoutItem}${fieldName}`);
-  };
+  const { onValueChange, value, disabled, fieldLabel } = props;
 
   return (
     <View
@@ -39,7 +34,7 @@ function Picklist(props: PicklistPropType) {
         width: '100%',
       }}
     >
-      <Text style={styles.titleLabel}>{displayLabel()}</Text>
+      {fieldLabel}
       {options.length > 0 && (
         <RNPickerSelect
           disabled={disabled}
@@ -58,12 +53,6 @@ function Picklist(props: PicklistPropType) {
 }
 
 const styles = StyleSheet.create({
-  titleLabel: {
-    marginBottom: 5,
-    fontSize: 14,
-    color: APP_THEME.APP_LIGHT_FONT_COLOR,
-    fontFamily: APP_FONTS.FONT_BOLD,
-  },
   placeholderLabel: {
     flex: 1,
     fontSize: 16,

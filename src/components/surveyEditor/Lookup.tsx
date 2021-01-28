@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -11,13 +11,14 @@ type SurveyEditorNavigationProp = StackNavigationProp<StackParamList, 'SurveyEdi
 
 type LookupPropType = {
   fieldName: string;
+  fieldLabel: JSX.Element;
   title: string;
   value: string;
   navigation: SurveyEditorNavigationProp;
   disabled?: boolean;
 };
 
-function Lookup({ fieldName, title, value, navigation, disabled }: LookupPropType) {
+function Lookup({ fieldName, fieldLabel, title, value, navigation, disabled }: LookupPropType) {
   const [lookupToName, setLookupToName] = useState('');
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function Lookup({ fieldName, title, value, navigation, disabled }: LookupPropTyp
 
   return (
     <View style={{ paddingBottom: 8, width: '100%' }}>
-      <Text style={styles.labelStyle}>{title}</Text>
+      {fieldLabel}
       <TouchableOpacity
         onPress={() => {
           if (!disabled) navigation.navigate('Lookup', { fieldName, title });

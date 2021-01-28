@@ -100,6 +100,7 @@ export const buildLayoutDetail = async (layoutId: string): Promise<SurveyLayout>
         name: item.fieldName,
         label: item.fieldLabel,
         type: item.fieldType,
+        required: !!item.required,
       })),
     })),
   };

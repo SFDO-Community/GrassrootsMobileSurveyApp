@@ -4,7 +4,7 @@ import { Input } from 'react-native-elements';
 import { APP_THEME, APP_FONTS } from '../../constants';
 
 type TextInputPropType = {
-  title: string;
+  title: JSX.Element;
   value: string;
   onValueChange(value: string): void;
   keyboardType?: 'default' | 'numeric' | 'phone-pad';
@@ -15,7 +15,7 @@ type TextInputPropType = {
 function TextInput(props: TextInputPropType) {
   // textField = null;
   const { onValueChange, value, title, keyboardType, multiline, disabled } = props;
-  const { containerStyle, inputContainerStyle, labelStyle, inputStyle, inputStyleMultiline } = styles;
+  const { containerStyle, inputContainerStyle, inputStyle, inputStyleMultiline } = styles;
 
   return (
     <Input
@@ -30,7 +30,6 @@ function TextInput(props: TextInputPropType) {
       keyboardType={keyboardType ? keyboardType : 'default'}
       containerStyle={containerStyle}
       inputContainerStyle={inputContainerStyle}
-      labelStyle={labelStyle}
       inputStyle={multiline ? inputStyleMultiline : inputStyle}
       renderErrorMessage={false}
     />
@@ -43,12 +42,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     borderColor: APP_THEME.APP_BORDER_COLOR,
-  },
-  labelStyle: {
-    marginBottom: 5,
-    fontSize: 14,
-    color: APP_THEME.APP_LIGHT_FONT_COLOR,
-    fontFamily: APP_FONTS.FONT_BOLD,
   },
   inputStyle: {
     fontSize: 16,
