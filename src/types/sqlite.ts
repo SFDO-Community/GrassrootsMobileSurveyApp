@@ -28,6 +28,7 @@ export interface SQLitePageLayoutSection {
 export interface SQLitePageLayoutItem extends SObjectField {
   sectionId: string;
   fieldType: string;
+  required: boolean;
 }
 
 export interface SObjectField {

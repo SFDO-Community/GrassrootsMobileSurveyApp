@@ -43,7 +43,9 @@ export interface DescribeLayoutRow {
 }
 
 export interface DescribeLayoutItem {
+  label: string;
   layoutComponents: Array<DescribeLayoutComponent>; // Basically single component, but aggregation fields like address have multiple components
+  required: boolean;
 }
 
 export interface DescribeLayoutComponent {

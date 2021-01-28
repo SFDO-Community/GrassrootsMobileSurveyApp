@@ -80,7 +80,7 @@ export const storePageLayoutItems = async (layout: DescribeLayout) => {
       return section.layoutRows.map(row => {
         return row.layoutItems.map(item => {
           // Avoid adding empty space, read-only field, and user contact lookup field
-          return item.layoutComponents
+          const layoutComponents = item.layoutComponents
             .filter(
               c =>
                 c.type !== 'EmptySpace' &&
@@ -108,6 +108,7 @@ export const storePageLayoutItems = async (layout: DescribeLayout) => {
                 fieldType: c.details.type,
               };
             });
+          return layoutComponents.map(lc => ({ ...lc, required: item.required }));
         });
       });
     })
