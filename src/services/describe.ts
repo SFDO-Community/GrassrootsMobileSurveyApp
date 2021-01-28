@@ -5,7 +5,7 @@ import {
   storeLocalization,
 } from './salesforce/metadata';
 import { saveRecords, getRecords, clearTable } from './database/database';
-import { SQLitePageLayoutSection, SQLitePageLayoutItem } from '../types/sqlite';
+import { SQLitePageLayoutSection, SQLitePageLayoutItem, SQLitePicklistValue } from '../types/sqlite';
 import { SurveyLayout } from '../types/survey';
 import { CompositeLayoutResponse, DescribeLayout } from '../types/metadata';
 
@@ -24,7 +24,7 @@ export const retrieveAllMetadata = async () => {
     // Page layout sections and fields
     await clearTable(DB_TABLE.PAGE_LAYOUT_SECTION);
     await clearTable(DB_TABLE.PAGE_LAYOUT_ITEM);
-    const picklistOptionsMap = new Map();
+    const picklistOptionsMap: Map<string, Array<SQLitePicklistValue>> = new Map();
     const fieldTypesMap = new Map();
     const compositeLayoutResult: CompositeLayoutResponse = await describeLayouts(
       SURVEY_OBJECT,
@@ -42,7 +42,7 @@ export const retrieveAllMetadata = async () => {
     }
     // Picklist options
     await clearTable(DB_TABLE.PICKLIST_VALUE);
-    const picklistValues = Array.from(picklistOptionsMap.values());
+    const picklistValues = Array.from(picklistOptionsMap.values()).flat();
     await saveRecords(DB_TABLE.PICKLIST_VALUE, picklistValues, undefined);
 
     // Field type object

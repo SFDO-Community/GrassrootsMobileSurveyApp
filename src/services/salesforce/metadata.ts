@@ -73,7 +73,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
  */
 export const storePageLayoutItems = async (layout: DescribeLayout) => {
   const backgroundFields = BACKGROUND_SURVEY_FIELDS.map(f => f.fieldName).filter(n => n !== 'Name');
-  const picklistValuesMap: Map<string, SQLitePicklistValue> = new Map<string, SQLitePicklistValue>();
+  const picklistValuesMap: Map<string, Array<SQLitePicklistValue>> = new Map<string, Array<SQLitePicklistValue>>();
   const pageLayoutItems: Array<SQLitePageLayoutItem> = layout.editLayoutSections
     .filter(section => section.useHeading)
     .map(section => {
@@ -97,9 +97,7 @@ export const storePageLayoutItems = async (layout: DescribeLayout) => {
                     label: v.label,
                     value: v.value,
                   }));
-                values.forEach(v => {
-                  picklistValuesMap.set(v.fieldName, v);
-                });
+                picklistValuesMap.set(c.details.name, values);
               }
               return {
                 sectionId: section.layoutSectionId,
