@@ -1,4 +1,4 @@
-import { updateRecord, updateFieldValue, saveRecords, getRecordsWithCallback } from './database';
+import { updateRecord, updateFieldValues, saveRecords, getRecordsWithCallback } from './database';
 import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_DATE_FIELD, USER_CONTACT_FIELD_ON_SURVEY } from '../../constants';
 import { logger } from '../../utility/logger';
 
@@ -26,15 +26,17 @@ export const upsertLocalSurvey = async survey => {
 };
 
 /**
- * @updateSurveyStatusSynced
+ * @description update status of surveys to synced
  * @param surveys Offline surveys
  */
 export const updateSurveyStatusSynced = async surveys => {
-  const commaSeparetedLocalIds = surveys.map(s => s._localId).join(',');
-  return await updateFieldValue(
-    DB_TABLE.SURVEY,
-    '_syncStatus',
-    'Synced',
-    `where _localId IN (${commaSeparetedLocalIds})`
-  );
+  for (const survey of surveys) {
+    const surveyFieldValues = [
+      { field: '_syncStatus', value: 'Synced' },
+      ...Object.entries(survey)
+        .filter(kv => kv[0] !== '_localId')
+        .map(([field, value]) => ({ field, value })),
+    ];
+    await updateFieldValues(DB_TABLE.SURVEY, surveyFieldValues, `where _localId = '${survey._localId}'`);
+  }
 };

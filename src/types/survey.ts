@@ -22,3 +22,43 @@ export interface SurveyLayout {
     }>;
   }>;
 }
+
+export interface CompositeObjectCreateResultItem {
+  referenceId: string;
+  id: string;
+}
+
+export interface CompositeObjectResponse {
+  compositeResponse: Array<CompositeObjectFieldsResult>;
+}
+
+export interface CompositeObjectFieldsResult {
+  body: CompositeCompactLayoutResultSuccessItem;
+  httpStatusCode: number;
+  referenceId: string;
+}
+
+export interface CompositeCompactLayoutResultSuccessItem {
+  Id: string;
+  attributes: {
+    type: string;
+    url: string;
+  };
+}
+
+export interface CompositeGenericErrorResponse {
+  compositeResponse: Array<{
+    body: Array<SalesforceErrorResponseItem>;
+    httpStatusCode: number;
+    referenceId: string;
+  }>;
+}
+export interface SalesforceErrorResponseItem {
+  message: string;
+  errorCode: string;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function implementsCompositeGenericErrorResponse(arg: any): arg is CompositeGenericErrorResponse {
+  return arg.compositeResponse.some(r => r.httpStatusCode !== 200);
+}

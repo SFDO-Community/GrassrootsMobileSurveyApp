@@ -158,13 +158,13 @@ export const updateRecord = (tableName: string, record, whereClause: string) => 
 /**
  * @description Update survey sync status to 'Synced'.
  * @param tableName
- * @param field
- * @param value
+ * @param fieldValues
  * @param whereClause
  */
-export const updateFieldValue = (tableName: string, field: string, value: string | number, whereClause: string) => {
+export const updateFieldValues = (tableName: string, fieldValues, whereClause: string) => {
   return new Promise((resolve, reject) => {
-    const statement = `update ${tableName} set ${field} = '${value}' ${whereClause}`;
+    const fieldValuePairString = fieldValues.map(fv => `${fv.field} = '${fv.value.replace(/'/g, "''")}'`).join(', ');
+    const statement = `update ${tableName} set ${fieldValuePairString} ${whereClause}`;
     logger('DEBUG', 'update field value', statement);
     executeTransaction(statement)
       .then(result => {
