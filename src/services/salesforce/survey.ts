@@ -1,4 +1,4 @@
-import { createSalesforceRecords, fetchSalesforceRecords } from './core';
+import { createSalesforceRecords, fetchSalesforceRecords, fetchSalesforceRecordsByIds } from './core';
 import { clearTable, getAllRecords, saveRecords, prepareTable } from '../database/database';
 import {
   ASYNC_STORAGE_KEYS,
@@ -15,6 +15,7 @@ import {
   SQLiteRecordType,
   SQLiteSurveyTitleObject,
 } from '../../types/sqlite';
+import { logger } from '../../utility/logger';
 
 /**
  * @description Retrieve all the surveys from Salesforce by area code, and store them to local database
@@ -94,4 +95,33 @@ export const uploadSurveyListToSalesforce = async surveys => {
     return s;
   });
   return await createSalesforceRecords(SURVEY_OBJECT, records);
+};
+
+/**
+ * @description fetch survey fields using composite resource
+ * @param
+ */
+export const fetchSurveysWithTitleFields = async (surveyIds: Array<string>): Promise<Map<string, object>> => {
+  // retrieve title fields
+  const recordTypes = await getAllRecords(DB_TABLE.RECORD_TYPE);
+  const titleFieldSet = new Set(recordTypes.filter(rt => rt.titleFieldName).map(rt => rt.titleFieldName));
+  if (titleFieldSet.size === 0) {
+    return new Map(surveyIds.map(surveyId => [surveyId, {}]));
+  }
+  const commaSeparetedFields = Array.from(titleFieldSet).join(',');
+  const compositeResult = await fetchSalesforceRecordsByIds(SURVEY_OBJECT, surveyIds, commaSeparetedFields);
+  if (compositeResult.compositeResponse.some(r => r.httpStatusCode !== 200)) {
+    const errorResponse = compositeResult.compositeResponse.find(r => r.httpStatusCode === 200);
+    logger('ERROR', 'fetchSurveysWithTitleFields', errorResponse.message);
+    return Promise.reject({ origin: 'composite', message: errorResponse.message });
+  }
+  return new Map(
+    compositeResult.map(cr => {
+      const surveyId = cr.body.Id;
+      const survey = { ...cr.body };
+      delete survey.attributes;
+      delete survey.Id;
+      return [surveyId, survey];
+    })
+  );
 };
