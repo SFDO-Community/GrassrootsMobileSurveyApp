@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from '../state/surveyEditorState';
 // services
 import { getRecords } from '../services/database/database';
 import { buildLayoutDetail } from '../services/describe';
-import { notifySuccess } from '../utility/notification';
+import { notifyError, notifySuccess } from '../utility/notification';
 import { upsertLocalSurvey } from '../services/database/localSurvey';
 // constatns
 import { APP_THEME, APP_FONTS, DB_TABLE } from '../constants';
@@ -36,6 +36,19 @@ export default function SurveyEditor({ route, navigation }: Props) {
   const { t } = useContext(LocalizationContext);
 
   const MODE = route.params._localId ? 'EDIT_OR_VIEW' : 'NEW';
+
+  const requiredFields: Array<string> = layout.sections
+    ? layout.sections.map(s => s.data.filter(f => f.required).map(f => f.name)).flat()
+    : [];
+
+  const missingRequiredFields = survey => {
+    for (const requiredField of requiredFields) {
+      if (!survey[requiredField]) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   useEffect(() => {
     setDoneButtonDisabled(true);
@@ -68,7 +81,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
     navigation.setOptions({
       headerRight: () => SaveButton(),
     });
-  }, [navigation, survey]);
+  }, [navigation, survey, layout]);
 
   const SaveButton = () => {
     return (
@@ -77,6 +90,11 @@ export default function SurveyEditor({ route, navigation }: Props) {
         <Button
           onPress={async () => {
             setDoneButtonDisabled(true);
+            if (missingRequiredFields(survey)) {
+              setDoneButtonDisabled(false);
+              notifyError('Please enter required fields.');
+              return;
+            }
             // For new survey, use record type id passed from picker screen. For existing survey, use stored record type id.
             const recordTypeId = route.params.selectedRecordTypeId || survey.RecordTypeId;
             const record = { ...survey, RecordTypeId: recordTypeId };
@@ -104,7 +122,13 @@ export default function SurveyEditor({ route, navigation }: Props) {
             </View>
           )}
           renderItem={({ item }) => (
-            <SurveyEditorItem navigation={navigation} title={item.label} name={item.name} type={item.type} />
+            <SurveyEditorItem
+              navigation={navigation}
+              title={item.label}
+              name={item.name}
+              type={item.type}
+              required={item.required}
+            />
           )}
         />
       )}

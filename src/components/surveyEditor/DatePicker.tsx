@@ -9,6 +9,7 @@ import { formatISOStringToCalendarDateString } from '../../utility/date';
 
 type DatePickerPropType = {
   title: string;
+  fieldLabel: JSX.Element;
   value: string;
   onValueChange(date: string): void;
   disabled?: boolean;
@@ -19,12 +20,12 @@ function DatePicker(props: DatePickerPropType) {
 
   const { t } = useContext(LocalizationContext);
 
-  const { onValueChange, title, value, disabled } = props;
-  const { container, titleLabel, innerContainer, buttonStyle, valueLabel, iconView, placeholderLabel } = styles;
+  const { onValueChange, title, value, disabled, fieldLabel } = props;
+  const { container, innerContainer, buttonStyle, valueLabel, iconView, placeholderLabel } = styles;
 
   return (
     <View style={container}>
-      <Text style={titleLabel}>{title}</Text>
+      {fieldLabel}
       <View style={innerContainer}>
         <TouchableOpacity
           style={buttonStyle}
@@ -59,12 +60,6 @@ function DatePicker(props: DatePickerPropType) {
 
 const styles = StyleSheet.create({
   container: { padding: 10 },
-  titleLabel: {
-    marginBottom: 5,
-    fontSize: 14,
-    color: APP_THEME.APP_LIGHT_FONT_COLOR,
-    fontFamily: APP_FONTS.FONT_BOLD,
-  },
   innerContainer: {
     minHeight: 40,
     borderWidth: 1,

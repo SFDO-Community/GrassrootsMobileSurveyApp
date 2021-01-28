@@ -1,10 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { APP_THEME, APP_FONTS } from '../../constants';
+import { APP_THEME } from '../../constants';
 
 type CheckboxButtonPropType = {
-  title: string;
+  title: JSX.Element;
   onPress(): void;
   selected: boolean;
   disabled?: boolean;
@@ -24,18 +24,12 @@ function CheckboxButton(props: CheckboxButtonPropType) {
         color={APP_THEME.APP_BASE_COLOR}
         type="material"
       />
-      <Text style={styles.labelStyle}>{title}</Text>
+      <View style={{ marginBottom: -5 }}>{title}</View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  labelStyle: {
-    fontSize: 14,
-    paddingLeft: 5,
-    color: APP_THEME.APP_LIGHT_FONT_COLOR,
-    fontFamily: APP_FONTS.FONT_BOLD,
-  },
   containerStyle: {
     padding: 10,
     flexDirection: 'row',
