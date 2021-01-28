@@ -156,7 +156,7 @@ export const updateRecord = (tableName: string, record, whereClause: string) => 
 };
 
 /**
- * @description Update survey sync status to 'Synced'.
+ * @description Update survey field values.
  * @param tableName
  * @param fieldValues
  * @param whereClause
