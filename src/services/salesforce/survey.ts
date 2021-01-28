@@ -110,13 +110,14 @@ export const fetchSurveysWithTitleFields = async (surveyIds: Array<string>): Pro
   }
   const commaSeparetedFields = Array.from(titleFieldSet).join(',');
   const compositeResult = await fetchSalesforceRecordsByIds(SURVEY_OBJECT, surveyIds, commaSeparetedFields);
+  logger('DEBUG', 'fetchSurveysWithTitleFields', compositeResult);
   if (compositeResult.compositeResponse.some(r => r.httpStatusCode !== 200)) {
     const errorResponse = compositeResult.compositeResponse.find(r => r.httpStatusCode === 200);
     logger('ERROR', 'fetchSurveysWithTitleFields', errorResponse.message);
     return Promise.reject({ origin: 'composite', message: errorResponse.message });
   }
   return new Map(
-    compositeResult.map(cr => {
+    compositeResult.compositeResponse.map(cr => {
       const surveyId = cr.body.Id;
       const survey = { ...cr.body };
       delete survey.attributes;
