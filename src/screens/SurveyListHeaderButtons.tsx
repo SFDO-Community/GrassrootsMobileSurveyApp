@@ -5,14 +5,14 @@ import { Icon } from 'react-native-elements';
 import LocalizationContext from '../context/localizationContext';
 
 import { logout } from '../services/session';
-import { uploadSurveyListToSalesforce } from '../services/salesforce/survey';
+import { fetchSurveysWithTitleFields, uploadSurveyListToSalesforce } from '../services/salesforce/survey';
 import { updateSurveyStatusSynced } from '../services/database/localSurvey';
 
 import { notifySuccess, notifyError } from '../utility/notification';
 import { logger } from '../utility/logger';
 
 import { APP_THEME } from '../constants';
-import { SurveyListItem } from '../types/survey';
+import { CompositeObjectCreateResultItem, SurveyListItem } from '../types/survey';
 
 type SurveyListRightButtonProps = SyncButtonProps & SettingsButtonProps;
 
@@ -62,7 +62,14 @@ export function SyncButton(props: SyncButtonProps) {
               response.results.length > 0 &&
               response.results.length === localSurveys.length
             ) {
-              await updateSurveyStatusSynced(localSurveys);
+              const references: Array<CompositeObjectCreateResultItem> = response.results;
+              const localIdToSurveyIdMap: Map<string, string> = new Map(references.map(r => [r.referenceId, r.id]));
+              const surveyIdToRefreshedSurveysMap = await fetchSurveysWithTitleFields(references.map(r => r.id));
+              const refreshedSurveys = [];
+              localIdToSurveyIdMap.forEach((surveyId, _localId) => {
+                refreshedSurveys.push({ _localId, ...surveyIdToRefreshedSurveysMap.get(surveyId) });
+              });
+              await updateSurveyStatusSynced(refreshedSurveys);
               await props.refreshSurveys();
               props.setShowsSpinner(false);
               notifySuccess('Surveys are successfully uploaded!');
