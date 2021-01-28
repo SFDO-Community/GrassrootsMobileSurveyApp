@@ -34,7 +34,11 @@ export const fetchSalesforceRecords = async (query: string) => {
  * @param sObjectType
  * @param records
  */
-export const fetchSalesforceRecordsByIds = async (sObjectType: string, recordIds: Array<string>) => {
+export const fetchSalesforceRecordsByIds = async (
+  sObjectType: string,
+  recordIds: Array<string>,
+  commaSeparetedFields: string
+) => {
   const endPoint = (await buildEndpointUrl()) + '/composite';
   const body = {
     allOrNone: true,
@@ -44,7 +48,7 @@ export const fetchSalesforceRecordsByIds = async (sObjectType: string, recordIds
     body.compositeRequest.push({
       method: 'GET',
       referenceId: recordId,
-      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}?fields=Name`,
+      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}?fields=${commaSeparetedFields}`,
     });
   }
   return await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
