@@ -16,10 +16,15 @@ import {
   SQLiteSurveyTitleObject,
 } from '../../types/sqlite';
 import { logger } from '../../utility/logger';
+import {
+  CompositeGenericErrorResponse,
+  CompositeObjectResponse,
+  implementsCompositeGenericErrorResponse,
+} from '../../types/survey';
 
 /**
  * @description Retrieve all the surveys from Salesforce by area code, and store them to local database
- * @todo Use constants
+ * @todo field types
  */
 export const storeOnlineSurveys = async () => {
   // Build field list from page layout items
@@ -46,7 +51,7 @@ export const storeOnlineSurveys = async () => {
     };
     return result;
   });
-  clearTable('Survey');
+  clearTable(DB_TABLE.SURVEY);
   prepareTable(DB_TABLE.SURVEY, [...surveyFieldTypeMappings, ...LOCAL_SURVEY_FIELDS], undefined);
 
   // Query salesforce records and save them to local
@@ -62,7 +67,7 @@ export const storeOnlineSurveys = async () => {
     return;
   }
   saveRecords(
-    'Survey',
+    DB_TABLE.SURVEY,
     surveys.map(s => ({ ...s, _syncStatus: 'Synced' })),
     undefined
   );
@@ -99,22 +104,26 @@ export const uploadSurveyListToSalesforce = async surveys => {
 
 /**
  * @description fetch survey fields using composite resource
- * @param
+ * @param surveyIds
  */
 export const fetchSurveysWithTitleFields = async (surveyIds: Array<string>): Promise<Map<string, object>> => {
   // retrieve title fields
-  const recordTypes = await getAllRecords(DB_TABLE.RECORD_TYPE);
-  const titleFieldSet = new Set(recordTypes.filter(rt => rt.titleFieldName).map(rt => rt.titleFieldName));
+  const recordTypes: Array<SQLiteRecordType> = await getAllRecords(DB_TABLE.RECORD_TYPE);
+  const titleFieldSet: Set<string> = new Set(recordTypes.filter(rt => rt.titleFieldName).map(rt => rt.titleFieldName));
   if (titleFieldSet.size === 0) {
     return new Map(surveyIds.map(surveyId => [surveyId, {}]));
   }
   const commaSeparetedFields = Array.from(titleFieldSet).join(',');
-  const compositeResult = await fetchSalesforceRecordsByIds(SURVEY_OBJECT, surveyIds, commaSeparetedFields);
+  const compositeResult: CompositeObjectResponse | CompositeGenericErrorResponse = await fetchSalesforceRecordsByIds(
+    SURVEY_OBJECT,
+    surveyIds,
+    commaSeparetedFields
+  );
   logger('DEBUG', 'fetchSurveysWithTitleFields', compositeResult);
-  if (compositeResult.compositeResponse.some(r => r.httpStatusCode !== 200)) {
-    const errorResponse = compositeResult.compositeResponse.find(r => r.httpStatusCode === 200);
-    logger('ERROR', 'fetchSurveysWithTitleFields', errorResponse.message);
-    return Promise.reject({ origin: 'composite', message: errorResponse.message });
+  if (implementsCompositeGenericErrorResponse(compositeResult)) {
+    const errorResponse = compositeResult.compositeResponse.find(r => r.httpStatusCode !== 200);
+    logger('ERROR', 'fetchSurveysWithTitleFields', errorResponse.body[0].message);
+    return Promise.reject({ origin: 'composite', message: errorResponse.body[0].message });
   }
   return new Map(
     compositeResult.compositeResponse.map(cr => {
