@@ -6,7 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector, useDispatch } from '../state/surveyEditorState';
 import LocalizationContext from '../context/localizationContext';
 import { StackParamList } from '../Router';
-import { APP_THEME, APP_FONTS, L10N_PREFIX } from '../constants';
+import { APP_THEME, APP_FONTS, L10N_PREFIX, SYNC_STATUS_SYNCED } from '../constants';
 
 type SurveyEditorNavigationProp = StackNavigationProp<StackParamList, 'SurveyEditor'>;
 
@@ -21,7 +21,7 @@ type SurveyItemProps = {
 function SurveyEditorItem({ navigation, title, name, type, required }: SurveyItemProps) {
   const value = useSelector(state => state.survey[name]);
   const _syncStatus = useSelector(state => state.survey._syncStatus);
-  const disabled = _syncStatus === 'Synced';
+  const disabled = _syncStatus === SYNC_STATUS_SYNCED;
   const dispatchSurvey = useDispatch();
   const { t } = useContext(LocalizationContext);
 

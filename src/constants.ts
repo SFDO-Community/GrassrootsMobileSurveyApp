@@ -62,6 +62,9 @@ export const BACKGROUND_SURVEY_FIELDS = [
 ];
 export const LOCAL_SURVEY_FIELDS: Array<SQLiteFieldTypeMapping> = [{ name: '_syncStatus', type: 'text' }];
 
+export const SYNC_STATUS_SYNCED = 'Synced';
+export const SYNC_STATUS_UNSYNCED = 'Unsynced';
+
 export const DB_TABLE = {
   RECORD_TYPE: 'RecordType',
   PAGE_LAYOUT_SECTION: 'PageLayoutSection',

@@ -11,7 +11,7 @@ import { updateSurveyStatusSynced } from '../services/database/localSurvey';
 import { notifySuccess, notifyError } from '../utility/notification';
 import { logger } from '../utility/logger';
 
-import { APP_THEME } from '../constants';
+import { APP_THEME, SYNC_STATUS_UNSYNCED } from '../constants';
 import { CompositeObjectCreateResultItem, SurveyListItem } from '../types/survey';
 
 type SurveyListRightButtonProps = SyncButtonProps & SettingsButtonProps;
@@ -43,7 +43,7 @@ export function SurveyListRightButtons(props: SurveyListRightButtonProps) {
 
 export function SyncButton(props: SyncButtonProps) {
   const { t } = useContext(LocalizationContext);
-  const localSurveys = props.surveys.filter(s => s._syncStatus === 'Unsynced');
+  const localSurveys = props.surveys.filter(s => s._syncStatus === SYNC_STATUS_UNSYNCED);
 
   const confirmSync = () => {
     Alert.alert(

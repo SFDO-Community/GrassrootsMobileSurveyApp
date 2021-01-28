@@ -1,5 +1,11 @@
 import { updateRecord, updateFieldValues, saveRecords, getRecordsWithCallback } from './database';
-import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_DATE_FIELD, USER_CONTACT_FIELD_ON_SURVEY } from '../../constants';
+import {
+  ASYNC_STORAGE_KEYS,
+  DB_TABLE,
+  SURVEY_DATE_FIELD,
+  SYNC_STATUS_SYNCED,
+  USER_CONTACT_FIELD_ON_SURVEY,
+} from '../../constants';
 import { logger } from '../../utility/logger';
 
 /**
@@ -32,7 +38,7 @@ export const upsertLocalSurvey = async survey => {
 export const updateSurveyStatusSynced = async surveys => {
   for (const survey of surveys) {
     const surveyFieldValues = [
-      { field: '_syncStatus', value: 'Synced' },
+      { field: '_syncStatus', value: SYNC_STATUS_SYNCED },
       ...Object.entries(survey)
         .filter(kv => kv[0] !== '_localId')
         .map(([field, value]) => ({ field, value })),

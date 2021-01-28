@@ -14,7 +14,7 @@ import { buildLayoutDetail } from '../services/describe';
 import { notifyError, notifySuccess } from '../utility/notification';
 import { upsertLocalSurvey } from '../services/database/localSurvey';
 // constatns
-import { APP_THEME, APP_FONTS, DB_TABLE } from '../constants';
+import { APP_THEME, APP_FONTS, DB_TABLE, SYNC_STATUS_UNSYNCED } from '../constants';
 // types
 import { SurveyLayout } from '../types/survey';
 import { SQLiteSurvey, SQLiteRecordType } from '../types/sqlite';
@@ -54,7 +54,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
     setDoneButtonDisabled(true);
     const fetch = async () => {
       if (MODE === 'NEW') {
-        dispatchSurvey({ type: 'LOAD', detail: { _syncStatus: 'Unsynced' } });
+        dispatchSurvey({ type: 'LOAD', detail: { _syncStatus: SYNC_STATUS_UNSYNCED } });
         const result = await buildLayoutDetail(route.params.selectedLayoutId);
         setLayout(result);
       } else if (MODE === 'EDIT_OR_VIEW') {
@@ -86,7 +86,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
   const SaveButton = () => {
     return (
       survey &&
-      survey._syncStatus === 'Unsynced' && (
+      survey._syncStatus === SYNC_STATUS_UNSYNCED && (
         <Button
           onPress={async () => {
             setDoneButtonDisabled(true);

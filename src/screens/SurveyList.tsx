@@ -20,7 +20,14 @@ import LocalizationContext from '../context/localizationContext';
 import { formatISOStringToCalendarDateString } from '../utility/date';
 import { logger } from '../utility/logger';
 import { notifyError } from '../utility/notification';
-import { APP_FONTS, APP_THEME, DB_TABLE, SURVEY_DATE_FIELD } from '../constants';
+import {
+  APP_FONTS,
+  APP_THEME,
+  DB_TABLE,
+  SURVEY_DATE_FIELD,
+  SYNC_STATUS_UNSYNCED,
+  SYNC_STATUS_SYNCED,
+} from '../constants';
 // types
 import { StackParamList } from '../Router';
 import { getLocalSurveysForList } from '../services/database/localSurvey';
@@ -115,8 +122,8 @@ export default function SurveyList({ navigation }: SurveyListProps) {
    */
   const filteredSurveys = surveys
     .filter(survey => {
-      if (filter === 'SHOW_UNSYNCED' && survey._syncStatus === 'Unsynced') return true;
-      if (filter === 'SHOW_SYNCED' && survey._syncStatus === 'Synced') return true;
+      if (filter === 'SHOW_UNSYNCED' && survey._syncStatus === SYNC_STATUS_UNSYNCED) return true;
+      if (filter === 'SHOW_SYNCED' && survey._syncStatus === SYNC_STATUS_SYNCED) return true;
       if (filter === 'SHOW_ALL') return true;
       return false;
     })
@@ -127,7 +134,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
       return {
         ...survey,
         subtitle: `${survey.label} • ${formatISOStringToCalendarDateString(survey[SURVEY_DATE_FIELD])}`,
-        showCaret: survey._syncStatus === 'Unsynced',
+        showCaret: survey._syncStatus === SYNC_STATUS_UNSYNCED,
         title: `${getSurveyTitle(survey)}`,
       };
     });
@@ -211,7 +218,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
             return <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />;
           }}
           renderHiddenItem={(data, rowMap) =>
-            data.item._syncStatus === 'Unsynced' ? (
+            data.item._syncStatus === SYNC_STATUS_UNSYNCED ? (
               <View style={styles.rowBack}>
                 <TouchableOpacity
                   style={[styles.backRightBtn, styles.backRightBtnRight]}

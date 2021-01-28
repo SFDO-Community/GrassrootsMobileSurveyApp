@@ -6,6 +6,7 @@ import {
   DB_TABLE,
   LOCAL_SURVEY_FIELDS,
   SURVEY_OBJECT,
+  SYNC_STATUS_SYNCED,
   USER_CONTACT_FIELD_ON_SURVEY,
 } from '../../constants';
 import {
@@ -68,7 +69,7 @@ export const storeOnlineSurveys = async () => {
   }
   saveRecords(
     DB_TABLE.SURVEY,
-    surveys.map(s => ({ ...s, _syncStatus: 'Synced' })),
+    surveys.map(s => ({ ...s, _syncStatus: SYNC_STATUS_SYNCED })),
     undefined
   );
 };
