@@ -89,7 +89,7 @@ export const createSalesforceRecords = async (sObjectType: string, records) => {
 };
 
 /**
- * Retrieve record type mappings information
+ * @description Retrieve record type mappings information
  * @param sObjectType
  * @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_sobject_layouts.htm
  */
@@ -102,7 +102,7 @@ export const describeLayoutResult = async (sObjectType: string): Promise<Describ
 };
 
 /**
- * Retrieve page layout information using composite resource
+ * @description Retrieve page layout information using composite resource
  */
 export const describeLayouts = async (
   sObjectType: string,
@@ -126,7 +126,9 @@ export const describeLayouts = async (
 };
 
 /**
- * Retrieve compact layout information using composite resource
+ * @description Retrieve compact layout information using composite resource
+ * @param sObjectType
+ * @param recordTypeIds
  */
 export const describeCompactLayouts = async (sObjectType: string, recordTypeIds: Array<string>) => {
   const endPoint = (await buildEndpointUrl()) + '/composite';
@@ -145,6 +147,9 @@ export const describeCompactLayouts = async (sObjectType: string, recordTypeIds:
   return await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
 };
 
+/**
+ * @description Private function to construct base url
+ */
 const buildEndpointUrl = async () => {
   const instanceUrl = await storage.load({
     key: ASYNC_STORAGE_KEYS.SALESFORCE_INSTANCE_URL,
