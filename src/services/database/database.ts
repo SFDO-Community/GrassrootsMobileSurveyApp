@@ -163,7 +163,7 @@ export const updateRecord = (tableName: string, record, whereClause: string) => 
  */
 export const updateFieldValues = (tableName: string, fieldValues, whereClause: string) => {
   return new Promise((resolve, reject) => {
-    const fieldValuePairString = fieldValues.map(fv => `${fv.field} = '${fv.value.replace(/'/g, "''")}'`).join(' ');
+    const fieldValuePairString = fieldValues.map(fv => `${fv.field} = '${fv.value.replace(/'/g, "''")}'`).join(', ');
     const statement = `update ${tableName} set ${fieldValuePairString} ${whereClause}`;
     logger('DEBUG', 'update field value', statement);
     executeTransaction(statement)
