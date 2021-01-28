@@ -22,3 +22,8 @@ export interface SurveyLayout {
     }>;
   }>;
 }
+
+export interface CompositeObjectCreateResultItem {
+  referenceId: string;
+  id: string;
+}
