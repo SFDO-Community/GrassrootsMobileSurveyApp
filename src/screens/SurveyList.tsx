@@ -127,9 +127,6 @@ export default function SurveyList({ navigation }: SurveyListProps) {
       if (filter === 'SHOW_ALL') return true;
       return false;
     })
-    .filter(survey => {
-      return survey.Name ? survey.Name.includes(searchTerm) : true;
-    })
     .map(survey => {
       return {
         ...survey,
@@ -137,6 +134,9 @@ export default function SurveyList({ navigation }: SurveyListProps) {
         showCaret: survey._syncStatus === SYNC_STATUS_UNSYNCED,
         title: `${getSurveyTitle(survey)}`,
       };
+    })
+    .filter(survey => {
+      return survey.title ? survey.title.includes(searchTerm) : true;
     });
 
   const newSurveyButton = () => {
