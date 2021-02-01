@@ -35,7 +35,7 @@ function Lookup({ fieldName, fieldLabel, title, value, navigation, disabled }: L
 
   return (
     <View style={{ paddingBottom: 8, width: '100%' }}>
-      {fieldLabel}
+      <View style={{ paddingLeft: 10, paddingTop: 10 }}>{fieldLabel}</View>
       <TouchableOpacity
         onPress={() => {
           if (!disabled) navigation.navigate('Lookup', { fieldName, title });
