@@ -96,12 +96,14 @@ export const buildLayoutDetail = async (layoutId: string): Promise<SurveyLayout>
     sections: sections.map(s => ({
       id: s.id,
       title: s.sectionLabel,
-      data: sectionIdToItems[s.id].map(item => ({
-        name: item.fieldName,
-        label: item.fieldLabel,
-        type: item.fieldType,
-        required: !!item.required,
-      })),
+      data: sectionIdToItems[s.id]
+        ? sectionIdToItems[s.id].map(item => ({
+            name: item.fieldName,
+            label: item.fieldLabel,
+            type: item.fieldType,
+            required: !!item.required,
+          }))
+        : [],
     })),
   };
 
