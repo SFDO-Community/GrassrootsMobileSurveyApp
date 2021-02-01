@@ -42,6 +42,16 @@ function SurveyEditorItem({ navigation, title, name, type, required }: SurveyIte
     switch (type) {
       case 'string':
         return <TextInput title={fieldLabel()} onValueChange={onValueChange} value={value} disabled={disabled} />;
+      case 'email':
+        return (
+          <TextInput
+            title={fieldLabel()}
+            onValueChange={onValueChange}
+            value={value}
+            disabled={disabled}
+            keyboardType="email-address"
+          />
+        );
       case 'textarea':
         return <TextInput title={fieldLabel()} onValueChange={onValueChange} value={value} multiline={disabled} />;
       case 'double':

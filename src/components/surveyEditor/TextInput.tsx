@@ -7,7 +7,7 @@ type TextInputPropType = {
   title: JSX.Element;
   value: string;
   onValueChange(value: string): void;
-  keyboardType?: 'default' | 'numeric' | 'phone-pad';
+  keyboardType?: 'default' | 'numeric' | 'phone-pad' | 'email-address';
   multiline?: boolean;
   disabled?: boolean;
 };
