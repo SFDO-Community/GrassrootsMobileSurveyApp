@@ -53,8 +53,20 @@ function SurveyEditorItem({ navigation, title, name, type, required }: SurveyIte
           />
         );
       case 'textarea':
-        return <TextInput title={fieldLabel()} onValueChange={onValueChange} value={value} multiline={disabled} />;
+        return (
+          <TextInput title={fieldLabel()} onValueChange={onValueChange} value={value} multiline disabled={disabled} />
+        );
       case 'double':
+        return (
+          <TextInput
+            title={fieldLabel()}
+            onValueChange={onValueChange}
+            value={value?.toString()}
+            keyboardType="numeric"
+            disabled={disabled}
+          />
+        );
+      case 'currency':
         return (
           <TextInput
             title={fieldLabel()}
@@ -76,6 +88,18 @@ function SurveyEditorItem({ navigation, title, name, type, required }: SurveyIte
       case 'date':
         return (
           <DatePicker
+            mode="date"
+            title={title}
+            fieldLabel={fieldLabel()}
+            onValueChange={onValueChange}
+            value={value}
+            disabled={disabled}
+          />
+        );
+      case 'time':
+        return (
+          <DatePicker
+            mode="time"
             title={title}
             fieldLabel={fieldLabel()}
             onValueChange={onValueChange}

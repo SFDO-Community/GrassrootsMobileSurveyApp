@@ -9,6 +9,7 @@ import { formatISOStringToCalendarDateString } from '../../utility/date';
 
 type DatePickerPropType = {
   title: string;
+  mode: 'date' | 'time' | 'datetime';
   fieldLabel: JSX.Element;
   value: string;
   onValueChange(date: string): void;
@@ -20,8 +21,30 @@ function DatePicker(props: DatePickerPropType) {
 
   const { t } = useContext(LocalizationContext);
 
-  const { onValueChange, title, value, disabled, fieldLabel } = props;
+  const { onValueChange, title, value, disabled, fieldLabel, mode } = props;
   const { container, innerContainer, buttonStyle, valueLabel, iconView, placeholderLabel } = styles;
+
+  const toSalesforceTimeValue = (date: Date): string => {
+    return `${date.toTimeString().split(' ')[0]}.000Z`;
+  };
+
+  const toDateValue = (value: string): Date => {
+    if (value && mode === 'date') {
+      return new Date(value);
+    } else if (value && mode === 'time') {
+      return new Date(`1990-01-01T${value}`);
+    }
+    return undefined;
+  };
+
+  const displayValue = (value: string): string => {
+    if (value && mode === 'date') {
+      return formatISOStringToCalendarDateString(value);
+    } else if (value && mode === 'time') {
+      return value.substring(0, 5);
+    }
+    return t('SELECT');
+  };
 
   return (
     <View style={container}>
@@ -34,9 +57,7 @@ function DatePicker(props: DatePickerPropType) {
             setIsDatePickerVisible(true);
           }}
         >
-          <Text style={value ? valueLabel : placeholderLabel}>
-            {value ? formatISOStringToCalendarDateString(value) : t('SELECT')}
-          </Text>
+          <Text style={value ? valueLabel : placeholderLabel}>{displayValue(value)}</Text>
           <View style={iconView}>
             <Icon name="calendar" size={18} color={APP_THEME.APP_BASE_FONT_COLOR} type="antdesign" />
           </View>
@@ -46,10 +67,15 @@ function DatePicker(props: DatePickerPropType) {
         confirmTextIOS={t('CONFIRM')}
         cancelTextIOS={t('CANCEL')}
         headerTextIOS={title}
-        date={value ? new Date(value) : undefined}
+        date={toDateValue(value)}
+        mode={mode}
         isVisible={isDatePickerVisible}
         onConfirm={date => {
-          onValueChange(date.toISOString());
+          if (mode !== 'time') {
+            onValueChange(date.toISOString());
+          } else {
+            onValueChange(toSalesforceTimeValue(date));
+          }
           setIsDatePickerVisible(false);
         }}
         onCancel={() => setIsDatePickerVisible(false)}
