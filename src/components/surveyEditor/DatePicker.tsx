@@ -59,7 +59,12 @@ function DatePicker(props: DatePickerPropType) {
         >
           <Text style={value ? valueLabel : placeholderLabel}>{displayValue(value)}</Text>
           <View style={iconView}>
-            <Icon name="calendar" size={18} color={APP_THEME.APP_BASE_FONT_COLOR} type="antdesign" />
+            <Icon
+              name={mode === 'time' ? 'clockcircleo' : 'calendar'}
+              size={18}
+              color={APP_THEME.APP_BASE_FONT_COLOR}
+              type="antdesign"
+            />
           </View>
         </TouchableOpacity>
       </View>
