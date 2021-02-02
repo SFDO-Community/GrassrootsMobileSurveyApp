@@ -114,6 +114,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
     <View style={{ flex: 1 }}>
       {layout.sections && (
         <KeyboardAwareSectionList
+          scrollIndicatorInsets={{ right: 1 }}
           sections={layout.sections}
           keyExtractor={item => item.name}
           renderSectionHeader={({ section: { title } }) => (
