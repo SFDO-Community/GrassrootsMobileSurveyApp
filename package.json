@@ -5,6 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "build": "expo build:android -t apk",
     "eject": "expo eject",
     "check-types": "tsc",
     "lint": "eslint --format codeframe \"**/*.ts\" \"**/*.tsx\"",
