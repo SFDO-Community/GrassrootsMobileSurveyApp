@@ -21,7 +21,9 @@ describe('<Login />', () => {
       </LocalizationContext.Provider>
     );
     const tree = screen.toJSON();
-    console.log(tree);
     expect(tree.children).toHaveLength(3); // Image, RCTScrollView, Modal
+
+    const instance = screen.getInstance();
+    console.log(instance);
   });
 });
