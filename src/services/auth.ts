@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import * as SecureStore from 'expo-secure-store';
 
 import { ASYNC_STORAGE_KEYS, SECURE_STORE_KEYS } from '../constants';
@@ -22,6 +23,12 @@ export const authenticate = async (email: string, password: string): Promise<Log
           'Content-Type': 'application/json',
         },
       });
+      if (response.status === 404) {
+        resolve({
+          success: false,
+          error_description: 'Heroku URL is not found. Make sure that .env setting is correct.',
+        });
+      }
       const success = response.ok;
       const responseJson = await response.json();
       const result: LoginResponse = { success, ...responseJson };
