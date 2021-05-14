@@ -65,6 +65,7 @@ function MainStackScreen() {
         component={SurveyTypePicker}
         options={{
           title: t('CHOOSE_SURVEY'),
+          headerBackTitle: 'Back',
           ...headerStyle,
         }}
       />
@@ -73,6 +74,7 @@ function MainStackScreen() {
         component={SurveyEditor}
         options={{
           title: t('NEW_SURVEY'),
+          headerBackTitle: 'Back',
           ...headerStyle,
         }}
       />
@@ -81,6 +83,7 @@ function MainStackScreen() {
         component={Settings}
         options={{
           title: t('SETTINGS'),
+          headerBackTitle: 'Back',
           ...headerStyle,
         }}
       />
