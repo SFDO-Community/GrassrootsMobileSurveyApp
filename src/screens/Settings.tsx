@@ -13,6 +13,8 @@ import { logger } from '../utility/logger';
 import { notifySuccess, notifyError } from '../utility/notification';
 import { storeOnlineSurveys } from '../services/salesforce/survey';
 import { buildDictionary } from '../services/dictionary';
+import { hasUnsyncedSurveys } from '../services/database/localSurvey';
+import { storeContacts } from '../services/salesforce/contact';
 
 type Language = {
   name: string;
@@ -76,9 +78,15 @@ export default function Settings({ navigation }) {
             if (!(await isInternetReachable())) {
               return;
             }
+            if (await hasUnsyncedSurveys()) {
+              notifyError('You cannot reload metadata and surveys until all the surveys are synced.');
+              return;
+            }
             setShowsSpinner(true);
             try {
+              await storeContacts();
               await retrieveAllMetadata();
+              await storeOnlineSurveys();
               await buildDictionary();
               notifySuccess('Successfully refreshed metadata.');
             } catch (e) {
@@ -92,31 +100,7 @@ export default function Settings({ navigation }) {
         >
           <Icon name="cloud-download" color={APP_THEME.APP_LIGHT_FONT_COLOR} />
           <ListItem.Content>
-            <ListItem.Title style={{ fontFamily: APP_FONTS.FONT_REGULAR }}>Reload Metadata</ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
-        <ListItem
-          onPress={async () => {
-            if (!(await isInternetReachable())) {
-              return;
-            }
-            setShowsSpinner(true);
-            try {
-              await storeOnlineSurveys();
-              notifySuccess('Successfully refreshed surveys.');
-            } catch (e) {
-              notifyError('Unexpected error occcured while refreshing. Contact your administrator and login again.');
-              await forceLogout(navigation);
-            } finally {
-              setShowsSpinner(false);
-            }
-          }}
-          topDivider
-          bottomDivider
-        >
-          <Icon name="cloud-download" color={APP_THEME.APP_LIGHT_FONT_COLOR} />
-          <ListItem.Content>
-            <ListItem.Title style={{ fontFamily: APP_FONTS.FONT_REGULAR }}>Reload Online Surveys</ListItem.Title>
+            <ListItem.Title style={{ fontFamily: APP_FONTS.FONT_REGULAR }}>Reload Metadata and Survey</ListItem.Title>
           </ListItem.Content>
         </ListItem>
       </Card>

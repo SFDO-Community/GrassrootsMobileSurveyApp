@@ -1,4 +1,4 @@
-import { updateRecord, updateFieldValues, saveRecords, getRecordsWithCallback } from './database';
+import { updateRecord, updateFieldValues, saveRecords, getRecords, getRecordsWithCallback } from './database';
 import {
   ASYNC_STORAGE_KEYS,
   DB_TABLE,
@@ -15,6 +15,15 @@ import { logger } from '../../utility/logger';
 export const getLocalSurveysForList = async onSuccess => {
   const statement = `SELECT * FROM Survey LEFT JOIN RecordType ON Survey.RecordTypeId = RecordType.recordTypeId ORDER BY ${SURVEY_DATE_FIELD} DESC`;
   return await getRecordsWithCallback(statement, onSuccess);
+};
+
+/**
+ * @description Returns whether or not there's unsynced surveys
+ * @return boolean
+ */
+export const hasUnsyncedSurveys = async () => {
+  const records = await getRecords(DB_TABLE.SURVEY, `WHERE _syncStatus = 'Unsynced'`);
+  return records.length > 0;
 };
 
 /**
