@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   flex1: {
     flex: 1,
   },
-  logoStyle: { height: 181, width: 181 },
+  logoStyle: { height: 200, width: 200 },
   inputBoxesView: {
     flex: 3,
     width: '90%',
