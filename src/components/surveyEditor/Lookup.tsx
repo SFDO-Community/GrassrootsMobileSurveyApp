@@ -24,7 +24,7 @@ function Lookup({ fieldName, fieldLabel, title, value, navigation, disabled }: L
   useEffect(() => {
     const load = async () => {
       if (value) {
-        const records = await getRecords(DB_TABLE.CONTACT, `where id = '${value}'`);
+        const records = (await getRecords(DB_TABLE.CONTACT, `where id = '${value}'`)) || [{ name: 'Not Found' }];
         setLookupToName(records[0].name);
       } else {
         setLookupToName('');
