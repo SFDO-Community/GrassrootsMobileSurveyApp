@@ -40,5 +40,7 @@
     "SETTINGS": "Settings",
     "DELETE": "Delete",
     "DELETE_MESSAGE": "Are you sure to delete this survey? This cannot be undone.",
-    "SYSTEM": "System"
+    "SYSTEM": "System",
+    "SYNC": "Sync",
+    "SYNC_MESSAGE": "Are you sure to upload this survey? This cannot be undone."
   }

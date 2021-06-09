@@ -13,6 +13,8 @@ import { SurveyListRightButtons } from './SurveyListHeaderButtons';
 import { buildDictionary } from '../services/dictionary';
 import { deleteRecord } from '../services/database/database';
 import { forceLogout } from '../services/session';
+import { syncLocalSurvey } from '../services/sync';
+import { getLocalSurveysForList } from '../services/database/localSurvey';
 // store
 import { surveyFilterReducer } from '../reducers/surveyFilterReducer';
 import LocalizationContext from '../context/localizationContext';
@@ -30,7 +32,7 @@ import {
 } from '../constants';
 // types
 import { StackParamList } from '../Router';
-import { getLocalSurveysForList } from '../services/database/localSurvey';
+
 type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyList'>;
 
 type SurveyListProps = {
@@ -195,6 +197,31 @@ export default function SurveyList({ navigation }: SurveyListProps) {
     );
   };
 
+  const showSyncConfirmAlert = (rowMap, item, index) => {
+    Alert.alert(
+      t('SYNC'),
+      t('SYNC_MESSAGE'),
+      [
+        {
+          text: t('SYNC'),
+          onPress: async () => {
+            if (rowMap[index]) {
+              rowMap[index].closeRow();
+            }
+            setShowsSpinner(true);
+            await syncLocalSurvey(item._localId);
+            await refreshSurveys();
+            setShowsSpinner(false);
+          },
+        },
+        {
+          text: t('CANCEL'),
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
   return (
     <View style={styles.flex1}>
       <Loader loading={showsSpinner} />
@@ -220,6 +247,14 @@ export default function SurveyList({ navigation }: SurveyListProps) {
           renderHiddenItem={(data, rowMap) =>
             data.item._syncStatus === SYNC_STATUS_UNSYNCED ? (
               <View style={styles.rowBack}>
+                <TouchableOpacity style={[styles.backRightBtn, styles.backRightSyncBtnRight]}>
+                  <Text
+                    style={styles.backTextWhite}
+                    onPress={() => showSyncConfirmAlert(rowMap, data.item, data.index)}
+                  >
+                    {t('SYNC')}
+                  </Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.backRightBtn, styles.backRightBtnRight]}
                   onPress={() => showDeleteConfirmAlert(rowMap, data.item, data.index)}
@@ -236,7 +271,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
             )
           }
           disableRightSwipe
-          rightOpenValue={-75}
+          rightOpenValue={-150}
         />
         {newSurveyButton()}
       </View>
@@ -290,6 +325,10 @@ const styles = StyleSheet.create({
   backRightBtnRight: {
     backgroundColor: APP_THEME.APP_ERROR_COLOR,
     right: 0,
+  },
+  backRightSyncBtnRight: {
+    backgroundColor: APP_THEME.APP_BASE_COLOR,
+    right: 75,
   },
   backDisabledRightBtnRight: {
     backgroundColor: APP_THEME.APP_DISABLED_BACKGROUND_COLOR,
