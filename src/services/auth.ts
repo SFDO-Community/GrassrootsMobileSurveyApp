@@ -2,7 +2,6 @@
 import * as SecureStore from 'expo-secure-store';
 
 import { ASYNC_STORAGE_KEYS, SECURE_STORE_KEYS } from '../constants';
-import { LOGIN_API_URL } from '@env';
 import { logger } from '../utility/logger';
 
 export interface LoginResponse {
@@ -16,17 +15,20 @@ export interface LoginResponse {
 export const authenticate = async (email: string, password: string): Promise<LoginResponse> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch(`${LOGIN_API_URL}/login`, {
+      const herokuAppName = await SecureStore.getItemAsync(SECURE_STORE_KEYS.HEROKU_APP_NAME);
+      const loginApiUrl = `https://${herokuAppName}.herokuapp.com`;
+      logger('DEBUG', 'services | auth | loginUrl', loginApiUrl);
+      const response = await fetch(`${loginApiUrl}/login`, {
         method: 'POST',
         body: JSON.stringify({ email, password }),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      if (response.status === 404) {
+      if (response.status === 404 || response.status > 500) {
         resolve({
           success: false,
-          error_description: 'Heroku URL is not found. Make sure that .env setting is correct.',
+          error_description: 'Unexpected server error. Make sure the Heroku app name is correct.',
         });
       }
       const success = response.ok;
@@ -35,7 +37,13 @@ export const authenticate = async (email: string, password: string): Promise<Log
       await saveToken(result);
       resolve(result);
     } catch (error) {
-      logger('ERROR', 'services | auth', error);
+      if (error.message === 'Network request failed') {
+        resolve({
+          success: false,
+          error_description: 'Network error. Make sure the Heroku app name is correct.',
+        });
+      }
+      console.log(error);
       reject(error);
     }
   });

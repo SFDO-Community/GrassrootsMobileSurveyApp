@@ -6,6 +6,7 @@ import LocalizationContext from './context/localizationContext';
 
 // screens
 import Login from './screens/Login';
+import LoginSettings from './screens/LoginSettings';
 import SurveyList from './screens/SurveyList';
 import SurveyTypePicker from './screens/SurveyTypePicker';
 import SurveyEditor from './screens/SurveyEditor';
@@ -14,6 +15,7 @@ import LookupSearch from './screens/LookupSearch';
 
 // components
 import { LogoutButton } from './screens/SurveyListHeaderButtons';
+import { LoginSettingsButton } from './components/LoginSettingsButton';
 
 // styles
 import { APP_FONTS, APP_THEME } from './constants';
@@ -46,8 +48,17 @@ function MainStackScreen() {
       <MainStack.Screen
         name="Login"
         component={Login}
-        options={{
+        options={({ navigation }) => ({
           title: t('LOGIN'),
+          headerRight: () => LoginSettingsButton(navigation),
+          ...headerStyle,
+        })}
+      />
+      <MainStack.Screen
+        name="LoginSettings"
+        component={LoginSettings}
+        options={{
+          title: t('LOGIN_SETTINGS'),
           ...headerStyle,
         }}
       />
