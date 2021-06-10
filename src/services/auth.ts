@@ -25,7 +25,7 @@ export const authenticate = async (email: string, password: string): Promise<Log
           'Content-Type': 'application/json',
         },
       });
-      if (!response.ok || response.status === 404) {
+      if (response.status === 404 || response.status > 500) {
         resolve({
           success: false,
           error_description: 'Unexpected server error. Make sure the Heroku app name is correct.',
