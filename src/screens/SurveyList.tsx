@@ -205,9 +205,6 @@ export default function SurveyList({ navigation }: SurveyListProps) {
         {
           text: t('SYNC'),
           onPress: async () => {
-            if (rowMap[index]) {
-              rowMap[index].closeRow();
-            }
             setShowsSpinner(true);
             await syncLocalSurvey(item._localId);
             await refreshSurveys();

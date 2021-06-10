@@ -51,6 +51,7 @@ export function SyncButton(props: SyncButtonProps) {
           onPress: async () => {
             props.setShowsSpinner(true);
             await syncLocalSurveys(localSurveys);
+            await props.refreshSurveys();
             props.setShowsSpinner(false);
           },
         },

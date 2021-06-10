@@ -8,7 +8,7 @@ import { DB_TABLE } from '../constants';
 
 export const syncLocalSurvey = async (localId: string) => {
   const survey = await getRecords(DB_TABLE.SURVEY, `WHERE _localId = '${localId}'`);
-  syncLocalSurveys(survey);
+  await syncLocalSurveys(survey);
 };
 
 /**
