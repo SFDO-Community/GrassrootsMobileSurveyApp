@@ -25,17 +25,9 @@ jobs:
       - name: 'Validate'
         run: yarn validate
 
-      # Create mock .env
-      - name: 'Create mock env file'
-        run: echo LOGIN_API_URL=https://test.herokuapp.com/login > .env
-
       # Unit Test
       - name: 'Unit test'
         run: yarn test
-
-      # Delete mock .env
-      - name: 'Delete mock env file'
-        run: rm -f .env
 
       # Upload code coverage data
       # - name: 'Upload code coverage to Codecov.io'
