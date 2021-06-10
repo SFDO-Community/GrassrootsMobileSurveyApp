@@ -1,5 +1,6 @@
 {
     "LOGIN": "Log In",
+    "LOGIN_SETTINGS": "Log In Settings",
     "ERROR": "Error",
     "ERROR_ON_SAVE": "An error occured while saving data. Please try again.",
     "LOGOUT": "Logout",
@@ -42,5 +43,7 @@
     "DELETE_MESSAGE": "Are you sure to delete this survey? This cannot be undone.",
     "SYSTEM": "System",
     "SYNC": "Sync",
-    "SYNC_MESSAGE": "Are you sure to upload this survey? This cannot be undone."
+    "SYNC_MESSAGE": "Are you sure to upload this survey? This cannot be undone.",
+    "HEROKU_APP_NAME": "Heroku App Name",
+    "HEROKU_APP_NAME_DESCRIPTION": "Enter your Heroku app name. For exmaple, if the URL of your Heroku app is https://aaa-bbb-12345.herokuapp.com, enter aaa-bbb-12345. Ask your administrator for details."
   }
