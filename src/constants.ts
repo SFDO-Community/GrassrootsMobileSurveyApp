@@ -33,6 +33,7 @@ export const SECURE_STORE_KEYS = {
   EMAIL: 'email',
   PASSWORD: 'password',
   ACCESS_TOKEN: 'token',
+  HEROKU_APP_NAME: 'heroku',
 };
 
 export const BACKGROUND_IMAGE_SOURCE = require('../assets/images/background.png');
