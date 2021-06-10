@@ -1,3 +1,9 @@
+# 0.3.0 - June 10th, 2021
+* Use new fancy logo!
+* Add error handling for invalid contact lookup value
+* Add swipe menu to sync a survey
+* Add Heroku URL setting screen and remove .env settings
+
 # 0.2.0 - May 15th, 2021
 * Display surveys in descending order
 * Fix unhandled promise rejection error after reload [(#25)](https://github.com/SFDO-Community-Sprints/GrassRootsMobileSurveyApp/issues/25)
