@@ -1,3 +1,6 @@
+# 0.3.1 - July 25th, 2021
+* Load email automatically in login screen after the second time
+
 # 0.3.0 - June 10th, 2021
 * Use new fancy logo!
 * Add error handling for invalid contact lookup value
