@@ -39,6 +39,10 @@ export default function Login({ navigation }) {
         if (userContactId) {
           navigation.navgigate('SurveyList');
         }
+        const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
+        if (email) {
+          setEmail(email);
+        }
       } catch {}
     };
     prepare();
