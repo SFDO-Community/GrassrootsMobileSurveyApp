@@ -35,6 +35,10 @@ export default function Login({ navigation }) {
   useEffect(() => {
     const prepare = async () => {
       try {
+        const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
+        if (email) {
+          setEmail(email);
+        }
         const userContactId = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
         if (userContactId) {
           navigation.navgigate('SurveyList');
