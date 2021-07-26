@@ -11,7 +11,7 @@ import FilterButtonGroup from './SurveyListFilter';
 import { SurveyListRightButtons } from './SurveyListHeaderButtons';
 // services
 import { buildDictionary } from '../services/dictionary';
-import { deleteRecord } from '../services/database/database';
+import { deleteRecord, getAllRecordsWithCallback } from '../services/database/database';
 import { forceLogout } from '../services/session';
 import { syncLocalSurvey } from '../services/sync';
 import { getLocalSurveysForList } from '../services/database/localSurvey';
@@ -32,6 +32,7 @@ import {
 } from '../constants';
 // types
 import { StackParamList } from '../Router';
+import { SQLiteRecordType } from '../types/sqlite';
 
 type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyList'>;
 
@@ -42,6 +43,7 @@ type SurveyListProps = {
 
 export default function SurveyList({ navigation }: SurveyListProps) {
   const [surveys, setSurveys] = useState([]);
+  const [recordTypes, setRecordTypes] = useState<Array<SQLiteRecordType>>([]);
   const [filter, dispatchFilter] = useReducer(surveyFilterReducer, 'SHOW_UNSYNCED');
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -63,6 +65,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
     setShowsSpinner(true);
     const prepare = async () => {
       try {
+        await getAllRecordsWithCallback(DB_TABLE.RECORD_TYPE, setRecordTypes);
         await buildDictionary();
         await refreshSurveys();
       } catch {
@@ -143,19 +146,28 @@ export default function SurveyList({ navigation }: SurveyListProps) {
 
   const newSurveyButton = () => {
     return (
-      <View style={styles.addButtonStyle}>
-        <Icon
-          reverse
-          raised
-          name="md-add"
-          type="ionicon"
-          size={22}
-          color={APP_THEME.APP_BASE_FONT_COLOR}
-          onPress={() => {
-            navigation.navigate('SurveyTypePicker');
-          }}
-        />
-      </View>
+      recordTypes && (
+        <View style={styles.addButtonStyle}>
+          <Icon
+            reverse
+            raised
+            name="md-add"
+            type="ionicon"
+            size={22}
+            color={APP_THEME.APP_BASE_FONT_COLOR}
+            onPress={() => {
+              if (recordTypes.length === 1 && recordTypes[0].developerName === 'Master') {
+                navigation.navigate('SurveyEditor', {
+                  selectedLayoutId: recordTypes[0].layoutId,
+                  selectedRecordTypeId: recordTypes[0].recordTypeId,
+                });
+              } else {
+                navigation.navigate('SurveyTypePicker');
+              }
+            }}
+          />
+        </View>
+      )
     );
   };
 

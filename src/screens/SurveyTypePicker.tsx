@@ -3,7 +3,7 @@ import { View, FlatList, ImageBackground } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { getAllRecordTypes } from '../services/database/metadata';
+import { getAllRecordsWithCallback } from '../services/database/database';
 import { ListItem } from '../components';
 
 import LocalizationContext from '../context/localizationContext';
@@ -13,12 +13,14 @@ import {
   BACKGROUND_STYLE,
   BACKGROUND_IMAGE_STYLE,
   L10N_PREFIX,
+  DB_TABLE,
 } from '../constants';
 import { logger } from '../utility/logger';
 
 import { StackParamList } from '../Router';
 
 import { SQLiteRecordType } from '../types/sqlite';
+
 type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyTypePicker'>;
 
 type Props = {
@@ -31,14 +33,7 @@ export default function SurveyTypePicker({ navigation }: Props) {
 
   useEffect(() => {
     const fetch = async () => {
-      const result = await getAllRecordTypes();
-      if (result[0].developerName === 'Master') {
-        navigation.navigate('SurveyEditor', {
-          selectedLayoutId: result[0].layoutId,
-          selectedRecordTypeId: result[0].recordTypeId,
-        });
-      }
-      setRecordTypes(result);
+      await getAllRecordsWithCallback(DB_TABLE.RECORD_TYPE, setRecordTypes);
     };
     fetch();
   }, []);
