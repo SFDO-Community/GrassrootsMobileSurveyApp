@@ -56,8 +56,8 @@ export const retrieveAllMetadata = async () => {
     await storeLocalization();
   } catch (e) {
     logger('ERROR', 'retrieveAllMetadata', e);
-    if (e.error === 'no_record_types') {
-      throw new Error('No record types on Survey object. Contact your administrator.');
+    if (e.error === 'invalid_record_type') {
+      throw new Error('Invalid record type on Survey object. Contact your administrator.');
     } else if (e.error === 'no_editable_fields') {
       throw new Error('No editable fields on Survey layout. Contact your administrator.');
     }
