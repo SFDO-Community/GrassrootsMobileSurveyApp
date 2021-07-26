@@ -32,6 +32,12 @@ export default function SurveyTypePicker({ navigation }: Props) {
   useEffect(() => {
     const fetch = async () => {
       const result = await getAllRecordTypes();
+      if (result[0].developerName === 'Master') {
+        navigation.navigate('SurveyEditor', {
+          selectedLayoutId: result[0].layoutId,
+          selectedRecordTypeId: result[0].recordTypeId,
+        });
+      }
       setRecordTypes(result);
     };
     fetch();
