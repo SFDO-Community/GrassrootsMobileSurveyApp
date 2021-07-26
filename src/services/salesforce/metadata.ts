@@ -36,14 +36,13 @@ export const storeRecordTypesWithCompactLayout = async () => {
   }
   const recordTypes: Array<SQLiteRawRecordType> = response.recordTypeMappings
     .filter(r => r.active)
-    .filter(r => (response.recordTypeMappings.length > 1 ? r.master === false : true))
+    .filter((r, i, array) => (array.length > 1 ? r.master === false : true))
     .map(r => ({
       developerName: r.developerName,
       label: r.name,
       recordTypeId: r.recordTypeId,
       layoutId: r.layoutId,
     }));
-
   const compositeCompactLayoutResponse: CompositeCompactLayoutResponse = await describeCompactLayouts(
     SURVEY_OBJECT,
     recordTypes.map(r => r.recordTypeId)
