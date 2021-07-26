@@ -156,7 +156,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
             size={22}
             color={APP_THEME.APP_BASE_FONT_COLOR}
             onPress={() => {
-              if (recordTypes.length === 1 && recordTypes[0].developerName === 'Master') {
+              if (recordTypes.length === 1) {
                 navigation.navigate('SurveyEditor', {
                   selectedLayoutId: recordTypes[0].layoutId,
                   selectedRecordTypeId: recordTypes[0].recordTypeId,
