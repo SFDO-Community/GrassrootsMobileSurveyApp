@@ -26,18 +26,23 @@ import { DB_TABLE, SURVEY_OBJECT, BACKGROUND_SURVEY_FIELDS } from '../../constan
  */
 export const storeRecordTypesWithCompactLayout = async () => {
   const response: DescribeLayoutResult = await describeLayoutResult(SURVEY_OBJECT);
+  // Reject a record type manually named 'Master'
+  if (
+    response.recordTypeMappings.length === 1 &&
+    response.recordTypeMappings[0].developerName === 'Master' &&
+    response.recordTypeMappings[0].master === false
+  ) {
+    return Promise.reject({ error: 'invalid_record_type' });
+  }
   const recordTypes: Array<SQLiteRawRecordType> = response.recordTypeMappings
-    .filter(r => r.active && r.name !== 'Master')
+    .filter(r => r.active)
+    .filter((r, i, array) => (array.length > 1 ? r.master === false : true))
     .map(r => ({
       developerName: r.developerName,
       label: r.name,
       recordTypeId: r.recordTypeId,
       layoutId: r.layoutId,
     }));
-  if (recordTypes.length === 0) {
-    return Promise.reject({ error: 'no_record_types' });
-  }
-
   const compositeCompactLayoutResponse: CompositeCompactLayoutResponse = await describeCompactLayouts(
     SURVEY_OBJECT,
     recordTypes.map(r => r.recordTypeId)

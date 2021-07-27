@@ -8,6 +8,7 @@ import {
   SURVEY_OBJECT,
   SYNC_STATUS_SYNCED,
   USER_CONTACT_FIELD_ON_SURVEY,
+  RECORD_TYPE_ID_FIELD,
 } from '../../constants';
 import {
   SQLiteFieldTypeMapping,
@@ -45,6 +46,7 @@ export const storeOnlineSurveys = async () => {
       { fieldName: f.fieldName, fieldType: f.fieldType },
     ])
   );
+
   const surveyFieldTypeMappings: Array<SQLiteFieldTypeMapping> = Array.from(fieldsMap.values()).map(item => {
     const result: SQLiteFieldTypeMapping = {
       name: item.fieldName,
@@ -54,7 +56,10 @@ export const storeOnlineSurveys = async () => {
   });
   clearTable(DB_TABLE.SURVEY);
   prepareTable(DB_TABLE.SURVEY, [...surveyFieldTypeMappings, ...LOCAL_SURVEY_FIELDS], undefined);
-
+  // Remove RecordTypeId field for query if master record type only
+  if (hasMasterRecordTypeOnly(recordTypes)) {
+    fieldsMap.delete(RECORD_TYPE_ID_FIELD);
+  }
   // Query salesforce records and save them to local
   const commaSeparetedFields = Array.from(fieldsMap.values())
     .map(f => f.fieldName)
@@ -67,9 +72,12 @@ export const storeOnlineSurveys = async () => {
   if (surveys.length === 0) {
     return;
   }
+  const localSurveys = surveys.map(s => ({ ...s, _syncStatus: SYNC_STATUS_SYNCED }));
   saveRecords(
     DB_TABLE.SURVEY,
-    surveys.map(s => ({ ...s, _syncStatus: SYNC_STATUS_SYNCED })),
+    hasMasterRecordTypeOnly(recordTypes)
+      ? localSurveys.map(s => ({ ...s, [RECORD_TYPE_ID_FIELD]: recordTypes[0].recordTypeId }))
+      : localSurveys,
     undefined
   );
 };
@@ -93,6 +101,10 @@ export const uploadSurveyListToSalesforce = async surveys => {
     // Remove read-only title fields
     for (const titleField of readonlyTitleFields) {
       delete s[titleField];
+    }
+    // Remove RecordTypeId if master record type only
+    if (hasMasterRecordTypeOnly(recordTypes)) {
+      delete s[RECORD_TYPE_ID_FIELD];
     }
     // Remove joined record types
     Object.keys({ ...SQLiteRawRecordTypeObject, ...SQLiteSurveyTitleObject }).forEach(key => {
@@ -135,4 +147,11 @@ export const fetchSurveysWithTitleFields = async (surveyIds: Array<string>): Pro
       return [surveyId, survey];
     })
   );
+};
+
+/**
+ * @private
+ */
+const hasMasterRecordTypeOnly = (recordTypes: Array<SQLiteRecordType>): boolean => {
+  return recordTypes.length === 1 && recordTypes[0].developerName === 'Master';
 };
