@@ -3,7 +3,7 @@ import { View, FlatList, ImageBackground } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { getAllRecordsWithCallback } from '../services/database/database';
+import { getAllAvailableRecordTypes } from '../services/database/metadata';
 import { ListItem } from '../components';
 
 import LocalizationContext from '../context/localizationContext';
@@ -13,7 +13,6 @@ import {
   BACKGROUND_STYLE,
   BACKGROUND_IMAGE_STYLE,
   L10N_PREFIX,
-  DB_TABLE,
 } from '../constants';
 import { logger } from '../utility/logger';
 
@@ -33,7 +32,9 @@ export default function SurveyTypePicker({ navigation }: Props) {
 
   useEffect(() => {
     const fetch = async () => {
-      await getAllRecordsWithCallback(DB_TABLE.RECORD_TYPE, setRecordTypes);
+      // Only active record types should be queried
+      const result = await getAllAvailableRecordTypes();
+      setRecordTypes(result);
     };
     fetch();
   }, []);
