@@ -1,6 +1,5 @@
 import { getAllRecords } from './database/database';
 import { prepareLocalizationTable } from './database/localization';
-import { getAllRecordTypes } from './database/metadata';
 
 import { logger } from '../utility/logger';
 import { DB_TABLE, L10N_PREFIX } from '../constants';
@@ -12,7 +11,7 @@ import i18n from '../config/i18n';
  */
 export const buildDictionary = async () => {
   // original labels
-  const recordTypes = await getAllRecordTypes();
+  const recordTypes = await getAllRecords(DB_TABLE.RECORD_TYPE);
   const recordTypeLabels = recordTypes.reduce((result, current) => {
     result[`${L10N_PREFIX.RecordType}${current.developerName}`] = current.label;
     return result;
