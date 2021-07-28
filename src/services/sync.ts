@@ -35,6 +35,8 @@ export const syncLocalSurveys = async (localSurveys: Array<any>) => {
       await updateSurveyStatusSynced(refreshedSurveys);
       notifySuccess(`${response.results.length === 1 ? 'Survey is' : 'Surveys are'} successfully uploaded!`);
       return;
+    } else if (response.hasErrors) {
+      throw new Error(`Upload failed: ${response.results[0].errors[0].message}`);
     } else {
       throw new Error('Unexpected error occued while uploading. Contact your adminsitrator.');
     }
