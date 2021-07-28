@@ -211,7 +211,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
     );
   };
 
-  const showSyncConfirmAlert = (rowMap, item, index) => {
+  const showSyncConfirmAlert = (rowMap, item) => {
     Alert.alert(
       t('SYNC'),
       t('SYNC_MESSAGE'),
@@ -259,10 +259,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
             data.item._syncStatus === SYNC_STATUS_UNSYNCED ? (
               <View style={styles.rowBack}>
                 <TouchableOpacity style={[styles.backRightBtn, styles.backRightSyncBtnRight]}>
-                  <Text
-                    style={styles.backTextWhite}
-                    onPress={() => showSyncConfirmAlert(rowMap, data.item, data.index)}
-                  >
+                  <Text style={styles.backTextWhite} onPress={() => showSyncConfirmAlert(rowMap, data.item)}>
                     {t('SYNC')}
                   </Text>
                 </TouchableOpacity>

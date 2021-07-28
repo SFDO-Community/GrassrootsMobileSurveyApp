@@ -86,13 +86,13 @@ export default function Welcome({ isVisible, setVisible, navigation }: WelcomeMo
         <ActivityIndicator animating={loading} hidesWhenStopped={false} size="large" color={APP_THEME.APP_BASE_COLOR} />
         <View>
           <TextIcon icon="check-circle" color={contactIconColor}>
-            Prepare contact records
+            {t('WELCOME_LOADING_CONTACT')}
           </TextIcon>
           <TextIcon icon="check-circle" color={surveyMetaIconColor}>
-            Prepare survey settings
+            {t('WELCOME_LOADING_METADATA')}
           </TextIcon>
           <TextIcon icon="check-circle" color={surveyRecordsIconColor}>
-            Download online surveys
+            {t('WELCOME_LOADING_SURVEY')}
           </TextIcon>
         </View>
       </View>
