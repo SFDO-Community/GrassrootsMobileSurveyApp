@@ -21,7 +21,7 @@
       "permissions": []
     },
     "version": "0.3.1",
-    "sdkVersion": "39.0.0",
+    "sdkVersion": "42.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
