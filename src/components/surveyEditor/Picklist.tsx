@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
-import { APP_THEME, APP_FONTS } from '../../constants';
+import { APP_THEME } from '../../constants';
 import { getPicklistValues } from '../../services/database/metadata';
 
 type PicklistPropType = {
@@ -51,15 +51,6 @@ function Picklist(props: PicklistPropType) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  placeholderLabel: {
-    flex: 1,
-    fontSize: 16,
-    color: APP_THEME.APP_LIGHT_FONT_COLOR,
-    fontFamily: APP_FONTS.FONT_REGULAR,
-  },
-});
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {

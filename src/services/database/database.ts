@@ -284,7 +284,7 @@ const convertObjectToSQLite = record => {
  */
 export const clearDatabase = async () => {
   logger('DEBUG', 'clearDatabase', 'Deleting all the tables');
-  for (const [key, value] of Object.entries(DB_TABLE)) {
+  for (const value of Object.values(DB_TABLE)) {
     await clearTable(value);
   }
 };
