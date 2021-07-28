@@ -3,6 +3,8 @@ import TestRenderer from 'react-test-renderer';
 
 import { CheckboxButton } from '../../src/components/surveyEditor';
 
+jest.mock('react-native-elements/src/icons/Icon', () => 'View');
+
 describe('<CheckboxButton />', () => {
   it('Rendering', () => {
     const tree = TestRenderer.create(<CheckboxButton title="Test" selected />).toJSON();

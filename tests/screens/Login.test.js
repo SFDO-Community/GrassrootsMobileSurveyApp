@@ -5,6 +5,11 @@ import i18n from '../../src/config/i18n';
 import LocalizationContext from '../../src/context/localizationContext';
 import Login from '../../src/screens/Login';
 
+jest.mock('react-native-keyboard-aware-scroll-view', () => {
+  const KeyboardAwareScrollView = ({ children }) => children;
+  return { KeyboardAwareScrollView };
+});
+
 describe('<Login />', () => {
   it('render', () => {
     const locale = i18n.locale;
@@ -21,9 +26,6 @@ describe('<Login />', () => {
       </LocalizationContext.Provider>
     );
     const tree = screen.toJSON();
-    expect(tree.children).toHaveLength(3); // Image, RCTScrollView, Modal
-
-    const instance = screen.getInstance();
-    console.log(instance);
+    expect(tree.children).toHaveLength(5);
   });
 });
