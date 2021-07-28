@@ -11,7 +11,8 @@ import FilterButtonGroup from './SurveyListFilter';
 import { SurveyListRightButtons } from './SurveyListHeaderButtons';
 // services
 import { buildDictionary } from '../services/dictionary';
-import { deleteRecord, getAllRecordsWithCallback } from '../services/database/database';
+import { deleteRecord } from '../services/database/database';
+import { getAllAvailableRecordTypes } from '../services/database/metadata';
 import { forceLogout } from '../services/session';
 import { syncLocalSurvey } from '../services/sync';
 import { getLocalSurveysForList } from '../services/database/localSurvey';
@@ -65,7 +66,8 @@ export default function SurveyList({ navigation }: SurveyListProps) {
     setShowsSpinner(true);
     const prepare = async () => {
       try {
-        await getAllRecordsWithCallback(DB_TABLE.RECORD_TYPE, setRecordTypes);
+        const availableRecordTypes = await getAllAvailableRecordTypes();
+        setRecordTypes(availableRecordTypes);
         await buildDictionary();
         await refreshSurveys();
       } catch {
@@ -86,11 +88,11 @@ export default function SurveyList({ navigation }: SurveyListProps) {
   useFocusEffect(
     useCallback(() => {
       const refresh = async () => {
-        setShowsSpinner(true);
         try {
+          const availableRecordTypes = await getAllAvailableRecordTypes();
+          setRecordTypes(availableRecordTypes);
           await refreshSurveys();
         } catch {}
-        setShowsSpinner(false);
       };
       refresh();
     }, [])

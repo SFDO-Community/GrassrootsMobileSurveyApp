@@ -34,15 +34,14 @@ export const storeRecordTypesWithCompactLayout = async () => {
   ) {
     return Promise.reject({ error: 'invalid_record_type' });
   }
-  const recordTypes: Array<SQLiteRawRecordType> = response.recordTypeMappings
-    .filter(r => r.active)
-    .filter((r, i, array) => (array.length > 1 ? r.master === false : true))
-    .map(r => ({
-      developerName: r.developerName,
-      label: r.name,
-      recordTypeId: r.recordTypeId,
-      layoutId: r.layoutId,
-    }));
+  const recordTypes: Array<SQLiteRawRecordType> = response.recordTypeMappings.map(r => ({
+    developerName: r.developerName,
+    label: r.name,
+    recordTypeId: r.recordTypeId,
+    layoutId: r.layoutId,
+    active: r.active,
+    master: r.master,
+  }));
   const compositeCompactLayoutResponse: CompositeCompactLayoutResponse = await describeCompactLayouts(
     SURVEY_OBJECT,
     recordTypes.map(r => r.recordTypeId)

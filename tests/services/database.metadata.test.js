@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { getRecords, getAllRecords } from '../../src/services/database/database';
-import { getAllRecordTypes, getPicklistValues } from '../../src/services/database/metadata';
+import { getAllAvailableRecordTypes, getPicklistValues } from '../../src/services/database/metadata';
 
 jest.mock('expo-sqlite', () => ({ default: {} }));
 jest.mock('../../src/services/database/database', () => ({
@@ -8,7 +8,7 @@ jest.mock('../../src/services/database/database', () => ({
   getRecords: jest.fn(),
 }));
 
-describe('getAllRecordTypes', () => {
+describe('getAllAvailableRecordTypes', () => {
   it('recordtypes', async () => {
     getAllRecords.mockImplementation(() =>
       Promise.resolve([
@@ -17,17 +17,29 @@ describe('getAllRecordTypes', () => {
           developerName: 'Test_1',
           label: 'Test 1',
           layoutId: '00h5h000000mTxOAAU',
+          active: true,
+          master: false,
         },
         {
           recordTypeId: '0125h000000kNJMAA2',
           developerName: 'Test_2',
           label: 'Test 2',
           layoutId: '00h5h000000mTxOAAU',
+          active: true,
+          master: false,
+        },
+        {
+          recordTypeId: '0125h0000000000AAA',
+          developerName: 'Master',
+          label: 'Master',
+          layoutId: '00h5h000000mTxOAAU',
+          active: true,
+          master: true,
         },
       ])
     );
 
-    const recordTypes = await getAllRecordTypes();
+    const recordTypes = await getAllAvailableRecordTypes();
     expect(recordTypes.length).toBe(2);
   });
 });

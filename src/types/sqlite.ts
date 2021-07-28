@@ -3,6 +3,8 @@ export const SQLiteRawRecordTypeObject = {
   label: 'string',
   recordTypeId: 'string',
   layoutId: 'string',
+  active: true,
+  master: true,
 };
 
 export const SQLiteSurveyTitleObject = {

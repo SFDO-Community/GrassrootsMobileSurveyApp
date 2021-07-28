@@ -73,11 +73,11 @@ export const storeOnlineSurveys = async () => {
     return;
   }
   const localSurveys = surveys.map(s => ({ ...s, _syncStatus: SYNC_STATUS_SYNCED }));
-  saveRecords(
+  const masterRecordTypeId = recordTypes.find(r => r.master).recordTypeId;
+  await saveRecords(
     DB_TABLE.SURVEY,
-    hasMasterRecordTypeOnly(recordTypes)
-      ? localSurveys.map(s => ({ ...s, [RECORD_TYPE_ID_FIELD]: recordTypes[0].recordTypeId }))
-      : localSurveys,
+    // Set master record type id if the record type id field is null.
+    localSurveys.map(s => (s[RECORD_TYPE_ID_FIELD] ? s : { ...s, [RECORD_TYPE_ID_FIELD]: masterRecordTypeId })),
     undefined
   );
 };
@@ -153,5 +153,6 @@ export const fetchSurveysWithTitleFields = async (surveyIds: Array<string>): Pro
  * @private
  */
 const hasMasterRecordTypeOnly = (recordTypes: Array<SQLiteRecordType>): boolean => {
-  return recordTypes.length === 1 && recordTypes[0].developerName === 'Master';
+  const activeRecordTypes = recordTypes.filter(r => r.active);
+  return activeRecordTypes.length === 1 && activeRecordTypes[0].master;
 };
