@@ -88,11 +88,11 @@ export default function SurveyList({ navigation }: SurveyListProps) {
   useFocusEffect(
     useCallback(() => {
       const refresh = async () => {
-        setShowsSpinner(true);
         try {
+          const availableRecordTypes = await getAllAvailableRecordTypes();
+          setRecordTypes(availableRecordTypes);
           await refreshSurveys();
         } catch {}
-        setShowsSpinner(false);
       };
       refresh();
     }, [])
