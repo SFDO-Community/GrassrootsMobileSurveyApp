@@ -1,7 +1,6 @@
 import { getAllRecords, getRecords } from './database';
 import { SQLiteRecordType, SQLitePicklistValue } from '../../types/sqlite';
 import { DB_TABLE } from '../../constants';
-import { logger } from '../../utility/logger';
 
 /**
  * @description Get all the available record types of the survey object from local database.
@@ -10,9 +9,7 @@ import { logger } from '../../utility/logger';
  */
 export const getAllAvailableRecordTypes = async (): Promise<Array<SQLiteRecordType>> => {
   const recordTypes: Array<SQLiteRecordType> = await getAllRecords(DB_TABLE.RECORD_TYPE);
-  const result = recordTypes.filter(r => r.active).filter((r, i, array) => (array.length > 1 ? !r.master : true));
-  logger('DEBUG', 'getAllAvailableRecordTypes', result);
-  return result;
+  return recordTypes.filter(r => r.active).filter((r, i, array) => (array.length > 1 ? !r.master : true));
 };
 
 /**
