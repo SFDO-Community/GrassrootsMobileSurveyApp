@@ -1,3 +1,9 @@
+# 0.4.0 - August 2nd, 2021
+* Skip record type selection screen if there's only one record type in the org (including Master record type)
+* Under-the-hood code maintenance
+  * Upgrade Expo SDK version to 42.0
+  * Small refactoring
+
 # 0.3.1 - July 25th, 2021
 * Load email automatically in login screen after the second time
 
