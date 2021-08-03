@@ -81,7 +81,7 @@ export default function Welcome({ isVisible, setVisible, navigation }: WelcomeMo
   }, [isVisible, loading]);
 
   return (
-    <Modal isVisible={isVisible}>
+    <Modal isVisible={isVisible} testID="modal">
       <View style={styles.container}>
         <ActivityIndicator animating={loading} hidesWhenStopped={false} size="large" color={APP_THEME.APP_BASE_COLOR} />
         <View>
