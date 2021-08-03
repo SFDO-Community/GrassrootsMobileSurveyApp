@@ -1,17 +1,27 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 import { APP_THEME } from '../constants';
 
-export function LoginSettingsButton(navigation) {
+import { StackParamList } from '../Router';
+type LoginScreenNavigationProp = StackNavigationProp<StackParamList, 'SurveyEditor'>;
+
+type LoginSettingsButtonProps = {
+  navigation: LoginScreenNavigationProp;
+};
+
+export function LoginSettingsButton(props: LoginSettingsButtonProps) {
   return (
     <Icon
+      accessibilityRole="button"
       iconStyle={{ padding: 10 }}
       name="settings"
       size={22}
       color={APP_THEME.APP_BASE_COLOR}
       type="material"
       onPress={() => {
-        navigation.navigate('LoginSettings');
+        props.navigation.navigate('LoginSettings');
       }}
     />
   );
