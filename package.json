@@ -59,7 +59,9 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@testing-library/jest-native": "^4.0.2",
     "@testing-library/react": "^11.0.4",
+    "@testing-library/react-native": "^7.2.0",
     "@types/expo__vector-icons": "^9.0.1",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
