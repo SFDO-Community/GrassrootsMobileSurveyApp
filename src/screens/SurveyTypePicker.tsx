@@ -43,6 +43,7 @@ export default function SurveyTypePicker({ navigation }: Props) {
     <ImageBackground source={BACKGROUND_IMAGE_SOURCE} style={BACKGROUND_STYLE} imageStyle={BACKGROUND_IMAGE_STYLE}>
       <View>
         <FlatList
+          accessibilityRole="menubar"
           keyExtractor={(item, index) => {
             return index.toString();
           }}
