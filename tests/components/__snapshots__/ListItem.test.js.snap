@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginFormInput /> Rendering 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "minHeight": 44,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "space-around",
+        "marginLeft": 20,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#2b2826",
+          "fontFamily": "SalesforceSans-Regular",
+          "fontSize": 16,
+          "lineHeight": 22,
+          "paddingBottom": 5,
+          "paddingTop": 5,
+        }
+      }
+    >
+      Survey 1
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#706e6b",
+          "fontFamily": "SalesforceSans-Regular",
+          "fontSize": 12,
+          "paddingBottom": 5,
+          "paddingTop": 5,
+        }
+      }
+    >
+      Master
+    </Text>
+    <View
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderRadius": 3,
+          "borderRightColor": "transparent",
+          "borderRightWidth": 15,
+          "borderStyle": "solid",
+          "borderTopColor": "#01579b",
+          "borderTopWidth": 15,
+          "height": 0,
+          "position": "absolute",
+          "right": 0,
+          "transform": Array [
+            Object {
+              "rotate": "90deg",
+            },
+          ],
+          "width": 0,
+        }
+      }
+    />
+  </View>
+</View>
+`;

@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SurveyTypePicker /> render 1`] = `
+<View
+  accessibilityIgnoresInvertColors={true}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "flex": 1,
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Array [
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "height": undefined,
+          "width": undefined,
+        },
+        Object {
+          "resizeMode": "contain",
+          "top": 857.7142857142858,
+        },
+      ]
+    }
+  />
+  <View>
+    <RCTScrollView
+      ItemSeparatorComponent={[Function]}
+      accessibilityRole="menubar"
+      data={
+        Array [
+          Object {
+            "active": true,
+            "developerName": "Test_1",
+            "label": "Test 1",
+            "layoutId": "00h5h000000mTxOAAU",
+            "master": false,
+            "recordTypeId": "0125h000000kNJMAA1",
+          },
+          Object {
+            "active": true,
+            "developerName": "Test_2",
+            "label": "Test 2",
+            "layoutId": "00h5h000000mTxOAAU",
+            "master": false,
+            "recordTypeId": "0125h000000kNJMAA2",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "white",
+                "minHeight": 44,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "justifyContent": "space-around",
+                  "marginLeft": 20,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#2b2826",
+                    "fontFamily": "SalesforceSans-Regular",
+                    "fontSize": 16,
+                    "lineHeight": 22,
+                    "paddingBottom": 5,
+                    "paddingTop": 5,
+                  }
+                }
+              />
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "backgroundColor": "#dedcdb",
+                "height": 0.5,
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "white",
+                "minHeight": 44,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "justifyContent": "space-around",
+                  "marginLeft": 20,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#2b2826",
+                    "fontFamily": "SalesforceSans-Regular",
+                    "fontSize": 16,
+                    "lineHeight": 22,
+                    "paddingBottom": 5,
+                    "paddingTop": 5,
+                  }
+                }
+              />
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "height": 0,
+            }
+          }
+        />
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;

@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 import App from '../App';
 
@@ -7,7 +7,7 @@ jest.mock('expo-font', () => '');
 
 describe('<App />', () => {
   it('Before font loading', () => {
-    const tree = renderer.create(<App />).toJSON();
-    expect(tree).toBeNull();
+    const screen = render(<App />);
+    expect(screen.toJSON()).toMatchSnapshot();
   });
 });

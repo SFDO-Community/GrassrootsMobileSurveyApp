@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextIcon /> Rendering 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "flex-start",
+      "padding": 10,
+    }
+  }
+>
+  <View
+    color="#000000"
+    iconStyle={
+      Object {
+        "padding": 10,
+      }
+    }
+    name="check-circle"
+    size={22}
+    type="material"
+  />
+  <Text
+    style={
+      Object {
+        "fontFamily": "SalesforceSans-Regular",
+        "fontSize": 16,
+        "lineHeight": 22,
+      }
+    }
+  >
+    Hello
+  </Text>
+</View>
+`;

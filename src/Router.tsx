@@ -22,6 +22,7 @@ import { APP_FONTS, APP_THEME } from './constants';
 
 export type StackParamList = {
   Login: undefined;
+  LoginSettings: undefined;
   SurveyList: {
     isLocalizationPrepared?: boolean;
   };
@@ -50,7 +51,7 @@ function MainStackScreen() {
         component={Login}
         options={({ navigation }) => ({
           title: t('LOGIN'),
-          headerRight: () => LoginSettingsButton(navigation),
+          headerRight: () => LoginSettingsButton({ navigation }),
           ...headerStyle,
         })}
       />

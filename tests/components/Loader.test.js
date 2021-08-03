@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-import { TextHeading } from '../../src/components';
+import { Loader } from '../../src/components';
 
-describe('<TextHeading />', () => {
+describe('<Loader />', () => {
   it('Rendering', () => {
-    const screen = render(<TextHeading>This is a test text</TextHeading>);
+    const screen = render(<Loader loading />);
     expect(screen.toJSON()).toMatchSnapshot();
   });
 });

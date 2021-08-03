@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextSubheading /> Rendering 1`] = `
+<Text
+  style={
+    Object {
+      "color": "#706e6b",
+      "fontFamily": "SalesforceSans-Regular",
+      "fontSize": 12,
+      "paddingBottom": 5,
+      "paddingTop": 5,
+    }
+  }
+>
+  This is a test text
+</Text>
+`;

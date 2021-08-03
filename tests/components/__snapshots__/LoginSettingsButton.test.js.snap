@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginSettingsButton /> Rendering 1`] = `
+<View
+  accessibilityRole="button"
+  color="#01579b"
+  iconStyle={
+    Object {
+      "padding": 10,
+    }
+  }
+  name="settings"
+  onPress={[Function]}
+  size={22}
+  type="material"
+/>
+`;
