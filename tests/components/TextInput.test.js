@@ -1,12 +1,11 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 import { TextInput } from '../../src/components/surveyEditor';
 
 describe('<TextInput />', () => {
   it('Rendering', () => {
-    const tree = TestRenderer.create(<TextInput title="Test" />).toJSON();
-
-    expect(tree.children[0].children[0]).toBe('Test'); // label
+    const screen = render(<TextInput title="Test" />);
+    expect(screen.toJSON()).toMatchSnapshot();
   });
 });

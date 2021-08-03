@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginFormInput /> Rendering 1`] = `
+<View
+  style={
+    Object {
+      "paddingHorizontal": 10,
+      "width": "100%",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#86939e",
+        "fontFamily": "SalesforceSans-Regular",
+        "fontSize": 16,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Email
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderBottomWidth": 1,
+        "borderColor": "#86939e",
+        "flexDirection": "row",
+        "transform": Array [
+          Object {
+            "translateX": 0,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 40,
+          "justifyContent": "center",
+          "marginVertical": 4,
+          "paddingRight": 4,
+        }
+      }
+    >
+      <View
+        color="#706e6b"
+        name="email-outline"
+        type="material-community"
+      />
+    </View>
+    <TextInput
+      allowFontScaling={true}
+      editable={true}
+      keyboardType="email-address"
+      onChangeText={[Function]}
+      placeholder="yourname@example.com"
+      placeholderTextColor="#86939e"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "#242424",
+          "flex": 1,
+          "fontFamily": "SalesforceSans-Regular",
+          "fontSize": 18,
+          "minHeight": 40,
+        }
+      }
+      testID="RNE__Input__text-input"
+      underlineColorAndroid="transparent"
+      value="test@example.com"
+    />
+  </View>
+  <Text
+    style={
+      Object {
+        "color": "#c23934",
+        "fontFamily": "SalesforceSans-Regular",
+        "fontSize": 12,
+        "margin": 5,
+      }
+    }
+  >
+    test error message
+  </Text>
+</View>
+`;
+
+exports[`<TextIcon /> Rendering 1`] = `
+<View
+  style={
+    Object {
+      "paddingHorizontal": 10,
+      "width": "100%",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#86939e",
+        "fontFamily": "SalesforceSans-Regular",
+        "fontSize": 16,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Email
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderBottomWidth": 1,
+        "borderColor": "#86939e",
+        "flexDirection": "row",
+        "transform": Array [
+          Object {
+            "translateX": 0,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 40,
+          "justifyContent": "center",
+          "marginVertical": 4,
+          "paddingRight": 4,
+        }
+      }
+    >
+      <View
+        color="#706e6b"
+        name="email-outline"
+        type="material-community"
+      />
+    </View>
+    <TextInput
+      allowFontScaling={true}
+      editable={true}
+      keyboardType="email-address"
+      onChangeText={[Function]}
+      placeholder="yourname@example.com"
+      placeholderTextColor="#86939e"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "#242424",
+          "flex": 1,
+          "fontFamily": "SalesforceSans-Regular",
+          "fontSize": 18,
+          "minHeight": 40,
+        }
+      }
+      testID="RNE__Input__text-input"
+      underlineColorAndroid="transparent"
+      value="test@example.com"
+    />
+  </View>
+  <Text
+    style={
+      Object {
+        "color": "#c23934",
+        "fontFamily": "SalesforceSans-Regular",
+        "fontSize": 12,
+        "margin": 5,
+      }
+    }
+  >
+    test error message
+  </Text>
+</View>
+`;

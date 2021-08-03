@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextHeading /> Rendering 1`] = `
+<Text
+  style={
+    Object {
+      "color": "#2b2826",
+      "fontFamily": "SalesforceSans-Regular",
+      "fontSize": 16,
+      "lineHeight": 22,
+      "paddingBottom": 5,
+      "paddingTop": 5,
+    }
+  }
+>
+  This is a test text
+</Text>
+`;

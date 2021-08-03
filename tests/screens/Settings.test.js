@@ -5,8 +5,6 @@ import i18n from '../../src/config/i18n';
 import LocalizationContext from '../../src/context/localizationContext';
 import Settings from '../../src/screens/Settings';
 
-jest.mock('react-native-elements/src/icons/Icon', () => 'View');
-
 describe('<Settings />', () => {
   it('render', () => {
     const locale = i18n.locale;

@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CheckboxButton /> Rendering 1`] = `
+<View
+  accessible={true}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "opacity": 1,
+      "padding": 10,
+    }
+  }
+>
+  <View
+    color="#01579b"
+    name="check-box"
+    size={30}
+    type="material"
+  />
+  <View
+    style={
+      Object {
+        "marginBottom": -5,
+      }
+    }
+  >
+    Test
+  </View>
+</View>
+`;

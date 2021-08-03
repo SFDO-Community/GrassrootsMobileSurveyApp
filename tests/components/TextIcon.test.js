@@ -1,21 +1,15 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 import { TextIcon } from '../../src/components';
 
-jest.mock('react-native-elements/src/icons/Icon', () => 'View');
-
 describe('<TextIcon />', () => {
   it('Rendering', () => {
-    const tree = TestRenderer.create(
+    const screen = render(
       <TextIcon icon="check-circle" color="#000000">
         Hello
       </TextIcon>
-    ).toJSON();
-
-    expect(tree.type).toBe('View');
-    // expect to have icon and text
-    expect(tree.children).toHaveLength(2);
-    expect(tree.children[1].children[0]).toBe('Hello');
+    );
+    expect(screen.toJSON()).toMatchSnapshot();
   });
 });
