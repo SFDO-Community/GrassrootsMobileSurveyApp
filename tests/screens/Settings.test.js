@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 import i18n from '../../src/config/i18n';
 import LocalizationContext from '../../src/context/localizationContext';
@@ -14,12 +14,11 @@ describe('<Settings />', () => {
       setLocale: jest.fn(),
     };
 
-    const screen = renderer.create(
+    const screen = render(
       <LocalizationContext.Provider value={localizationContext}>
         <Settings />
       </LocalizationContext.Provider>
     );
-    const tree = screen.toJSON();
-    expect(tree.children).toHaveLength(4); // Image, Modal, View, View
+    expect(screen.toJSON()).toMatchSnapshot();
   });
 });
