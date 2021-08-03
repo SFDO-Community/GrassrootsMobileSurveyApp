@@ -13,6 +13,19 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
   return { KeyboardAwareScrollView };
 });
 
+jest.mock('../../src/services/salesforce/contact', () => ({
+  getCurrentUserContact: jest.fn().mockImplementation(() => Promise.resolve({ id: 'test' })),
+  storeContacts: jest.fn().mockImplementation(() => Promise.resolve()),
+}));
+
+jest.mock('../../src/services/salesforce/survey', () => ({
+  storeOnlineSurveys: jest.fn().mockImplementation(() => Promise.resolve()),
+}));
+
+jest.mock('../../src/services/describe', () => ({
+  retrieveAllMetadata: jest.fn().mockImplementation(() => Promise.resolve()),
+}));
+
 describe('login screen', () => {
   const locale = i18n.locale;
   const localizationContext = {

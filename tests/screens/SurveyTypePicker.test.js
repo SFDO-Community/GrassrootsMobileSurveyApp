@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 
 import i18n from '../../src/config/i18n';
 import LocalizationContext from '../../src/context/localizationContext';
@@ -23,8 +23,6 @@ const mockRecordTypes = [
     master: false,
   },
 ];
-
-// import { getAllAvailableRecordTypes } from '../../src/services/database/metadata';
 
 jest.mock('../../src/services/database/metadata', () => ({
   getAllAvailableRecordTypes: jest.fn().mockImplementation(() => Promise.resolve(mockRecordTypes)),
