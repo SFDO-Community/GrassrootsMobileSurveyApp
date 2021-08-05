@@ -1,0 +1,44 @@
+{
+  "layouts" : null,
+  "recordTypeMappings" : [ {
+    "active" : true,
+    "available" : true,
+    "defaultRecordTypeMapping" : true,
+    "developerName" : "Flower",
+    "layoutId" : "00h5h000000mLxWAAU",
+    "master" : false,
+    "name" : "Flower",
+    "picklistsForRecordType" : [ ],
+    "recordTypeId" : "0125h000000kN4aAAE",
+    "urls" : {
+      "layout" : "/services/data/v51.0/sobjects/GRMS_Survey__c/describe/layouts/0125h000000kN4aAAE"
+    }
+  }, {
+    "active" : true,
+    "available" : true,
+    "defaultRecordTypeMapping" : false,
+    "developerName" : "Restaurant",
+    "layoutId" : "00h5h000000mTxOAAU",
+    "master" : false,
+    "name" : "Restaurant",
+    "picklistsForRecordType" : [ ],
+    "recordTypeId" : "0125h000000kNJMAA2",
+    "urls" : {
+      "layout" : "/services/data/v51.0/sobjects/GRMS_Survey__c/describe/layouts/0125h000000kNJMAA2"
+    }
+  }, {
+    "active" : true,
+    "available" : true,
+    "defaultRecordTypeMapping" : false,
+    "developerName" : "Master",
+    "layoutId" : "00h5h000000mLxWAAU",
+    "master" : true,
+    "name" : "Master",
+    "picklistsForRecordType" : [ ],
+    "recordTypeId" : "012000000000000AAA",
+    "urls" : {
+      "layout" : "/services/data/v51.0/sobjects/GRMS_Survey__c/describe/layouts/012000000000000AAA"
+    }
+  } ],
+  "recordTypeSelectorRequired" : [ true ]
+}
