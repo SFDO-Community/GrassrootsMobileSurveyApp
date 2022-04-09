@@ -13,7 +13,7 @@ import { SQLiteContact, SQLiteFieldTypeMapping } from '../../types/sqlite';
  */
 export const getCurrentUserContact = async () => {
   const appUserEmail = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
-  const query = `SELECT Id, Name FROM Contact WHERE GRMS_LoginEmail__c = '${appUserEmail}' AND RecordType.DeveloperName = 'GRMS_User'`;
+  const query = `SELECT Id, Name FROM Contact WHERE GRMS_LoginEmail__c = '${appUserEmail}' AND GRMS_ContactType__c = 'Survey User'`;
   try {
     const records = await fetchSalesforceRecords(query);
     logger('DEBUG', 'getCurrentUserContact', records);
