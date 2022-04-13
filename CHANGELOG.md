@@ -1,3 +1,6 @@
+# 0.5.0 - April 2022
+* Refer picklist instead of record type for contact type
+
 # 0.4.0 - August 2nd, 2021
 * Skip record type selection screen if there's only one record type in the org (including Master record type)
 * Under-the-hood code maintenance
