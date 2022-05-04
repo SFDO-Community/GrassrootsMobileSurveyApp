@@ -1,0 +1,429 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login settings screen save 1`] = `
+<View
+  accessibilityIgnoresInvertColors={true}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "flex": 1,
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Array [
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "height": undefined,
+          "width": undefined,
+        },
+        Object {
+          "resizeMode": "contain",
+          "top": 857.7142857142858,
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifyContent": "center",
+        "paddingTop": 20,
+        "width": "90%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "paddingHorizontal": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#86939e",
+            "fontFamily": "SalesforceSans-Regular",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Heroku App Name
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderBottomWidth": 1,
+            "borderColor": "#86939e",
+            "flexDirection": "row",
+            "transform": Array [
+              Object {
+                "translateX": 0,
+              },
+            ],
+          }
+        }
+      >
+        <TextInput
+          accessibilityLabel="app-name-input"
+          allowFontScaling={true}
+          editable={true}
+          keyboardType="url"
+          onChangeText={[Function]}
+          placeholder="aaa-bbb-12345"
+          placeholderTextColor="#86939e"
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "#242424",
+              "flex": 1,
+              "fontFamily": "SalesforceSans-Regular",
+              "fontSize": 18,
+              "minHeight": 40,
+            }
+          }
+          testID="RNE__Input__text-input"
+          underlineColorAndroid="transparent"
+          value="test-app-123"
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "#ff190c",
+            "fontSize": 12,
+            "margin": 5,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "paddingLeft": 10,
+          "paddingRight": 10,
+        }
+      }
+    >
+      <View
+        color="#2b2826"
+        name="information"
+        type="material-community"
+      />
+      <Text
+        style={
+          Object {
+            "color": "#2b2826",
+            "fontFamily": "SalesforceSans-Regular",
+            "paddingLeft": 5,
+          }
+        }
+      >
+        Enter your Heroku app name. For exmaple, if the URL of your Heroku app is https://aaa-bbb-12345.herokuapp.com, enter aaa-bbb-12345. Ask your administrator for details.
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "paddingTop": 20,
+          "width": "40%",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "borderRadius": 5,
+            "overflow": "hidden",
+          }
+        }
+      >
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "busy": false,
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#01579b",
+                "borderColor": "#2089dc",
+                "borderRadius": 5,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "SalesforceSans-Regular",
+                  "fontSize": 16,
+                  "paddingBottom": 1,
+                  "paddingTop": 2,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Save
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`login settings screen save with trim 1`] = `
+<View
+  accessibilityIgnoresInvertColors={true}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "flex": 1,
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Array [
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "height": undefined,
+          "width": undefined,
+        },
+        Object {
+          "resizeMode": "contain",
+          "top": 857.7142857142858,
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifyContent": "center",
+        "paddingTop": 20,
+        "width": "90%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "paddingHorizontal": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#86939e",
+            "fontFamily": "SalesforceSans-Regular",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Heroku App Name
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderBottomWidth": 1,
+            "borderColor": "#86939e",
+            "flexDirection": "row",
+            "transform": Array [
+              Object {
+                "translateX": 0,
+              },
+            ],
+          }
+        }
+      >
+        <TextInput
+          accessibilityLabel="app-name-input"
+          allowFontScaling={true}
+          editable={true}
+          keyboardType="url"
+          onChangeText={[Function]}
+          placeholder="aaa-bbb-12345"
+          placeholderTextColor="#86939e"
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "#242424",
+              "flex": 1,
+              "fontFamily": "SalesforceSans-Regular",
+              "fontSize": 18,
+              "minHeight": 40,
+            }
+          }
+          testID="RNE__Input__text-input"
+          underlineColorAndroid="transparent"
+          value="test-app-123"
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "#ff190c",
+            "fontSize": 12,
+            "margin": 5,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "paddingLeft": 10,
+          "paddingRight": 10,
+        }
+      }
+    >
+      <View
+        color="#2b2826"
+        name="information"
+        type="material-community"
+      />
+      <Text
+        style={
+          Object {
+            "color": "#2b2826",
+            "fontFamily": "SalesforceSans-Regular",
+            "paddingLeft": 5,
+          }
+        }
+      >
+        Enter your Heroku app name. For exmaple, if the URL of your Heroku app is https://aaa-bbb-12345.herokuapp.com, enter aaa-bbb-12345. Ask your administrator for details.
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "paddingTop": 20,
+          "width": "40%",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "borderRadius": 5,
+            "overflow": "hidden",
+          }
+        }
+      >
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "busy": false,
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#01579b",
+                "borderColor": "#2089dc",
+                "borderRadius": 5,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "white",
+                  "fontFamily": "SalesforceSans-Regular",
+                  "fontSize": 16,
+                  "paddingBottom": 1,
+                  "paddingTop": 2,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Save
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
