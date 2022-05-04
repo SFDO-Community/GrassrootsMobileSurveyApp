@@ -32,7 +32,9 @@ export default function LoginSettings({ navigation }) {
    * @description Save Heroku app name.
    */
   const save = async () => {
-    await SecureStore.setItemAsync(SECURE_STORE_KEYS.HEROKU_APP_NAME, herokuAppName);
+    const trimmed = herokuAppName.trim();
+    setHerokuAppName(trimmed);
+    await SecureStore.setItemAsync(SECURE_STORE_KEYS.HEROKU_APP_NAME, trimmed);
     notifySuccess('Successfully saved!');
   };
 
@@ -48,6 +50,7 @@ export default function LoginSettings({ navigation }) {
             inputStyle={{ fontFamily: APP_FONTS.FONT_REGULAR }}
             placeholder="aaa-bbb-12345"
             keyboardType="url"
+            accessibilityLabel="app-name-input"
           />
           <View style={styles.descriptionStyle}>
             <Icon name="information" type="material-community" color={APP_THEME.APP_DARK_FONT_COLOR} />
