@@ -1,23 +1,30 @@
 {
-    "compilerOptions": {
-      "allowSyntheticDefaultImports": true,
-      "jsx": "react-native",
-      "lib": ["dom", "esnext"],
-      "downlevelIteration": true,
-      "moduleResolution": "node",
-      "noEmit": true,
-      "skipLibCheck": true,
-      "resolveJsonModule": true,
-      "baseUrl": ".",
-      "paths": {
-        "*": [
-          "./node_modules/@types/*",
-          "./node_modules/*",
-        ],
-        "@global": [
-          "./src/types/index.d.ts",
-        ],
-      }
-    },
-    "exclude": ["node_modules"]
-  }
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "./node_modules/@types/*",
+        "./node_modules/*"
+      ],
+      "@global": [
+        "./src/types/index.d.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "__mocks__"
+  ],
+  "extends": "expo/tsconfig.base"
+}
