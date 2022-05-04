@@ -9,7 +9,7 @@ type LoginFormInputProps = {
   label: string;
   placeholder: string;
   icon: string;
-  isSecure: boolean;
+  isSecure?: boolean;
   errorMessage: string;
   keyboardType?: 'email-address' | 'default';
 };
