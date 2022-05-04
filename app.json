@@ -9,7 +9,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.sfdo.community.grassrootsmobilesurveyapp",
-      "buildNumber": "0.5.0"
+      "buildNumber": "1"
     },
     "android": {
       "package": "com.sfdo.community.grassrootsmobilesurveyapp",
