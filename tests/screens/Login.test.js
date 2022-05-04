@@ -6,7 +6,7 @@ import LocalizationContext from '../../src/context/localizationContext';
 import Login from '../../src/screens/Login';
 // local test utils
 import { translate } from '../localization';
-import { mockAuthSuccessResponse, mockAuthFailureResponse } from '../services/mockResponse';
+import { mockAuthSuccessResponse } from '../services/mockResponse';
 
 jest.mock('react-native-keyboard-aware-scroll-view', () => {
   const KeyboardAwareScrollView = ({ children }) => children;
