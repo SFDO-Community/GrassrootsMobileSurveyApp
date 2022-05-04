@@ -1,3 +1,6 @@
+# 0.6.0 - May 4th, 2022
+* Trim spaces when saving Heroku app name
+
 # 0.5.0 - April 2022
 * Refer picklist instead of record type for contact type
 
