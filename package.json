@@ -5,7 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:android:production": "eas build -p android --profile production --non-interactive",
+    "build:android:development": "eas build -p android --profile development --non-interactive",
     "build:ios": "eas build -p ios",
     "eject": "expo eject",
     "check-types": "tsc",

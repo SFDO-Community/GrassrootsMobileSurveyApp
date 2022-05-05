@@ -33,5 +33,5 @@ jobs:
         run: yarn install
 
       # Build
-      - name: '🚀 Build app (android)'
-        run: yarn build:android:production
+      - name: '🚀 Build app (android apk)'
+        run: yarn build:android:development
