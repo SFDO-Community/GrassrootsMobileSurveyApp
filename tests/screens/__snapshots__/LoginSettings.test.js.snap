@@ -135,7 +135,7 @@ exports[`login settings screen save 1`] = `
           }
         }
       >
-        Enter your Heroku app name. For exmaple, if the URL of your Heroku app is https://aaa-bbb-12345.herokuapp.com, enter aaa-bbb-12345. Ask your administrator for details.
+        Enter your Heroku app name. For example, if the URL of your Heroku app is https://aaa-bbb-12345.herokuapp.com, enter aaa-bbb-12345. Ask your administrator for details.
       </Text>
     </View>
     <View
@@ -349,7 +349,7 @@ exports[`login settings screen save with trim 1`] = `
           }
         }
       >
-        Enter your Heroku app name. For exmaple, if the URL of your Heroku app is https://aaa-bbb-12345.herokuapp.com, enter aaa-bbb-12345. Ask your administrator for details.
+        Enter your Heroku app name. For example, if the URL of your Heroku app is https://aaa-bbb-12345.herokuapp.com, enter aaa-bbb-12345. Ask your administrator for details.
       </Text>
     </View>
     <View
