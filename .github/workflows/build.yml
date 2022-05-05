@@ -14,22 +14,24 @@ jobs:
         uses: actions/checkout@v2
 
       # Setup node.js and yarn
-      - name: 'Setup node.js'
+      - name: '🏗 Setup node.js'
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
+          cache: yarn
 
       # Setup Expo 
-      - name: 'Setup Expo'
-        uses: expo/expo-github-action@v5
+      - name: '🏗 Setup Expo and EAS'
+        uses: expo/expo-github-action@v7
         with:
-          expo-version: 4.x
-          expo-token: ${{ secrets.EXPO_TOKEN }}
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
 
       # Install npm dependencies
-      - name: 'Install dependencies'
+      - name: '📦 Install dependencies'
         run: yarn install
 
-      # Publish
-      - name: 'Publish'
-        run: yarn build:android
+      # Build
+      - name: '🚀 Build app (android)'
+        run: yarn build:android:production
