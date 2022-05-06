@@ -13747,6 +13747,15 @@ prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
     object-assign "^4.1.1"
     react-is "^16.8.1"
 
+prop-types@^15.8.1:
+  version "15.8.1"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
+  integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
+  dependencies:
+    loose-envify "^1.4.0"
+    object-assign "^4.1.1"
+    react-is "^16.13.1"
+
 proxy-addr@~2.0.4, proxy-addr@~2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/proxy-addr/-/proxy-addr-2.0.6.tgz#fdc2336505447d3f2f2c638ed272caf614bbb2bf"
@@ -13989,7 +13998,7 @@ react-freeze@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.0.tgz#b21c65fe1783743007c8c9a2952b1c8879a77354"
   integrity sha512-yQaiOqDmoKqks56LN9MTgY06O0qQHgV4FUrikH357DydArSZHQhl0BJFqGKIZoTqi8JizF9Dxhuk1FIZD6qCaw==
 
-react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
+react-is@^16.12.0, react-is@^16.13.0, react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -14042,13 +14051,13 @@ react-native-elements@^2.3.2:
     react-native-ratings "^7.2.0"
     react-native-status-bar-height "^2.5.0"
 
-react-native-flash-message@^0.1.16:
-  version "0.1.16"
-  resolved "https://registry.yarnpkg.com/react-native-flash-message/-/react-native-flash-message-0.1.16.tgz#4f23c8c60927ed3c325d90f1a4c1bbe0923a4ba6"
-  integrity sha512-d+c6zWQDNvnZ5S0BDa10yB/0/rLMXTtYYjIOyad0Y+/G6h289qB1Hyc9twgvrpv/fEaKW+m5vxCBGHustII+rA==
+react-native-flash-message@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-flash-message/-/react-native-flash-message-0.2.1.tgz#2c956000d60569984b82bff1b6b7b3bff31b4eb6"
+  integrity sha512-jVLIygLSBEl+GZur6wyxLtla/v8dUAy1dPVwDpjAiGg9D4D5gvkdE7ZGJ9hY9svVriF464mgNi3qXQ9AP/+pNg==
   dependencies:
-    prop-types "^15.7.2"
-    react-native-iphone-x-helper "^1.2.1"
+    prop-types "^15.8.1"
+    react-native-iphone-x-helper "^1.3.1"
 
 react-native-gesture-handler@~2.1.0:
   version "2.1.3"
@@ -14066,6 +14075,11 @@ react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
 
+react-native-iphone-x-helper@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
+  integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
+
 react-native-keyboard-aware-scroll-view@^0.9.4:
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.9.4.tgz#83b356062123070c4b75f57d34dd276b9dd5796a"
@@ -14081,10 +14095,10 @@ react-native-modal-datetime-picker@^10.2.0:
   dependencies:
     prop-types "^15.7.2"
 
-react-native-modal@^11.6.1:
-  version "11.6.1"
-  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.6.1.tgz#6162a39731860fb3b6e8304059f72dc0a961f9fd"
-  integrity sha512-Xsd79nuBvbLOYwpRuur4btwJFQ3WkV9zp5LbAREidUtjl/Ajlp4QbNBx888FOPjo+EpOO3+U0riCRqs1dkdIzQ==
+react-native-modal@^13.0.1:
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-13.0.1.tgz#691f1e646abb96fa82c1788bf18a16d585da37cd"
+  integrity sha512-UB+mjmUtf+miaG/sDhOikRfBOv0gJdBU2ZE1HtFWp6UixW9jCk/bhGdHUgmZljbPpp0RaO/6YiMmQSSK3kkMaw==
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
