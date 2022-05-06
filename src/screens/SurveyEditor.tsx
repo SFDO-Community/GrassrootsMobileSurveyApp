@@ -35,7 +35,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
 
   const { t } = useContext(LocalizationContext);
 
-  const MODE = route.params._localId ? 'EDIT_OR_VIEW' : 'NEW';
+  const MODE = route.params._localId ? (survey._syncStatus === SYNC_STATUS_UNSYNCED ? 'EDIT' : 'VIEW') : 'NEW';
 
   const requiredFields: Array<string> = layout.sections
     ? layout.sections.map(s => s.data.filter(f => f.required).map(f => f.name)).flat()
@@ -57,7 +57,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
         dispatchSurvey({ type: 'LOAD', detail: { _syncStatus: SYNC_STATUS_UNSYNCED } });
         const result = await buildLayoutDetail(route.params.selectedLayoutId);
         setLayout(result);
-      } else if (MODE === 'EDIT_OR_VIEW') {
+      } else if (MODE === 'EDIT' || MODE === 'VIEW') {
         // query existing survey from local database
         const storedSurveys: Array<SQLiteSurvey> = await getRecords(
           DB_TABLE.SURVEY,
@@ -80,6 +80,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => SaveButton(),
+      title: t(`${MODE}_SURVEY`),
     });
   }, [navigation, survey, layout]);
 

@@ -18,6 +18,8 @@
     "UPLOAD_SURVEY_MESSAGE": "Do you want to upload the surveys?",
     "CHOOSE_SURVEY": "Choose a survey type",
     "NEW_SURVEY": "New Survey",
+    "VIEW_SURVEY": "View Survey",
+    "EDIT_SURVEY": "Edit Survey",
     "SURVEY_COMPLETED": "Survey Completed",
     "SEARCH_SURVEYS": "Search Surveys",
     "GO_TO_SURVEY": "Go to Surveys",
