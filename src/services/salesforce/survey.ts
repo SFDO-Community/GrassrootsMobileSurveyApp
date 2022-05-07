@@ -7,7 +7,7 @@ import {
   LOCAL_SURVEY_FIELDS,
   SURVEY_OBJECT,
   SYNC_STATUS_SYNCED,
-  USER_CONTACT_FIELD_ON_SURVEY,
+  FIELD_WORKER_CONTACT_FIELD_ON_SURVEY,
   RECORD_TYPE_ID_FIELD,
 } from '../../constants';
 import {
@@ -67,7 +67,7 @@ export const storeOnlineSurveys = async () => {
 
   const contactId = await storage.load({ key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID });
   const surveys = await fetchSalesforceRecords(
-    `SELECT ${commaSeparetedFields} FROM ${SURVEY_OBJECT} WHERE ${USER_CONTACT_FIELD_ON_SURVEY} = '${contactId}'`
+    `SELECT ${commaSeparetedFields} FROM ${SURVEY_OBJECT} WHERE ${FIELD_WORKER_CONTACT_FIELD_ON_SURVEY} = '${contactId}'`
   );
   if (surveys.length === 0) {
     return;
