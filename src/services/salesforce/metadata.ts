@@ -83,7 +83,7 @@ export const storePageLayoutItems = async (layout: DescribeLayout) => {
     .map(section => {
       return section.layoutRows.map(row => {
         return row.layoutItems.map(item => {
-          // Avoid adding empty space, read-only field, and user contact lookup field
+          // Avoid adding empty space, read-only field, and field worker lookup field
           const layoutComponents = item.layoutComponents
             .filter(
               c =>

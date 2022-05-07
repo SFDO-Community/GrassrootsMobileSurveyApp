@@ -33,12 +33,12 @@ export const getCurrentFieldWorker = async () => {
  * @description Fetch contacts, resolve relationships and then save them to local database.
  */
 export const storeContacts = async () => {
-  const userContactId = await storage.load({
+  const fieldWorkerContactId = await storage.load({
     key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID,
   });
   const junctionQuery = `SELECT Id, GRMS_Client__c, GRMS_Client__r.Name, GRMS_Type__c
     FROM GRMS_FieldWorkerClientRelation__c 
-    WHERE GRMS_FieldWorker__c = '${userContactId}'`;
+    WHERE GRMS_FieldWorker__c = '${fieldWorkerContactId}'`;
   try {
     const junctionRecords = await fetchSalesforceRecords(junctionQuery);
     const contactMap: Map<string, SQLiteContact> = new Map<string, SQLiteContact>(
@@ -70,11 +70,11 @@ export const storeContacts = async () => {
   } catch (error) {
     if (error.origin === 'query') {
       throw new Error(
-        'Unexpected error occurred while retrieving user-client relationship records. Contact your administrator.'
+        'Unexpected error occurred while retrieving field worker-client relationship records. Contact your administrator.'
       );
     }
     throw new Error(
-      'Unexpected error occurred while saving user-client relationship records. Contact your administrator.'
+      'Unexpected error occurred while saving field worker-client relationship records. Contact your administrator.'
     );
   }
 };

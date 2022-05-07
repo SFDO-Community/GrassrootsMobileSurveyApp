@@ -58,8 +58,8 @@ export default function Welcome({ isVisible, setVisible, navigation }: WelcomeMo
     } else {
       const prepare = async () => {
         try {
-          const userContact = await getCurrentFieldWorker();
-          storage.save({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID, data: userContact.Id });
+          const fieldWorker = await getCurrentFieldWorker();
+          storage.save({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID, data: fieldWorker.Id });
           await storeContacts();
           setContactIconColor(APP_THEME.APP_SUCCESS_COLOR);
 
