@@ -25,7 +25,7 @@ export const APP_THEME = {
 
 export const ASYNC_STORAGE_KEYS = {
   SALESFORCE_INSTANCE_URL: '@SalesforceInstanceURL',
-  USER_CONTACT_ID: '@UserContactId',
+  FIELD_WORKER_CONTACT_ID: '@FieldWorkerContactId',
   FIELD_TYPE: '@FieldType',
 };
 

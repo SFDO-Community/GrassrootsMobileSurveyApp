@@ -65,7 +65,7 @@ export const storeOnlineSurveys = async () => {
     .map(f => f.fieldName)
     .join(',');
 
-  const contactId = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
+  const contactId = await storage.load({ key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID });
   const surveys = await fetchSalesforceRecords(
     `SELECT ${commaSeparetedFields} FROM ${SURVEY_OBJECT} WHERE ${USER_CONTACT_FIELD_ON_SURVEY} = '${contactId}'`
   );

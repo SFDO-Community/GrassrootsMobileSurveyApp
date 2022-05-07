@@ -34,7 +34,7 @@ export const getCurrentFieldWorker = async () => {
  */
 export const storeContacts = async () => {
   const fieldWorkerContactId = await storage.load({
-    key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID,
+    key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID,
   });
   const junctionQuery = `SELECT Id, GRMS_Client__c, GRMS_Client__r.Name, GRMS_Type__c
     FROM GRMS_FieldWorkerClientRelation__c 
