@@ -13,13 +13,13 @@ import { SQLiteContact, SQLiteFieldTypeMapping } from '../../types/sqlite';
  */
 export const getCurrentUserContact = async () => {
   const appUserEmail = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
-  const query = `SELECT Id, Name FROM Contact WHERE GRMS_LoginEmail__c = '${appUserEmail}' AND GRMS_ContactType__c = 'Survey User'`;
+  const query = `SELECT Id, Name FROM Contact WHERE GRMS_LoginEmail__c = '${appUserEmail}' AND GRMS_ContactType__c = 'Field Worker'`;
   try {
     const records = await fetchSalesforceRecords(query);
     logger('DEBUG', 'getCurrentUserContact', records);
     if (records.length !== 1) {
       return Promise.reject({
-        message: 'User contact record is not found or duplicated. Check your Salesforce org.',
+        message: 'Field worker record is not found or duplicated. Check your Salesforce org.',
       });
     }
     return records[0];
@@ -37,8 +37,8 @@ export const storeContacts = async () => {
     key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID,
   });
   const junctionQuery = `SELECT Id, GRMS_Client__c, GRMS_Client__r.Name, GRMS_Type__c
-    FROM GRMS_UserClientRelation__c 
-    WHERE GRMS_User__c = '${userContactId}'`;
+    FROM GRMS_FieldWorkerClientRelation__c 
+    WHERE GRMS_FieldWorker__c = '${userContactId}'`;
   try {
     const junctionRecords = await fetchSalesforceRecords(junctionQuery);
     const contactMap: Map<string, SQLiteContact> = new Map<string, SQLiteContact>(

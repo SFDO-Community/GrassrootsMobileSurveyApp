@@ -53,7 +53,7 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
 };
 
 export const SURVEY_OBJECT = 'GRMS_Survey__c';
-export const USER_CONTACT_FIELD_ON_SURVEY = 'GRMS_UserContact__c';
+export const USER_CONTACT_FIELD_ON_SURVEY = 'GRMS_FieldWorker__c';
 export const SURVEY_DATE_FIELD = 'GRMS_SurveyDate__c';
 export const RECORD_TYPE_ID_FIELD = 'RecordTypeId';
 export const BACKGROUND_SURVEY_FIELDS = [
