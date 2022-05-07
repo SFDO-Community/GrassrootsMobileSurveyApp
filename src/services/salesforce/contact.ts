@@ -11,12 +11,12 @@ import { SQLiteContact, SQLiteFieldTypeMapping } from '../../types/sqlite';
  * @description Fetch contact record by logged in email. Throw an errow when record is not found or multiple records are found.
  * @return the contact record object
  */
-export const getCurrentUserContact = async () => {
+export const getCurrentFieldWorker = async () => {
   const appUserEmail = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
   const query = `SELECT Id, Name FROM Contact WHERE GRMS_LoginEmail__c = '${appUserEmail}' AND GRMS_ContactType__c = 'Field Worker'`;
   try {
     const records = await fetchSalesforceRecords(query);
-    logger('DEBUG', 'getCurrentUserContact', records);
+    logger('DEBUG', 'getCurrentFieldWorker', records);
     if (records.length !== 1) {
       return Promise.reject({
         message: 'Field worker record is not found or duplicated. Check your Salesforce org.',
@@ -24,7 +24,7 @@ export const getCurrentUserContact = async () => {
     }
     return records[0];
   } catch (e) {
-    logger('ERROR', 'getCurrentUserContact', e);
+    logger('ERROR', 'getCurrentFieldWorker', e);
     throw new Error('Unexpected error occurred while retrieving your contact record. Contact your administrator.');
   }
 };
