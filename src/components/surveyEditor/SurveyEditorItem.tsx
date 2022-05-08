@@ -1,12 +1,12 @@
 import React, { memo, useContext } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { TextInput, CheckboxButton, DatePicker, Picklist, Lookup } from '../components/surveyEditor';
+import { TextInput, CheckboxButton, DatePicker, Picklist, Lookup } from '.';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { useSelector, useDispatch } from '../state/surveyEditorState';
-import LocalizationContext from '../context/localizationContext';
-import { StackParamList } from '../Router';
-import { APP_THEME, APP_FONTS, L10N_PREFIX, SYNC_STATUS_SYNCED } from '../constants';
+import { useSelector, useDispatch } from '../../state/surveyEditorState';
+import LocalizationContext from '../../context/localizationContext';
+import { StackParamList } from '../../Router';
+import { APP_THEME, APP_FONTS, L10N_PREFIX, SYNC_STATUS_SYNCED } from '../../constants';
 
 type SurveyEditorNavigationProp = StackNavigationProp<StackParamList, 'SurveyEditor'>;
 

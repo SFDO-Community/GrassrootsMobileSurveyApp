@@ -14,7 +14,7 @@ import Settings from './screens/Settings';
 import LookupSearch from './screens/LookupSearch';
 
 // components
-import { LogoutButton } from './screens/SurveyListHeaderButtons';
+import { LogoutButton } from './components/surveyList/SurveyListHeaderButtons';
 import { LoginSettingsButton } from './components/LoginSettingsButton';
 
 // styles

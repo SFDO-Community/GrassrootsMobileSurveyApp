@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { Icon, ButtonGroup } from 'react-native-elements';
 
-import { APP_FONTS, APP_THEME, SYNC_STATUS_SYNCED, SYNC_STATUS_UNSYNCED } from '../constants';
-import LocalizationContext from '../context/localizationContext';
-import { SurveyFilterAction } from '../reducers/surveyFilterReducer';
+import { APP_FONTS, APP_THEME, SYNC_STATUS_SYNCED, SYNC_STATUS_UNSYNCED } from '../../constants';
+import LocalizationContext from '../../context/localizationContext';
+import { SurveyFilterAction } from '../../reducers/surveyFilterReducer';
 
 type FilterButtonGroupProps = {
   dispatch: React.Dispatch<SurveyFilterAction>;

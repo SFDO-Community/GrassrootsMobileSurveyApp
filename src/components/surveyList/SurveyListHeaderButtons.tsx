@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { Alert, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-import LocalizationContext from '../context/localizationContext';
+import LocalizationContext from '../../context/localizationContext';
 
-import { logout } from '../services/session';
-import { syncLocalSurveys } from '../services/sync';
+import { logout } from '../../services/session';
+import { syncLocalSurveys } from '../../services/sync';
 
-import { APP_THEME, SYNC_STATUS_UNSYNCED } from '../constants';
-import { SurveyListItem } from '../types/survey';
+import { APP_THEME, SYNC_STATUS_UNSYNCED } from '../../constants';
+import { SurveyListItem } from '../../types/survey';
 
 type SurveyListRightButtonProps = SyncButtonProps & SettingsButtonProps;
 

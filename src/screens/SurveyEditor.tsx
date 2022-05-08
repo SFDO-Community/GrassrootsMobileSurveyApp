@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/core';
 import { KeyboardAwareSectionList } from 'react-native-keyboard-aware-scroll-view';
 // component
-import SurveyEditorItem from './SurveyEditorItem';
+import SurveyEditorItem from '../components/surveyEditor/SurveyEditorItem';
 // state
 import LocalizationContext from '../context/localizationContext';
 import { useSelector, useDispatch } from '../state/surveyEditorState';
