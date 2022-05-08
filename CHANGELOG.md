@@ -1,3 +1,11 @@
+# 0.6.1 - May 7th, 2022
+**Before using this version, make sure to install base Salesforce package v0.12.0**
+* Fix picklist field crashing the app in iOS
+  * Upgrade Expo SDK version to 44.0 and update dependencies
+* Fix typo in Login Setting screen
+* Migrate expo build to EAS build
+* Update for the latest matadata
+
 # 0.6.0 - May 4th, 2022
 * Trim spaces when saving Heroku app name
 
