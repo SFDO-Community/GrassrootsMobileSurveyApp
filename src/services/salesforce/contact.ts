@@ -11,20 +11,20 @@ import { SQLiteContact, SQLiteFieldTypeMapping } from '../../types/sqlite';
  * @description Fetch contact record by logged in email. Throw an errow when record is not found or multiple records are found.
  * @return the contact record object
  */
-export const getCurrentUserContact = async () => {
+export const getCurrentFieldWorker = async () => {
   const appUserEmail = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
-  const query = `SELECT Id, Name FROM Contact WHERE GRMS_LoginEmail__c = '${appUserEmail}' AND GRMS_ContactType__c = 'Survey User'`;
+  const query = `SELECT Id, Name FROM Contact WHERE GRMS_LoginEmail__c = '${appUserEmail}' AND GRMS_ContactType__c = 'Field Worker'`;
   try {
     const records = await fetchSalesforceRecords(query);
-    logger('DEBUG', 'getCurrentUserContact', records);
+    logger('DEBUG', 'getCurrentFieldWorker', records);
     if (records.length !== 1) {
       return Promise.reject({
-        message: 'User contact record is not found or duplicated. Check your Salesforce org.',
+        message: 'Field worker record is not found or duplicated. Check your Salesforce org.',
       });
     }
     return records[0];
   } catch (e) {
-    logger('ERROR', 'getCurrentUserContact', e);
+    logger('ERROR', 'getCurrentFieldWorker', e);
     throw new Error('Unexpected error occurred while retrieving your contact record. Contact your administrator.');
   }
 };
@@ -33,12 +33,12 @@ export const getCurrentUserContact = async () => {
  * @description Fetch contacts, resolve relationships and then save them to local database.
  */
 export const storeContacts = async () => {
-  const userContactId = await storage.load({
-    key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID,
+  const fieldWorkerContactId = await storage.load({
+    key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID,
   });
   const junctionQuery = `SELECT Id, GRMS_Client__c, GRMS_Client__r.Name, GRMS_Type__c
-    FROM GRMS_UserClientRelation__c 
-    WHERE GRMS_User__c = '${userContactId}'`;
+    FROM GRMS_FieldWorkerClientRelation__c 
+    WHERE GRMS_FieldWorker__c = '${fieldWorkerContactId}'`;
   try {
     const junctionRecords = await fetchSalesforceRecords(junctionQuery);
     const contactMap: Map<string, SQLiteContact> = new Map<string, SQLiteContact>(
@@ -70,11 +70,11 @@ export const storeContacts = async () => {
   } catch (error) {
     if (error.origin === 'query') {
       throw new Error(
-        'Unexpected error occurred while retrieving user-client relationship records. Contact your administrator.'
+        'Unexpected error occurred while retrieving field worker-client relationship records. Contact your administrator.'
       );
     }
     throw new Error(
-      'Unexpected error occurred while saving user-client relationship records. Contact your administrator.'
+      'Unexpected error occurred while saving field worker-client relationship records. Contact your administrator.'
     );
   }
 };

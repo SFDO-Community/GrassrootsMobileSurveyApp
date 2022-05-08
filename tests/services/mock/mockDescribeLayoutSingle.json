@@ -164,7 +164,7 @@
             {
               "editableForNew": true,
               "editableForUpdate": true,
-              "label": "User Contact",
+              "label": "Field Worker",
               "layoutComponents": [
                 {
                   "details": {
@@ -198,11 +198,11 @@
                     "htmlFormatted": false,
                     "idLookup": false,
                     "inlineHelpText": null,
-                    "label": "User Contact",
+                    "label": "Field Worker",
                     "length": 18,
                     "mask": null,
                     "maskType": null,
-                    "name": "GRMS_UserContact__c",
+                    "name": "GRMS_FieldWorker__c",
                     "nameField": false,
                     "namePointing": false,
                     "nillable": true,
@@ -213,7 +213,7 @@
                     "queryByDistance": false,
                     "referenceTargetField": null,
                     "referenceTo": ["Contact"],
-                    "relationshipName": "GRMS_UserContact__r",
+                    "relationshipName": "GRMS_FieldWorker__r",
                     "relationshipOrder": null,
                     "restrictedDelete": false,
                     "restrictedPicklist": false,
@@ -229,7 +229,7 @@
                   "displayLines": 1,
                   "tabOrder": 5,
                   "type": "Field",
-                  "value": "GRMS_UserContact__c"
+                  "value": "GRMS_FieldWorker__c"
                 }
               ],
               "placeholder": false,

@@ -39,8 +39,8 @@ export default function Login({ navigation }) {
         if (email) {
           setEmail(email);
         }
-        const userContactId = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
-        if (userContactId) {
+        const fieldWorkerContactId = await storage.load({ key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID });
+        if (fieldWorkerContactId) {
           navigation.navgigate('SurveyList');
         }
       } catch {}

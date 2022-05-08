@@ -3,7 +3,7 @@ import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import Modal from 'react-native-modal';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { getCurrentUserContact, storeContacts } from '../services/salesforce/contact';
+import { getCurrentFieldWorker, storeContacts } from '../services/salesforce/contact';
 import { storeOnlineSurveys } from '../services/salesforce/survey';
 import { retrieveAllMetadata } from '../services/describe';
 import { clearLocal } from '../services/session';
@@ -58,8 +58,8 @@ export default function Welcome({ isVisible, setVisible, navigation }: WelcomeMo
     } else {
       const prepare = async () => {
         try {
-          const userContact = await getCurrentUserContact();
-          storage.save({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID, data: userContact.Id });
+          const fieldWorker = await getCurrentFieldWorker();
+          storage.save({ key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID, data: fieldWorker.Id });
           await storeContacts();
           setContactIconColor(APP_THEME.APP_SUCCESS_COLOR);
 

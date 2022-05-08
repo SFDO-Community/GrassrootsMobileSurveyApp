@@ -25,7 +25,7 @@ export const APP_THEME = {
 
 export const ASYNC_STORAGE_KEYS = {
   SALESFORCE_INSTANCE_URL: '@SalesforceInstanceURL',
-  USER_CONTACT_ID: '@UserContactId',
+  FIELD_WORKER_CONTACT_ID: '@FieldWorkerContactId',
   FIELD_TYPE: '@FieldType',
 };
 
@@ -53,13 +53,13 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
 };
 
 export const SURVEY_OBJECT = 'GRMS_Survey__c';
-export const USER_CONTACT_FIELD_ON_SURVEY = 'GRMS_UserContact__c';
+export const FIELD_WORKER_CONTACT_FIELD_ON_SURVEY = 'GRMS_FieldWorker__c';
 export const SURVEY_DATE_FIELD = 'GRMS_SurveyDate__c';
 export const RECORD_TYPE_ID_FIELD = 'RecordTypeId';
 export const BACKGROUND_SURVEY_FIELDS = [
   { fieldName: 'Name', fieldType: 'string' },
   { fieldName: RECORD_TYPE_ID_FIELD, fieldType: 'reference' },
-  { fieldName: USER_CONTACT_FIELD_ON_SURVEY, fieldType: 'reference' },
+  { fieldName: FIELD_WORKER_CONTACT_FIELD_ON_SURVEY, fieldType: 'reference' },
   { fieldName: SURVEY_DATE_FIELD, fieldType: 'datetime' },
 ];
 export const LOCAL_SURVEY_FIELDS: Array<SQLiteFieldTypeMapping> = [{ name: '_syncStatus', type: 'text' }];

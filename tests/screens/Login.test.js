@@ -14,7 +14,7 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
 });
 
 jest.mock('../../src/services/salesforce/contact', () => ({
-  getCurrentUserContact: jest.fn().mockImplementation(() => Promise.resolve({ id: 'test' })),
+  getCurrentFieldWorker: jest.fn().mockImplementation(() => Promise.resolve({ id: 'test' })),
   storeContacts: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
 

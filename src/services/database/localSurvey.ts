@@ -4,7 +4,7 @@ import {
   DB_TABLE,
   SURVEY_DATE_FIELD,
   SYNC_STATUS_SYNCED,
-  USER_CONTACT_FIELD_ON_SURVEY,
+  FIELD_WORKER_CONTACT_FIELD_ON_SURVEY,
 } from '../../constants';
 import { logger } from '../../utility/logger';
 
@@ -31,7 +31,9 @@ export const hasUnsyncedSurveys = async () => {
  * @param survey
  */
 export const upsertLocalSurvey = async survey => {
-  survey[USER_CONTACT_FIELD_ON_SURVEY] = await storage.load({ key: ASYNC_STORAGE_KEYS.USER_CONTACT_ID });
+  survey[FIELD_WORKER_CONTACT_FIELD_ON_SURVEY] = await storage.load({
+    key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID,
+  });
   survey[SURVEY_DATE_FIELD] = new Date().toISOString();
   logger('DEBUG', 'Saving survey', survey);
   if (survey._localId) {

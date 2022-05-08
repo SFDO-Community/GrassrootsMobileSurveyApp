@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { getCurrentUserContact, storeContacts } from '../../src/services/salesforce/contact';
+import { getCurrentFieldWorker, storeContacts } from '../../src/services/salesforce/contact';
 import { fetchSalesforceRecords } from '../../src/services/salesforce/core';
 
 jest.mock('../../src/services/salesforce/core', () => ({
@@ -12,7 +12,7 @@ jest.mock('../../src/services/database/database', () => ({
   prepareTable: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
 
-describe('getCurrentUserContact', () => {
+describe('getCurrentFieldWorker', () => {
   beforeEach(() => {
     global.storage = { load: jest.fn(), save: jest.fn() };
   });
@@ -20,7 +20,7 @@ describe('getCurrentUserContact', () => {
   it('positive', async () => {
     fetchSalesforceRecords.mockImplementation(() => Promise.resolve(mockFetchedCurrentContact));
 
-    const result = await getCurrentUserContact();
+    const result = await getCurrentFieldWorker();
     expect(result.Name).toEqual('Test');
   });
 
@@ -28,7 +28,7 @@ describe('getCurrentUserContact', () => {
     fetchSalesforceRecords.mockImplementation(() => Promise.resolve([]));
 
     try {
-      await getCurrentUserContact();
+      await getCurrentFieldWorker();
     } catch (e) {
       expect(e.message).toMatch('not found or duplicated');
     }
@@ -38,7 +38,7 @@ describe('getCurrentUserContact', () => {
     fetchSalesforceRecords.mockImplementation(() => Promise.resolve(mockFetchedMultipleContacts));
 
     try {
-      await getCurrentUserContact();
+      await getCurrentFieldWorker();
     } catch (e) {
       expect(e.message).toMatch('not found or duplicated');
     }
@@ -48,7 +48,7 @@ describe('getCurrentUserContact', () => {
     fetchSalesforceRecords.mockImplementation(() => Promise.reject());
 
     try {
-      await getCurrentUserContact();
+      await getCurrentFieldWorker();
     } catch (e) {
       expect(e.message).toMatch('Unexpected');
     }
