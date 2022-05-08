@@ -41,6 +41,8 @@ export function SyncButton(props: SyncButtonProps) {
   const { t } = useContext(LocalizationContext);
   const localSurveys = props.surveys.filter(s => s._syncStatus === SYNC_STATUS_UNSYNCED);
 
+  const isSyncActive = localSurveys.length > 0 && props.isNetworkConnected;
+
   const confirmSync = () => {
     Alert.alert(
       t('SYNCING'),
@@ -68,10 +70,10 @@ export function SyncButton(props: SyncButtonProps) {
       iconStyle={{ padding: 10 }}
       name="sync"
       size={22}
-      color={props.isNetworkConnected ? APP_THEME.APP_BASE_COLOR : APP_THEME.APP_DARK_FONT_COLOR}
+      color={isSyncActive ? APP_THEME.APP_BASE_COLOR : APP_THEME.APP_DARK_FONT_COLOR}
       type="material"
       onPress={() => {
-        props.isNetworkConnected && confirmSync();
+        isSyncActive && confirmSync();
       }}
     />
   );
