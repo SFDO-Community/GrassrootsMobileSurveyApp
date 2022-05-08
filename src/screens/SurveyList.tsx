@@ -7,8 +7,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 // components
 import { ListItem, Loader } from '../components';
-import FilterButtonGroup from './SurveyListFilter';
-import { SurveyListRightButtons } from './SurveyListHeaderButtons';
+import FilterButtonGroup from '../components/surveyList/SurveyListFilter';
+import { SurveyListRightButtons } from '../components/surveyList/SurveyListHeaderButtons';
 // services
 import { buildDictionary } from '../services/dictionary';
 import { deleteRecord } from '../services/database/database';
@@ -35,10 +35,10 @@ import {
 import { StackParamList } from '../Router';
 import { SQLiteRecordType } from '../types/sqlite';
 
-type SurveyTypePickerNavigationProp = StackNavigationProp<StackParamList, 'SurveyList'>;
+type SurveyListNavigationProp = StackNavigationProp<StackParamList, 'SurveyList'>;
 
 type SurveyListProps = {
-  navigation: SurveyTypePickerNavigationProp;
+  navigation: SurveyListNavigationProp;
 };
 // TODO: navigate to login screen when session timeout
 
