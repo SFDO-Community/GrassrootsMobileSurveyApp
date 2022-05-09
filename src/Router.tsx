@@ -24,7 +24,7 @@ export type StackParamList = {
   Login: undefined;
   LoginSettings: undefined;
   SurveyList: {
-    isLocalizationPrepared?: boolean;
+    showsLoginToast?: boolean;
   };
   SurveyTypePicker: undefined;
   SurveyEditor: {

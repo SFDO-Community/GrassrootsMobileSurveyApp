@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useLayoutEffect, useContext } from 'react';
 import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button } from 'react-native-elements';
@@ -32,7 +32,7 @@ export default function Login({ navigation }) {
 
   const { t } = useContext(LocalizationContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prepare = async () => {
       try {
         const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
@@ -41,7 +41,7 @@ export default function Login({ navigation }) {
         }
         const fieldWorkerContactId = await storage.load({ key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID });
         if (fieldWorkerContactId) {
-          navigation.navgigate('SurveyList');
+          navigation.navigate('SurveyList', { showsLoginToast: true });
         }
       } catch {}
     };
