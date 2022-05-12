@@ -70,6 +70,7 @@ function MainStackScreen() {
           title: t('SURVEYS'),
           headerLeft: () => LogoutButton(navigation, t),
           ...headerStyle,
+          gestureEnabled: false,
         })}
       />
       <MainStack.Screen
