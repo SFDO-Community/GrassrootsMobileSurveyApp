@@ -7,7 +7,7 @@ import { KeyboardAwareSectionList } from 'react-native-keyboard-aware-scroll-vie
 import SurveyEditorItem from '../components/surveyEditor/SurveyEditorItem';
 // state
 import LocalizationContext from '../context/localizationContext';
-import { useSelector, useDispatch } from '../state/surveyEditorState';
+import { useSelector, useDispatch } from '../context/surveyEditorContext';
 // services
 import { getRecords } from '../services/database/database';
 import { buildLayoutDetail } from '../services/describe';

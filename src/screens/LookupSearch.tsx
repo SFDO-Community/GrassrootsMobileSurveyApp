@@ -4,7 +4,7 @@ import { Input, Divider } from 'react-native-elements';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/core';
 
-import { useDispatch } from '../state/surveyEditorState';
+import { useDispatch } from '../context/surveyEditorContext';
 import { getAllRecordsWithCallback } from '../services/database/database';
 import { ListItem } from '../components';
 
