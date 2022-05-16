@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect, useContext, useCallback, useLayoutEffect } from 'react';
+import React, { useState, useReducer, useEffect, useCallback, useLayoutEffect } from 'react';
 import { Alert, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon, Divider, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
@@ -19,7 +19,7 @@ import { syncLocalSurvey } from '../services/sync';
 import { getLocalSurveysForList } from '../services/database/localSurvey';
 // store
 import { surveyFilterReducer } from '../reducers/surveyFilterReducer';
-import LocalizationContext from '../context/localizationContext';
+import { useLocalizationContext } from '../context/localizationContext';
 import { AuthContextValue, useAuthContext } from '../context/authContext';
 // util, constants
 import { formatISOStringToCalendarDateString } from '../utility/date';
@@ -54,7 +54,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
   const [showsSpinner, setShowsSpinner] = useState(false);
   const [isNetworkConnected, setIsNetworkConnected] = useState(false);
 
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
   const authContext: AuthContextValue = useAuthContext();
   /**
    * @description Initialization. Subscribe NetInfo and create dictionary.

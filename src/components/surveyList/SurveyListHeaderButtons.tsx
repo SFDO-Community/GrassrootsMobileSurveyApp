@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Alert, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-import LocalizationContext from '../../context/localizationContext';
+import { useLocalizationContext } from '../../context/localizationContext';
 
 import { logout } from '../../services/session';
 import { syncLocalSurveys } from '../../services/sync';
@@ -38,7 +38,7 @@ export function SurveyListRightButtons(props: SurveyListRightButtonProps) {
 }
 
 export function SyncButton(props: SyncButtonProps) {
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
   const localSurveys = props.surveys.filter(s => s._syncStatus === SYNC_STATUS_UNSYNCED);
 
   const isSyncActive = localSurveys.length > 0 && props.isNetworkConnected;

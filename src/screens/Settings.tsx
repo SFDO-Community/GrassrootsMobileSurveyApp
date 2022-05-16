@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { FlatList, ImageBackground } from 'react-native';
 import { Card, Icon, Divider, ListItem } from 'react-native-elements';
 import NetInfo from '@react-native-community/netinfo';
 
-import LocalizationContext from '../context/localizationContext';
+import { useLocalizationContext } from '../context/localizationContext';
 import { retrieveAllMetadata } from '../services/describe';
 import { forceLogout } from '../services/session';
 import { Loader } from '../components';
@@ -24,7 +24,7 @@ type Language = {
 
 export default function Settings() {
   const [showsSpinner, setShowsSpinner] = useState(false);
-  const { t, locale, setLocale } = useContext(LocalizationContext);
+  const { t, locale, setLocale } = useLocalizationContext();
   const authContext = useAuthContext();
 
   const languages: Array<Language> = [

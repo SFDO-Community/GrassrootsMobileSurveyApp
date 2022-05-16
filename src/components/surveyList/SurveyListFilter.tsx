@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { Icon, ButtonGroup } from 'react-native-elements';
 
 import { APP_FONTS, APP_THEME, SYNC_STATUS_SYNCED, SYNC_STATUS_UNSYNCED } from '../../constants';
-import LocalizationContext from '../../context/localizationContext';
+import { useLocalizationContext } from '../../context/localizationContext';
 import { SurveyFilterAction } from '../../reducers/surveyFilterReducer';
 
 type FilterButtonGroupProps = {
@@ -14,7 +14,7 @@ type FilterButtonGroupProps = {
 export default function FilterButtonGroup(props: FilterButtonGroupProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
 
   const UnsyncedButton = () => {
     return (

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import LocalizationContext from './context/localizationContext';
+import { useLocalizationContext } from './context/localizationContext';
 import { AuthContextValue, useAuthContext } from './context/authContext';
 
 // screens
@@ -43,7 +43,7 @@ const RootStack = createStackNavigator();
 const LoginStack = createStackNavigator();
 
 function LoginStackScreen() {
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
   return (
     <LoginStack.Navigator>
       <MainStack.Screen
@@ -69,7 +69,7 @@ function LoginStackScreen() {
 }
 
 function MainStackScreen() {
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
   const authContext = useAuthContext();
   return (
     <MainStack.Navigator>

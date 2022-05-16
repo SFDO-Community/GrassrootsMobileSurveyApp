@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button } from 'react-native-elements';
@@ -16,7 +16,7 @@ import {
   APP_THEME,
   SECURE_STORE_KEYS,
 } from '../constants';
-import LocalizationContext from '../context/localizationContext';
+import { useLocalizationContext } from '../context/localizationContext';
 
 import { authenticate } from '../services/auth';
 import { notifyError } from '../utility/notification';
@@ -29,7 +29,7 @@ export default function Login() {
   const [showsSpinner, setShowsSpinner] = useState(false);
   const [showsWelcomeModal, setShowsWelcomeModal] = useState(false);
 
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
 
   useEffect(() => {
     const prepare = async () => {

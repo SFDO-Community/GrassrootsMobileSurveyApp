@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import Modal from 'react-native-modal';
 
@@ -6,7 +6,7 @@ import { getCurrentFieldWorker, storeContacts } from '../services/salesforce/con
 import { storeOnlineSurveys } from '../services/salesforce/survey';
 import { retrieveAllMetadata } from '../services/describe';
 import { clearLocal } from '../services/session';
-import LocalizationContext from '../context/localizationContext';
+import { useLocalizationContext } from '../context/localizationContext';
 import { useAuthContext } from '../context/authContext';
 
 import { TextIcon } from '../components';
@@ -26,7 +26,7 @@ export default function Welcome({ isVisible, setVisible }: WelcomeModalProps) {
   const [surveyMetaIconColor, setSurveyMetaIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
   const [surveyRecordsIconColor, setSurveyRecordsIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
 
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
   const authContext = useAuthContext();
   const initialize = () => {
     setVisible(false);

@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 import i18n from '../../src/config/i18n';
-import LocalizationContext from '../../src/context/localizationContext';
+import { LocalizationContext } from '../../src/context/localizationContext';
 import SurveyTypePicker from '../../src/screens/SurveyTypePicker';
 
 const mockRecordTypes = [

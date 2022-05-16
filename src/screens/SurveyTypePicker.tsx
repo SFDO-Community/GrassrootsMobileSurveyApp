@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList, ImageBackground } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -6,7 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { getAllAvailableRecordTypes } from '../services/database/metadata';
 import { ListItem } from '../components';
 
-import LocalizationContext from '../context/localizationContext';
+import { useLocalizationContext } from '../context/localizationContext';
 import {
   APP_THEME,
   BACKGROUND_IMAGE_SOURCE,
@@ -28,7 +28,7 @@ type Props = {
 
 export default function SurveyTypePicker({ navigation }: Props) {
   const [recordTypes, setRecordTypes] = useState<Array<SQLiteRecordType>>([]);
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
 
   useEffect(() => {
     const fetch = async () => {

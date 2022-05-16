@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Icon, Input, Button } from 'react-native-elements';
@@ -12,13 +12,13 @@ import {
   APP_THEME,
   SECURE_STORE_KEYS,
 } from '../constants';
-import LocalizationContext from '../context/localizationContext';
+import { useLocalizationContext } from '../context/localizationContext';
 import { notifySuccess } from '../utility/notification';
 
 export default function LoginSettings() {
   const [herokuAppName, setHerokuAppName] = useState('');
 
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
 
   useEffect(() => {
     const prepare = async () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
 
 import i18n from '../../src/config/i18n';
-import LocalizationContext from '../../src/context/localizationContext';
+import { LocalizationContext } from '../../src/context/localizationContext';
 import Login from '../../src/screens/Login';
 // local test utils
 import { translate } from '../localization';

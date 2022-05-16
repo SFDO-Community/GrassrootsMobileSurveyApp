@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/core';
@@ -6,7 +6,7 @@ import { KeyboardAwareSectionList } from 'react-native-keyboard-aware-scroll-vie
 // component
 import SurveyEditorItem from '../components/surveyEditor/SurveyEditorItem';
 // state
-import LocalizationContext from '../context/localizationContext';
+import { useLocalizationContext } from '../context/localizationContext';
 import { useSelector, useDispatch } from '../context/surveyEditorContext';
 // services
 import { getRecords } from '../services/database/database';
@@ -33,7 +33,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
   const survey = useSelector(state => state.survey);
   const dispatchSurvey = useDispatch();
 
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
 
   const MODE = route.params._localId ? (survey._syncStatus === SYNC_STATUS_UNSYNCED ? 'EDIT' : 'VIEW') : 'NEW';
 

@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import { APP_THEME, APP_FONTS } from '../../constants';
-import LocalizationContext from '../../context/localizationContext';
+import { useLocalizationContext } from '../../context/localizationContext';
 import { formatISOStringToCalendarDateString } from '../../utility/date';
 
 type DatePickerPropType = {
@@ -19,7 +19,7 @@ type DatePickerPropType = {
 function DatePicker(props: DatePickerPropType) {
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
 
-  const { t } = useContext(LocalizationContext);
+  const { t } = useLocalizationContext();
 
   const { onValueChange, title, value, disabled, fieldLabel, mode } = props;
   const { container, innerContainer, buttonStyle, valueLabel, iconView, placeholderLabel } = styles;
