@@ -1,3 +1,11 @@
+# 0.7.0 - May 16th, 2022
+* Accept email address including '+' character such as 'hello+123@example.com' on login screen
+* Disable sync button when there are no unsynced surveys
++ Keep login session
+* Disable unexpected gesture back to login screen from survey list screen
+* Some under-the-hood code maintenance
+* Show version on settings screen
+
 # 0.6.1 - May 7th, 2022
 **Before using this version, make sure to install base Salesforce package v0.12.0**
 * Fix picklist field crashing the app in iOS
