@@ -7,7 +7,7 @@ type SurveyEditorAction = {
   type: SurveyEditorActionType;
   field?: {
     name: string;
-    value: any;
+    value: string | boolean | number;
   };
   detail?: SQLiteSurvey;
 };
@@ -40,4 +40,4 @@ type SurveyEditorState = typeof initialState;
 
 const useValue = () => useReducer(surveyReducer, initialState);
 
-export const { Provider, useSelector, useUpdate: useDispatch } = createContainer(useValue);
+export const { Provider: SurveyEditorContextProvider, useSelector, useUpdate: useDispatch } = createContainer(useValue);
