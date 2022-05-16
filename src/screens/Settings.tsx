@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, ImageBackground } from 'react-native';
 import { Card, Icon, Divider, ListItem, Text } from 'react-native-elements';
 import NetInfo from '@react-native-community/netinfo';
 import * as Application from 'expo-application';
+import * as SecureStore from 'expo-secure-store';
 
 import { useLocalizationContext } from '../context/localizationContext';
 import { retrieveAllMetadata } from '../services/describe';
 import { forceLogout } from '../services/session';
 import { Loader } from '../components';
 
-import { APP_THEME, BACKGROUND_IMAGE_SOURCE, BACKGROUND_STYLE, BACKGROUND_IMAGE_STYLE, APP_FONTS } from '../constants';
+import {
+  APP_THEME,
+  BACKGROUND_IMAGE_SOURCE,
+  BACKGROUND_STYLE,
+  BACKGROUND_IMAGE_STYLE,
+  APP_FONTS,
+  SECURE_STORE_KEYS,
+} from '../constants';
 import { logger } from '../utility/logger';
 import { notifySuccess, notifyError } from '../utility/notification';
 import { storeOnlineSurveys } from '../services/salesforce/survey';
@@ -24,6 +32,7 @@ type Language = {
 };
 
 export default function Settings() {
+  const [email, setEmail] = useState('');
   const [showsSpinner, setShowsSpinner] = useState(false);
   const { t, locale, setLocale } = useLocalizationContext();
   const authContext = useAuthContext();
@@ -32,6 +41,16 @@ export default function Settings() {
     { name: 'English', code: 'en' },
     { name: 'Nepali', code: 'ne' },
   ];
+
+  useEffect(() => {
+    const prepare = async () => {
+      const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
+      if (email) {
+        setEmail(email);
+      }
+    };
+    prepare();
+  }, []);
 
   const renderItem = ({ item }) => {
     return (
@@ -75,7 +94,18 @@ export default function Settings() {
         />
       </Card>
       <Card>
-        <Card.Title style={{ fontFamily: APP_FONTS.FONT_BOLD }}>{t('SYSTEM')}</Card.Title>
+        <Card.Title style={{ fontFamily: APP_FONTS.FONT_BOLD }}>{t('INFORMATION')}</Card.Title>
+        <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
+        <Text style={{ textAlign: 'center', paddingTop: 15, paddingBottom: 15 }}>
+          {t('VERSION')} {Application.nativeApplicationVersion}
+        </Text>
+        <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
+        <Text style={{ textAlign: 'center', paddingTop: 15 }}>
+          {t('LOGGING_IN_AS')} {email}
+        </Text>
+      </Card>
+      <Card>
+        <Card.Title style={{ fontFamily: APP_FONTS.FONT_BOLD }}>{t('MAINTENANCE')}</Card.Title>
         <ListItem
           onPress={async () => {
             if (!(await isInternetReachable())) {
@@ -106,11 +136,6 @@ export default function Settings() {
             <ListItem.Title style={{ fontFamily: APP_FONTS.FONT_REGULAR }}>Reload Metadata and Survey</ListItem.Title>
           </ListItem.Content>
         </ListItem>
-      </Card>
-      <Card>
-        <Card.Title style={{ fontFamily: APP_FONTS.FONT_BOLD }}>{t('VERSION')}</Card.Title>
-        <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
-        <Text style={{ textAlign: 'center', paddingTop: 15 }}>{Application.nativeApplicationVersion}</Text>
       </Card>
     </ImageBackground>
   );

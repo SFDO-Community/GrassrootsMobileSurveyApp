@@ -5,7 +5,6 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import NetInfo from '@react-native-community/netinfo';
 import { useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import * as SecureStore from 'expo-secure-store';
 // components
 import { ListItem, Loader } from '../components';
 import FilterButtonGroup from '../components/surveyList/SurveyListFilter';
@@ -24,7 +23,7 @@ import { AuthContextValue, useAuthContext } from '../context/authContext';
 // util, constants
 import { formatISOStringToCalendarDateString } from '../utility/date';
 import { logger } from '../utility/logger';
-import { notifyError, notifySuccessWithParams } from '../utility/notification';
+import { notifyError } from '../utility/notification';
 import {
   APP_FONTS,
   APP_THEME,
@@ -32,7 +31,6 @@ import {
   SURVEY_DATE_FIELD,
   SYNC_STATUS_UNSYNCED,
   SYNC_STATUS_SYNCED,
-  SECURE_STORE_KEYS,
 } from '../constants';
 // types
 import { StackParamList } from '../Router';
@@ -74,7 +72,6 @@ export default function SurveyList({ navigation }: SurveyListProps) {
         await buildDictionary();
         await refreshSurveys();
         setShowsSpinner(false);
-        await showLoginToast();
       } catch {
         notifyError('Unexpected error occcured while loading survey list. Contact your administrator and login again.');
         await forceLogout(authContext);
@@ -126,15 +123,6 @@ export default function SurveyList({ navigation }: SurveyListProps) {
     return survey.titleFieldName && survey[survey.titleFieldName]
       ? survey[survey.titleFieldName]
       : `Survey #${survey._localId}`;
-  };
-
-  const showLoginToast = async () => {
-    const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
-    notifySuccessWithParams({
-      title: 'Welcome',
-      description: `Logging in as ${email}.`,
-      position: 'bottom',
-    });
   };
 
   /**
