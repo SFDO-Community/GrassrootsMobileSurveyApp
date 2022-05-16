@@ -50,5 +50,6 @@
     "WELCOME_LOADING_METADATA": "Prepare survey settings",
     "WELCOME_LOADING_SURVEY": "Download online surveys",
     "HEROKU_APP_NAME": "Heroku App Name",
-    "HEROKU_APP_NAME_DESCRIPTION": "Enter your Heroku app name. For example, if the URL of your Heroku app is https://aaa-bbb-12345.herokuapp.com, enter aaa-bbb-12345. Ask your administrator for details."
+    "HEROKU_APP_NAME_DESCRIPTION": "Enter your Heroku app name. For example, if the URL of your Heroku app is https://aaa-bbb-12345.herokuapp.com, enter aaa-bbb-12345. Ask your administrator for details.",
+    "VERSION": "Version"
   }

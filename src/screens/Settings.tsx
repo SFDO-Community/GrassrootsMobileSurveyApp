@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { FlatList, ImageBackground } from 'react-native';
-import { Card, Icon, Divider, ListItem } from 'react-native-elements';
+import { Card, Icon, Divider, ListItem, Text } from 'react-native-elements';
 import NetInfo from '@react-native-community/netinfo';
+import * as Application from 'expo-application';
 
 import { useLocalizationContext } from '../context/localizationContext';
 import { retrieveAllMetadata } from '../services/describe';
@@ -105,6 +106,11 @@ export default function Settings() {
             <ListItem.Title style={{ fontFamily: APP_FONTS.FONT_REGULAR }}>Reload Metadata and Survey</ListItem.Title>
           </ListItem.Content>
         </ListItem>
+      </Card>
+      <Card>
+        <Card.Title style={{ fontFamily: APP_FONTS.FONT_BOLD }}>{t('VERSION')}</Card.Title>
+        <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
+        <Text style={{ textAlign: 'center', paddingTop: 15 }}>{Application.nativeApplicationVersion}</Text>
       </Card>
     </ImageBackground>
   );

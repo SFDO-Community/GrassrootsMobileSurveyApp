@@ -506,5 +506,67 @@ exports[`<Settings /> render 1`] = `
       </View>
     </View>
   </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "borderColor": "#e1e8ee",
+        "borderWidth": 1,
+        "margin": 15,
+        "marginBottom": 0,
+        "padding": 15,
+        "shadowColor": "rgba(0,0,0, .2)",
+        "shadowOffset": Object {
+          "height": 0,
+          "width": 0,
+        },
+        "shadowOpacity": 1,
+        "shadowRadius": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#43484d",
+            "fontFamily": "SalesforceSans-Bold",
+            "fontSize": 17.5,
+            "fontWeight": "bold",
+            "marginBottom": 15,
+            "textAlign": "center",
+          }
+        }
+        testID="cardTitle"
+      >
+        
+      </Text>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#dedcdb",
+            "height": 0.5,
+          }
+        }
+      />
+      <Text
+        style={
+          Object {
+            "color": "#242424",
+            "paddingTop": 15,
+            "textAlign": "center",
+          }
+        }
+      >
+        mock
+      </Text>
+    </View>
+  </View>
 </View>
 `;
