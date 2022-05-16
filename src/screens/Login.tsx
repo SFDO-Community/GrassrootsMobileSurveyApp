@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button } from 'react-native-elements';
@@ -9,7 +9,6 @@ import { Loader, LoginFormInput } from '../components';
 
 import { validateEmail } from '../utility';
 import {
-  ASYNC_STORAGE_KEYS,
   BACKGROUND_IMAGE_SOURCE,
   BACKGROUND_STYLE,
   BACKGROUND_IMAGE_STYLE,
@@ -22,7 +21,7 @@ import LocalizationContext from '../context/localizationContext';
 import { authenticate } from '../services/auth';
 import { notifyError } from '../utility/notification';
 
-export default function Login({ navigation }) {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -32,18 +31,12 @@ export default function Login({ navigation }) {
 
   const { t } = useContext(LocalizationContext);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const prepare = async () => {
-      try {
-        const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
-        if (email) {
-          setEmail(email);
-        }
-        const fieldWorkerContactId = await storage.load({ key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID });
-        if (fieldWorkerContactId) {
-          navigation.navigate('SurveyList', { showsLoginToast: true });
-        }
-      } catch {}
+      const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
+      if (email) {
+        setEmail(email);
+      }
     };
     prepare();
   }, []);
@@ -126,7 +119,7 @@ export default function Login({ navigation }) {
           </View>
         </View>
       </KeyboardAwareScrollView>
-      <Welcome isVisible={showsWelcomeModal} setVisible={setShowsWelcomeModal} navigation={navigation} />
+      <Welcome isVisible={showsWelcomeModal} setVisible={setShowsWelcomeModal} />
     </ImageBackground>
   );
 }

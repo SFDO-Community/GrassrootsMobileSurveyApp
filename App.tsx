@@ -7,6 +7,7 @@ import Router from './src/Router';
 import i18n from './src/config/i18n';
 import { initializeStorage } from './src/utility/storage';
 import LocalizationContext from './src/context/localizationContext';
+import { AuthContextProvider } from './src/context/authContext';
 import { Provider } from './src/state/surveyEditorState';
 
 export default function App() {
@@ -38,7 +39,9 @@ export default function App() {
   return fontLoaded ? (
     <LocalizationContext.Provider value={localizationContext}>
       <Provider>
-        <Router />
+        <AuthContextProvider>
+          <Router />
+        </AuthContextProvider>
       </Provider>
       <FlashMessage position="top" />
       <StatusBar style="dark" />
