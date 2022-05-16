@@ -23,6 +23,22 @@ export const notifySuccess = (description: string) => {
   });
 };
 
+export const notifySuccessWithParams = params => {
+  showMessage({
+    message: params.title,
+    description: params.description,
+    type: 'success',
+    icon: {
+      icon: 'success',
+      position: 'left',
+      props: {},
+    },
+    backgroundColor: APP_THEME.APP_SUCCESS_COLOR,
+    duration: 3000,
+    position: params.position,
+  });
+};
+
 /**
  *@description Show error message
  */

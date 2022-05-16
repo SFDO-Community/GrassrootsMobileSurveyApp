@@ -3,8 +3,8 @@ import { Alert } from 'react-native';
 import { clearDatabase } from './database/database';
 import { clearStorage } from '../utility/storage';
 
-export const logout = (navigation, t) => {
-  Alert.alert(
+export const logout = (t, authContext) => {
+  return Alert.alert(
     t('LOGOUT'),
     t('LOGOUT_MESSAGE'),
     [
@@ -13,7 +13,7 @@ export const logout = (navigation, t) => {
         onPress: async () => {
           clearStorage();
           await clearDatabase();
-          navigation.navigate('Login');
+          authContext.logout();
         },
       },
       {
@@ -29,7 +29,7 @@ export const clearLocal = async () => {
   await clearDatabase();
 };
 
-export const forceLogout = async navigation => {
+export const forceLogout = async authContext => {
   await clearLocal();
-  navigation.navigate('Login');
+  authContext.logout();
 };

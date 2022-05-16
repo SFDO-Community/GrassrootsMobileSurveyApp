@@ -79,7 +79,7 @@ export function SyncButton(props: SyncButtonProps) {
   );
 }
 
-export function LogoutButton(navigation, t) {
+export function LogoutButton(t, authContext) {
   return (
     <Icon
       iconStyle={{ padding: 10 }}
@@ -88,7 +88,7 @@ export function LogoutButton(navigation, t) {
       color={APP_THEME.APP_BASE_COLOR}
       type="simple-line-icon"
       onPress={() => {
-        logout(navigation, t);
+        logout(t, authContext);
       }}
     />
   );

@@ -15,7 +15,7 @@ import {
 import LocalizationContext from '../context/localizationContext';
 import { notifySuccess } from '../utility/notification';
 
-export default function LoginSettings({ navigation }) {
+export default function LoginSettings() {
   const [herokuAppName, setHerokuAppName] = useState('');
 
   const { t } = useContext(LocalizationContext);

@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LocalizationContext from './context/localizationContext';
+import { AuthContextValue, useAuthContext } from './context/authContext';
 
 // screens
 import Login from './screens/Login';
@@ -18,14 +19,12 @@ import { LogoutButton } from './components/surveyList/SurveyListHeaderButtons';
 import { LoginSettingsButton } from './components/LoginSettingsButton';
 
 // styles
-import { APP_FONTS, APP_THEME } from './constants';
+import { ASYNC_STORAGE_KEYS, APP_FONTS, APP_THEME } from './constants';
 
 export type StackParamList = {
   Login: undefined;
   LoginSettings: undefined;
-  SurveyList: {
-    showsLoginToast?: boolean;
-  };
+  SurveyList: undefined;
   SurveyTypePicker: undefined;
   SurveyEditor: {
     selectedRecordTypeId?: string;
@@ -41,11 +40,12 @@ export type StackParamList = {
 
 const MainStack = createStackNavigator();
 const RootStack = createStackNavigator();
+const LoginStack = createStackNavigator();
 
-function MainStackScreen() {
+function LoginStackScreen() {
   const { t } = useContext(LocalizationContext);
   return (
-    <MainStack.Navigator>
+    <LoginStack.Navigator>
       <MainStack.Screen
         name="Login"
         component={Login}
@@ -53,6 +53,7 @@ function MainStackScreen() {
           title: t('LOGIN'),
           headerRight: () => LoginSettingsButton({ navigation }),
           ...headerStyle,
+          animationEnabled: false,
         })}
       />
       <MainStack.Screen
@@ -63,14 +64,24 @@ function MainStackScreen() {
           ...headerStyle,
         }}
       />
+    </LoginStack.Navigator>
+  );
+}
+
+function MainStackScreen() {
+  const { t } = useContext(LocalizationContext);
+  const authContext = useAuthContext();
+  return (
+    <MainStack.Navigator>
       <MainStack.Screen
         name="SurveyList"
         component={SurveyList}
-        options={({ navigation }) => ({
+        options={() => ({
           title: t('SURVEYS'),
-          headerLeft: () => LogoutButton(navigation, t),
+          headerLeft: () => LogoutButton(t, authContext),
           ...headerStyle,
           gestureEnabled: false,
+          animationEnabled: false,
         })}
       />
       <MainStack.Screen
@@ -105,14 +116,37 @@ function MainStackScreen() {
 }
 
 export default function Router() {
-  return (
+  const authContext: AuthContextValue = useAuthContext();
+  const [loaded, setLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    const prepare = async () => {
+      try {
+        const fieldWorkerContactId = await storage.load({ key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID });
+        if (fieldWorkerContactId) {
+          authContext.login();
+        }
+      } catch {
+        // storage.load fails when no data
+      } finally {
+        setLoaded(true);
+      }
+    };
+    prepare();
+  }, []);
+
+  return loaded ? (
     <NavigationContainer>
       <RootStack.Navigator mode="modal" headerMode="none">
-        <RootStack.Screen name="Main" component={MainStackScreen} />
+        {authContext.isLoggedIn ? (
+          <RootStack.Screen name="Main" component={MainStackScreen} />
+        ) : (
+          <RootStack.Screen name="Unauthed" component={LoginStackScreen} />
+        )}
         <RootStack.Screen name="Lookup" component={LookupSearch} />
       </RootStack.Navigator>
     </NavigationContainer>
-  );
+  ) : null;
 }
 
 const headerStyle = {
