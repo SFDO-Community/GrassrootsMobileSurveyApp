@@ -3,7 +3,6 @@ import { Alert, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon, Divider, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import NetInfo from '@react-native-community/netinfo';
-import { RouteProp } from '@react-navigation/core';
 import { useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
@@ -21,6 +20,7 @@ import { getLocalSurveysForList } from '../services/database/localSurvey';
 // store
 import { surveyFilterReducer } from '../reducers/surveyFilterReducer';
 import LocalizationContext from '../context/localizationContext';
+import { AuthContextValue, useAuthContext } from '../context/authContext';
 // util, constants
 import { formatISOStringToCalendarDateString } from '../utility/date';
 import { logger } from '../utility/logger';
@@ -38,16 +38,14 @@ import {
 import { StackParamList } from '../Router';
 import { SQLiteRecordType } from '../types/sqlite';
 
-type SurveyListRouteProp = RouteProp<StackParamList, 'SurveyList'>;
 type SurveyListNavigationProp = StackNavigationProp<StackParamList, 'SurveyList'>;
 
 type SurveyListProps = {
-  route: SurveyListRouteProp;
   navigation: SurveyListNavigationProp;
 };
 // TODO: navigate to login screen when session timeout
 
-export default function SurveyList({ route, navigation }: SurveyListProps) {
+export default function SurveyList({ navigation }: SurveyListProps) {
   const [surveys, setSurveys] = useState([]);
   const [recordTypes, setRecordTypes] = useState<Array<SQLiteRecordType>>([]);
   const [filter, dispatchFilter] = useReducer(surveyFilterReducer, 'SHOW_UNSYNCED');
@@ -57,7 +55,7 @@ export default function SurveyList({ route, navigation }: SurveyListProps) {
   const [isNetworkConnected, setIsNetworkConnected] = useState(false);
 
   const { t } = useContext(LocalizationContext);
-  const showsLoginToast = route.params?.showsLoginToast || false;
+  const authContext: AuthContextValue = useAuthContext();
   /**
    * @description Initialization. Subscribe NetInfo and create dictionary.
    */
@@ -79,7 +77,7 @@ export default function SurveyList({ route, navigation }: SurveyListProps) {
         await showLoginToast();
       } catch {
         notifyError('Unexpected error occcured while loading survey list. Contact your administrator and login again.');
-        await forceLogout(navigation);
+        await forceLogout(authContext);
       }
     };
     prepare();
@@ -131,10 +129,8 @@ export default function SurveyList({ route, navigation }: SurveyListProps) {
   };
 
   const showLoginToast = async () => {
-    if (showsLoginToast) {
-      const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
-      notifySuccess(`Logging in as ${email}.`);
-    }
+    const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
+    notifySuccess(`Logging in as ${email}.`);
   };
 
   /**

@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import Modal from 'react-native-modal';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import { getCurrentFieldWorker, storeContacts } from '../services/salesforce/contact';
 import { storeOnlineSurveys } from '../services/salesforce/survey';
 import { retrieveAllMetadata } from '../services/describe';
 import { clearLocal } from '../services/session';
 import LocalizationContext from '../context/localizationContext';
+import { useAuthContext } from '../context/authContext';
 
 import { TextIcon } from '../components';
 
@@ -15,23 +15,19 @@ import { APP_THEME, ASYNC_STORAGE_KEYS } from '../constants';
 import { logger } from '../utility/logger';
 import { notifyError } from '../utility/notification';
 
-import { StackParamList } from '../Router';
-type LoginNavigationProp = StackNavigationProp<StackParamList, 'Login'>;
-
 type WelcomeModalProps = {
   isVisible: boolean;
   setVisible(isVisible: boolean): void;
-  navigation: LoginNavigationProp;
 };
 
-export default function Welcome({ isVisible, setVisible, navigation }: WelcomeModalProps) {
+export default function Welcome({ isVisible, setVisible }: WelcomeModalProps) {
   const [loading, setLoading] = useState(true);
   const [contactIconColor, setContactIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
   const [surveyMetaIconColor, setSurveyMetaIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
   const [surveyRecordsIconColor, setSurveyRecordsIconColor] = useState(APP_THEME.APP_LIGHT_FONT_COLOR);
 
   const { t } = useContext(LocalizationContext);
-
+  const authContext = useAuthContext();
   const initialize = () => {
     setVisible(false);
     setLoading(true);
@@ -52,7 +48,7 @@ export default function Welcome({ isVisible, setVisible, navigation }: WelcomeMo
     if (!loading) {
       setTimeout(() => {
         initialize();
-        navigation.navigate('SurveyList');
+        authContext.login();
       }, 1000);
       // Fetch records
     } else {

@@ -15,15 +15,17 @@ import { storeOnlineSurveys } from '../services/salesforce/survey';
 import { buildDictionary } from '../services/dictionary';
 import { hasUnsyncedSurveys } from '../services/database/localSurvey';
 import { storeContacts } from '../services/salesforce/contact';
+import { useAuthContext } from '../context/authContext';
 
 type Language = {
   name: string;
   code: string;
 };
 
-export default function Settings({ navigation }) {
+export default function Settings() {
   const [showsSpinner, setShowsSpinner] = useState(false);
   const { t, locale, setLocale } = useContext(LocalizationContext);
+  const authContext = useAuthContext();
 
   const languages: Array<Language> = [
     { name: 'English', code: 'en' },
@@ -91,7 +93,7 @@ export default function Settings({ navigation }) {
               notifySuccess('Successfully refreshed metadata.');
             } catch (e) {
               notifyError('Unexpected error occcured while refreshing. Contact your administrator and login again.');
-              await forceLogout(navigation);
+              await forceLogout(authContext);
             } finally {
               setShowsSpinner(false);
             }

@@ -126,7 +126,8 @@ export default function Router() {
         if (fieldWorkerContactId) {
           authContext.login();
         }
-      } catch { // storage.load fails when no data
+      } catch {
+        // storage.load fails when no data
       } finally {
         setLoaded(true);
       }
