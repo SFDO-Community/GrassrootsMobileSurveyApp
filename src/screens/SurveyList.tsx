@@ -24,7 +24,7 @@ import { AuthContextValue, useAuthContext } from '../context/authContext';
 // util, constants
 import { formatISOStringToCalendarDateString } from '../utility/date';
 import { logger } from '../utility/logger';
-import { notifyError, notifySuccess } from '../utility/notification';
+import { notifyError, notifySuccessWithParams } from '../utility/notification';
 import {
   APP_FONTS,
   APP_THEME,
@@ -130,7 +130,11 @@ export default function SurveyList({ navigation }: SurveyListProps) {
 
   const showLoginToast = async () => {
     const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
-    notifySuccess(`Logging in as ${email}.`);
+    notifySuccessWithParams({
+      title: 'Welcome',
+      description: `Logging in as ${email}.`,
+      position: 'bottom',
+    });
   };
 
   /**
