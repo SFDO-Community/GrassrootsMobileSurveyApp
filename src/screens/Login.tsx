@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Button } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 
-import Welcome from './Welcome';
+import Welcome from '../components/login/Welcome';
 import { Loader, LoginFormInput } from '../components';
 
 import { validateEmail } from '../utility';
