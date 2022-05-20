@@ -62,10 +62,6 @@ export const storeContacts = async () => {
     const contacts = Array.from(contactMap.values());
     logger('DEBUG', 'storeContacts', contacts);
     await saveRecords(DB_TABLE.CONTACT, contacts, 'id');
-    storage.save({
-      key: '@Contacts',
-      data: contacts,
-    });
     return contacts;
   } catch (error) {
     if (error.origin === 'query') {
