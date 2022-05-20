@@ -4,11 +4,13 @@ import { Icon } from 'react-native-elements';
 
 import { useLocalizationContext } from '../../context/localizationContext';
 
-import { logout } from '../../services/session';
 import { syncLocalSurveys } from '../../services/sync';
 
 import { APP_THEME, SYNC_STATUS_UNSYNCED } from '../../constants';
 import { SurveyListItem } from '../../types/survey';
+
+import { clearDatabase } from '../../services/database/database';
+import { clearStorage } from '../../utility/storage';
 
 type SurveyListRightButtonProps = SyncButtonProps & SettingsButtonProps;
 
@@ -88,7 +90,24 @@ export function LogoutButton(t, authContext) {
       color={APP_THEME.APP_BASE_COLOR}
       type="simple-line-icon"
       onPress={() => {
-        logout(t, authContext);
+        return Alert.alert(
+          t('LOGOUT'),
+          t('LOGOUT_MESSAGE'),
+          [
+            {
+              text: t('OK'),
+              onPress: async () => {
+                clearStorage();
+                await clearDatabase();
+                authContext.logout();
+              },
+            },
+            {
+              text: t('CANCEL'),
+            },
+          ],
+          { cancelable: true }
+        );
       }}
     />
   );
