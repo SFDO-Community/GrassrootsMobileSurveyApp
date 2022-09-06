@@ -11,7 +11,7 @@
     "picklistsForRecordType" : [ ],
     "recordTypeId" : "0125h000000kN4aAAE",
     "urls" : {
-      "layout" : "/services/data/v51.0/sobjects/GRMS_Survey__c/describe/layouts/0125h000000kN4aAAE"
+      "layout" : "/services/data/v51.0/sobjects/GRMS__Survey__c/describe/layouts/0125h000000kN4aAAE"
     }
   }, {
     "active" : true,
@@ -24,7 +24,7 @@
     "picklistsForRecordType" : [ ],
     "recordTypeId" : "0125h000000kNJMAA2",
     "urls" : {
-      "layout" : "/services/data/v51.0/sobjects/GRMS_Survey__c/describe/layouts/0125h000000kNJMAA2"
+      "layout" : "/services/data/v51.0/sobjects/GRMS__Survey__c/describe/layouts/0125h000000kNJMAA2"
     }
   }, {
     "active" : true,
@@ -37,7 +37,7 @@
     "picklistsForRecordType" : [ ],
     "recordTypeId" : "012000000000000AAA",
     "urls" : {
-      "layout" : "/services/data/v51.0/sobjects/GRMS_Survey__c/describe/layouts/012000000000000AAA"
+      "layout" : "/services/data/v51.0/sobjects/GRMS__Survey__c/describe/layouts/012000000000000AAA"
     }
   } ],
   "recordTypeSelectorRequired" : [ true ]

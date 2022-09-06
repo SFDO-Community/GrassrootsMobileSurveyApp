@@ -78,7 +78,7 @@
       "imageItems" : null,
       "label" : "Flower",
       "name" : "Flower",
-      "objectType" : "GRMS_Survey__c"
+      "objectType" : "GRMS__Survey__c"
     },
     "httpHeaders" : {
       "ETag" : "\"10e6f249\"",
@@ -165,7 +165,7 @@
       "imageItems" : null,
       "label" : "Restaurant",
       "name" : "Restaurant",
-      "objectType" : "GRMS_Survey__c"
+      "objectType" : "GRMS__Survey__c"
     },
     "httpHeaders" : {
       "ETag" : "\"10e6f249\"",
@@ -252,7 +252,7 @@
       "imageItems" : null,
       "label" : "System Default",
       "name" : "SYSTEM",
-      "objectType" : "GRMS_Survey__c"
+      "objectType" : "GRMS__Survey__c"
     },
     "httpHeaders" : {
       "ETag" : "\"10e6f249\"",

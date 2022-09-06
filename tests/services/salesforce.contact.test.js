@@ -101,53 +101,53 @@ const mockFetchedMultipleContacts = [
 mockFetchedJunctionRecords = [
   {
     Id: 'a015h0000086YjEAAU',
-    GRMS_Client__c: '0035h000001jAKPAA2',
-    GRMS_Client__r: {
+    GRMS__Client__c: '0035h000001jAKPAA2',
+    GRMS__Client__r: {
       attributes: {
         type: 'Contact',
         url: '/services/data/v50.0/sobjects/Contact/0035h000001jAKPAA2',
       },
       Name: 'Mary Jones',
     },
-    GRMS_Type__c: null,
+    GRMS__Type__c: null,
   },
   {
     Id: 'a015h0000086Yj9AAE',
-    GRMS_Client__c: '0035h000001jAKPAA3',
-    GRMS_Client__r: {
+    GRMS__Client__c: '0035h000001jAKPAA3',
+    GRMS__Client__r: {
       attributes: {
         type: 'Contact',
         url: '/services/data/v50.0/sobjects/Contact/0035h000001jAKPAA3',
       },
       Name: 'Kary Grant',
     },
-    GRMS_Type__c: null,
+    GRMS__Type__c: null,
   },
 ];
 
 mockFetchedDuplicatedJunctionRecords = [
   {
     Id: 'a015h0000086YjEAAU',
-    GRMS_Client__c: '0035h000001jAKPAA2',
-    GRMS_Client__r: {
+    GRMS__Client__c: '0035h000001jAKPAA2',
+    GRMS__Client__r: {
       attributes: {
         type: 'Contact',
         url: '/services/data/v50.0/sobjects/Contact/0035h000001jAKPAA2',
       },
       Name: 'Mary Jones',
     },
-    GRMS_Type__c: null,
+    GRMS__Type__c: null,
   },
   {
     Id: 'a015h0000086Yj9AAE',
-    GRMS_Client__c: '0035h000001jAKPAA2',
-    GRMS_Client__r: {
+    GRMS__Client__c: '0035h000001jAKPAA2',
+    GRMS__Client__r: {
       attributes: {
         type: 'Contact',
         url: '/services/data/v50.0/sobjects/Contact/0035h000001jAKPAA2',
       },
       Name: 'Mary Jones',
     },
-    GRMS_Type__c: null,
+    GRMS__Type__c: null,
   },
 ];
