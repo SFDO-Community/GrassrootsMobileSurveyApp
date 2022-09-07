@@ -52,9 +52,9 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
   top: Dimensions.get('window').height / 2 + height / 2,
 };
 
-export const SURVEY_OBJECT = 'GRMS_Survey__c';
-export const FIELD_WORKER_CONTACT_FIELD_ON_SURVEY = 'GRMS_FieldWorker__c';
-export const SURVEY_DATE_FIELD = 'GRMS_SurveyDate__c';
+export const SURVEY_OBJECT = 'GRMS__Survey__c';
+export const FIELD_WORKER_CONTACT_FIELD_ON_SURVEY = 'GRMS__FieldWorker__c';
+export const SURVEY_DATE_FIELD = 'GRMS__SurveyDate__c';
 export const RECORD_TYPE_ID_FIELD = 'RecordTypeId';
 export const BACKGROUND_SURVEY_FIELDS = [
   { fieldName: 'Name', fieldType: 'string' },

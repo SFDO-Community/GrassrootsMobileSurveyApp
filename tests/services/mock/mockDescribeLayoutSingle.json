@@ -123,7 +123,7 @@
                     "length": 0,
                     "mask": null,
                     "maskType": null,
-                    "name": "GRMS_SurveyDate__c",
+                    "name": "GRMS__SurveyDate__c",
                     "nameField": false,
                     "namePointing": false,
                     "nillable": true,
@@ -150,7 +150,7 @@
                   "displayLines": 1,
                   "tabOrder": 6,
                   "type": "Field",
-                  "value": "GRMS_SurveyDate__c"
+                  "value": "GRMS__SurveyDate__c"
                 }
               ],
               "placeholder": false,
@@ -202,7 +202,7 @@
                     "length": 18,
                     "mask": null,
                     "maskType": null,
-                    "name": "GRMS_FieldWorker__c",
+                    "name": "GRMS__FieldWorker__c",
                     "nameField": false,
                     "namePointing": false,
                     "nillable": true,
@@ -213,7 +213,7 @@
                     "queryByDistance": false,
                     "referenceTargetField": null,
                     "referenceTo": ["Contact"],
-                    "relationshipName": "GRMS_FieldWorker__r",
+                    "relationshipName": "GRMS__FieldWorker__r",
                     "relationshipOrder": null,
                     "restrictedDelete": false,
                     "restrictedPicklist": false,
@@ -229,7 +229,7 @@
                   "displayLines": 1,
                   "tabOrder": 5,
                   "type": "Field",
-                  "value": "GRMS_FieldWorker__c"
+                  "value": "GRMS__FieldWorker__c"
                 }
               ],
               "placeholder": false,

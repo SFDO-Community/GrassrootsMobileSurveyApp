@@ -148,17 +148,17 @@ export const storePageLayoutSections = async (layout: DescribeLayout) => {
  */
 export const storeLocalization = async () => {
   const query =
-    'SELECT GRMS_Type__c, GRMS_Locale__c, GRMS_OriginalName__c, GRMS_TranslatedLabel__c FROM GRMS_Localization__mdt';
+    'SELECT GRMS__Type__c, GRMS__Locale__c, GRMS__OriginalName__c, GRMS__TranslatedLabel__c FROM GRMS__Localization__mdt';
   const records: Array<LocalizationCustomMetadata> = await fetchSalesforceRecords(query);
   if (records.length === 0) {
     return;
   }
   const localizations: Array<SQLiteLocalization> = records.map(r => {
     return {
-      locale: r.GRMS_Locale__c,
-      type: r.GRMS_Type__c,
-      name: r.GRMS_OriginalName__c,
-      label: r.GRMS_TranslatedLabel__c ? r.GRMS_TranslatedLabel__c.replace(/'/g, "''") : '', // escape single quote for sqlite
+      locale: r.GRMS__Locale__c,
+      type: r.GRMS__Type__c,
+      name: r.GRMS__OriginalName__c,
+      label: r.GRMS__TranslatedLabel__c ? r.GRMS__TranslatedLabel__c.replace(/'/g, "''") : '', // escape single quote for sqlite
     };
   });
   await saveRecords(DB_TABLE.LOCALIZATION, localizations, undefined);
