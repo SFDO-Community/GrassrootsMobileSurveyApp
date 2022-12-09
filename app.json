@@ -10,7 +10,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.sfdo.community.grassrootsmobilesurveyapp",
-      "buildNumber": "1"
+      "buildNumber": "4"
     },
     "android": {
       "package": "com.sfdo.community.grassrootsmobilesurveyapp",
@@ -21,7 +21,7 @@
       },
       "permissions": []
     },
-    "version": "0.8.0",
+    "version": "0.9.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -36,6 +36,11 @@
       "assets/**/*"
     ],
     "description": "The Grassroots Mobile Survey App is focused on providing affordable field survey capacity to nonprofits worldwide.",
-    "githubUrl": "https://github.com/SFDO-Community-Sprints/GrassrootsMobileSurveyApp"
+    "githubUrl": "https://github.com/SFDO-Community-Sprints/GrassrootsMobileSurveyApp",
+    "extra": {
+      "eas": {
+        "projectId": "fa9308f4-2397-4ade-8d90-93a2d84bb516"
+      }
+    }
   }
 }

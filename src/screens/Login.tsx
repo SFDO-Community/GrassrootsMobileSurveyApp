@@ -88,7 +88,7 @@ export default function Login() {
       <KeyboardAwareScrollView style={styles.flex1}>
         <Loader loading={showsSpinner} />
         <View style={styles.container}>
-          <Image source={require('../../assets/images/icon.png')} style={styles.logoStyle} />
+          <Image source={require('../../assets/images/badge.png')} style={styles.logoStyle} />
         </View>
         <View style={styles.inputBoxesView}>
           <LoginFormInput
