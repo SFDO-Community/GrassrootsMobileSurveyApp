@@ -36,39 +36,7 @@ exports[`<Settings /> render 1`] = `
     hardwareAccelerated={false}
     transparent={true}
     visible={false}
-  >
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "white",
-          "flex": 1,
-          "justifyContent": "center",
-          "opacity": 0.8,
-        }
-      }
-    >
-      <ActivityIndicator
-        animating={false}
-        color="#01579b"
-        hidesWhenStopped={true}
-        size="large"
-      />
-      <Text
-        style={
-          Object {
-            "color": "#01579b",
-            "fontFamily": "SalesforceSans-Regular",
-            "fontSize": 36,
-            "paddingTop": 10,
-          }
-        }
-      >
-         
-         
-      </Text>
-    </View>
-  </Modal>
+  />
   <View
     style={
       Object {
@@ -107,9 +75,7 @@ exports[`<Settings /> render 1`] = `
           }
         }
         testID="cardTitle"
-      >
-        
-      </Text>
+      />
       <RCTScrollView
         ItemSeparatorComponent={[Function]}
         data={
@@ -124,16 +90,12 @@ exports[`<Settings /> render 1`] = `
             },
           ]
         }
-        disableVirtualization={false}
         getItem={[Function]}
         getItemCount={[Function]}
-        horizontal={false}
-        initialNumToRender={10}
         keyExtractor={[Function]}
-        maxToRenderPerBatch={10}
         onContentSizeChange={[Function]}
-        onEndReachedThreshold={2}
         onLayout={[Function]}
+        onMomentumScrollBegin={[Function]}
         onMomentumScrollEnd={[Function]}
         onScroll={[Function]}
         onScrollBeginDrag={[Function]}
@@ -142,9 +104,7 @@ exports[`<Settings /> render 1`] = `
         renderItem={[Function]}
         scrollEventThrottle={50}
         stickyHeaderIndices={Array []}
-        updateCellsBatchingPeriod={50}
         viewabilityConfigCallbackPairs={Array []}
-        windowSize={21}
       >
         <View>
           <View
@@ -399,9 +359,7 @@ exports[`<Settings /> render 1`] = `
           }
         }
         testID="cardTitle"
-      >
-        
-      </Text>
+      />
       <View
         style={
           Object {
@@ -441,7 +399,6 @@ exports[`<Settings /> render 1`] = `
         }
       >
          
-        
       </Text>
     </View>
   </View>
@@ -483,9 +440,7 @@ exports[`<Settings /> render 1`] = `
           }
         }
         testID="cardTitle"
-      >
-        
-      </Text>
+      />
       <View
         accessible={true}
         focusable={true}

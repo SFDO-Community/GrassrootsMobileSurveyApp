@@ -22,6 +22,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
     Email
   </Text>
   <View
+    collapsable={false}
     style={
       Object {
         "alignItems": "center",
@@ -54,13 +55,11 @@ exports[`<LoginFormInput /> Rendering 1`] = `
       />
     </View>
     <TextInput
-      allowFontScaling={true}
       editable={true}
       keyboardType="email-address"
       onChangeText={[Function]}
       placeholder="yourname@example.com"
       placeholderTextColor="#86939e"
-      rejectResponderTermination={true}
       style={
         Object {
           "alignSelf": "center",

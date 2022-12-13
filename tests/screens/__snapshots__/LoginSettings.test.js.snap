@@ -64,6 +64,7 @@ exports[`login settings screen save 1`] = `
         Heroku App Name
       </Text>
       <View
+        collapsable={false}
         style={
           Object {
             "alignItems": "center",
@@ -80,13 +81,11 @@ exports[`login settings screen save 1`] = `
       >
         <TextInput
           accessibilityLabel="app-name-input"
-          allowFontScaling={true}
           editable={true}
           keyboardType="url"
           onChangeText={[Function]}
           placeholder="aaa-bbb-12345"
           placeholderTextColor="#86939e"
-          rejectResponderTermination={true}
           style={
             Object {
               "alignSelf": "center",
@@ -164,6 +163,7 @@ exports[`login settings screen save 1`] = `
             }
           }
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -278,6 +278,7 @@ exports[`login settings screen save with trim 1`] = `
         Heroku App Name
       </Text>
       <View
+        collapsable={false}
         style={
           Object {
             "alignItems": "center",
@@ -294,13 +295,11 @@ exports[`login settings screen save with trim 1`] = `
       >
         <TextInput
           accessibilityLabel="app-name-input"
-          allowFontScaling={true}
           editable={true}
           keyboardType="url"
           onChangeText={[Function]}
           placeholder="aaa-bbb-12345"
           placeholderTextColor="#86939e"
-          rejectResponderTermination={true}
           style={
             Object {
               "alignSelf": "center",
@@ -378,6 +377,7 @@ exports[`login settings screen save with trim 1`] = `
             }
           }
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
