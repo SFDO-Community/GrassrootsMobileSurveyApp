@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon } from '@rneui/themed';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import { APP_THEME, APP_FONTS } from '../../constants';
@@ -71,7 +71,7 @@ function DatePicker(props: DatePickerPropType) {
       <DateTimePickerModal
         confirmTextIOS={t('CONFIRM')}
         cancelTextIOS={t('CANCEL')}
-        headerTextIOS={title}
+        // headerTextIOS={title}
         date={toDateValue(value)}
         mode={mode}
         isVisible={isDatePickerVisible}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ImageBackground } from 'react-native';
-import { Card, Icon, Divider, ListItem, Text } from 'react-native-elements';
+import { Card, Icon, Divider, ListItem, Text } from '@rneui/themed';
 import NetInfo from '@react-native-community/netinfo';
 import * as Application from 'expo-application';
 import * as SecureStore from 'expo-secure-store';

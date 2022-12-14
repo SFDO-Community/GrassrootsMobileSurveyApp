@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Input } from '@rneui/themed';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { StackParamList } from '../../Router';

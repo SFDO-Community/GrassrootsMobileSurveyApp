@@ -25,11 +25,14 @@
     "@react-native-picker/picker": "2.4.8",
     "@react-navigation/native": "^5.7.4",
     "@react-navigation/stack": "^5.9.1",
+    "@rneui/base": "^4.0.0-rc.7",
+    "@rneui/themed": "^4.0.0-rc.7",
     "expo": "^47.0.0",
     "expo-application": "~5.0.1",
     "expo-constants": "~14.0.2",
     "expo-localization": "~14.0.0",
     "expo-secure-store": "~12.0.0",
+    "expo-splash-screen": "~0.17.5",
     "expo-sqlite": "~11.0.0",
     "expo-status-bar": "~1.4.2",
     "i18n-js": "^3.8.0",
@@ -40,7 +43,6 @@
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
     "react-native-dotenv": "^2.4.2",
-    "react-native-elements": "^2.3.2",
     "react-native-flash-message": "^0.2.1",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
@@ -53,8 +55,7 @@
     "react-native-swipe-list-view": "^3.1.0",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^4.4.1",
-    "react-tracked": "^1.4.2",
-    "expo-splash-screen": "~0.17.5"
+    "react-tracked": "^1.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

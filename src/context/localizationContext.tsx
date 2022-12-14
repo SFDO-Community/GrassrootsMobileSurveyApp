@@ -6,7 +6,7 @@ export const LocalizationContext = React.createContext(null);
 export const useLocalizationContext = () => useContext(LocalizationContext);
 
 // eslint-disable-next-line react/prop-types
-export const LocalizationContextProvider: React.FC = ({ children }) => {
+export const LocalizationContextProvider = ({ children }) => {
   const [locale, setLocale] = useState(i18n.locale);
   const localizationContextValue = useMemo(
     () => ({
