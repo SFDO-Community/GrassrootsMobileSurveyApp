@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, ImageBackground } from 'react-native';
-import { Divider } from 'react-native-elements';
+import { Divider } from '@rneui/themed';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { getAllAvailableRecordTypes } from '../services/database/metadata';

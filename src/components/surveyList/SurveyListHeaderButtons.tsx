@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon } from '@rneui/themed';
 
 import { useLocalizationContext } from '../../context/localizationContext';
 

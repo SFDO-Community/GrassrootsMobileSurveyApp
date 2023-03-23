@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useEffect, useCallback, useLayoutEffect } from 'react';
 import { Alert, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Icon, Divider, SearchBar } from 'react-native-elements';
+import { Icon, Divider, SearchBar } from '@rneui/themed';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import NetInfo from '@react-native-community/netinfo';
 import { useFocusEffect } from '@react-navigation/native';

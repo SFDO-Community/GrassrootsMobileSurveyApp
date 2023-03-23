@@ -11,7 +11,7 @@ export interface AuthContextValue {
 export const useAuthContext = () => useContext(AuthContext);
 
 // eslint-disable-next-line react/prop-types
-export const AuthContextProvider: React.FC = ({ children }) => {
+export const AuthContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const contextValue: AuthContextValue = {
     login: () => {

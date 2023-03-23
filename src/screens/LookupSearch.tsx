@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, FlatList, SafeAreaView, Text, View, StyleSheet } from 'react-native';
-import { Input, Divider } from 'react-native-elements';
+import { Input, Divider } from '@rneui/themed';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/core';
 

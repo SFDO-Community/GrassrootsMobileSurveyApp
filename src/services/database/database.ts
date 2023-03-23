@@ -261,13 +261,13 @@ const getFieldTypeMappings = (record: Record<string, any>): Array<SQLiteFieldTyp
 const convertObjectToSQLite = record => {
   const converted = Object.entries(record).reduce((result, [key, value]) => {
     let sqliteValue;
-    if (typeof value === 'string') {
+    if (!value) {
+      // use blank string for null
+      sqliteValue = "''";
+    } else if (typeof value === 'string') {
       sqliteValue = `'${value.replace(/'/g, "''")}'`; // escape single quote
     } else if (typeof value === 'boolean') {
       sqliteValue = value ? 1 : 0; // 1: true, 0: false
-    } else if (!value) {
-      // use blank string for null
-      sqliteValue = "''";
     } else {
       sqliteValue = value;
     }

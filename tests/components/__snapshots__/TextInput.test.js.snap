@@ -9,6 +9,7 @@ exports[`<TextInput /> Rendering 1`] = `
       "width": "100%",
     }
   }
+  testID="RNE__Input__view-wrapper"
 >
   <Text
     style={
@@ -22,6 +23,7 @@ exports[`<TextInput /> Rendering 1`] = `
     Test
   </Text>
   <View
+    collapsable={false}
     style={
       Object {
         "alignItems": "center",
@@ -40,17 +42,14 @@ exports[`<TextInput /> Rendering 1`] = `
     }
   >
     <TextInput
-      allowFontScaling={true}
       autoCapitalize="none"
       editable={true}
       keyboardType="default"
       multiline={false}
       numberOfLines={1}
       placeholderTextColor="#86939e"
-      rejectResponderTermination={true}
       style={
         Object {
-          "alignSelf": "center",
           "color": "#242424",
           "flex": 1,
           "fontFamily": "SalesforceSans-Regular",

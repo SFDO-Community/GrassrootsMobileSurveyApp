@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Input } from '@rneui/themed';
 import { APP_THEME, APP_FONTS } from '../constants';
 
 type LoginFormInputProps = {

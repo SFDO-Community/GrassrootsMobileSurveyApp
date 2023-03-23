@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
-import { Icon, ButtonGroup } from 'react-native-elements';
+import { Icon, ButtonGroup } from '@rneui/themed';
 
 import { APP_FONTS, APP_THEME, SYNC_STATUS_SYNCED, SYNC_STATUS_UNSYNCED } from '../../constants';
 import { useLocalizationContext } from '../../context/localizationContext';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Icon, Input, Button } from 'react-native-elements';
+import { Icon, Input, Button } from '@rneui/themed';
 import * as SecureStore from 'expo-secure-store';
 
 import {

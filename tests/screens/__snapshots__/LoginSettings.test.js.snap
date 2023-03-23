@@ -50,6 +50,7 @@ exports[`login settings screen save 1`] = `
           "width": "100%",
         }
       }
+      testID="RNE__Input__view-wrapper"
     >
       <Text
         style={
@@ -64,6 +65,7 @@ exports[`login settings screen save 1`] = `
         Heroku App Name
       </Text>
       <View
+        collapsable={false}
         style={
           Object {
             "alignItems": "center",
@@ -80,16 +82,13 @@ exports[`login settings screen save 1`] = `
       >
         <TextInput
           accessibilityLabel="app-name-input"
-          allowFontScaling={true}
           editable={true}
           keyboardType="url"
           onChangeText={[Function]}
           placeholder="aaa-bbb-12345"
           placeholderTextColor="#86939e"
-          rejectResponderTermination={true}
           style={
             Object {
-              "alignSelf": "center",
               "color": "#242424",
               "flex": 1,
               "fontFamily": "SalesforceSans-Regular",
@@ -149,11 +148,18 @@ exports[`login settings screen save 1`] = `
     >
       <View
         style={
-          Object {
-            "borderRadius": 5,
-            "overflow": "hidden",
-          }
+          Array [
+            Object {
+              "overflow": "hidden",
+            },
+            Object {
+              "borderRadius": 2,
+            },
+            undefined,
+            false,
+          ]
         }
+        testID="RNE_BUTTON_WRAPPER"
       >
         <View
           accessibilityRole="button"
@@ -164,6 +170,7 @@ exports[`login settings screen save 1`] = `
             }
           }
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -189,6 +196,7 @@ exports[`login settings screen save 1`] = `
                 "flexDirection": "row",
                 "justifyContent": "center",
                 "padding": 8,
+                "paddingHorizontal": 10,
               }
             }
           >
@@ -198,8 +206,7 @@ exports[`login settings screen save 1`] = `
                   "color": "white",
                   "fontFamily": "SalesforceSans-Regular",
                   "fontSize": 16,
-                  "paddingBottom": 1,
-                  "paddingTop": 2,
+                  "paddingVertical": 1,
                   "textAlign": "center",
                 }
               }
@@ -264,6 +271,7 @@ exports[`login settings screen save with trim 1`] = `
           "width": "100%",
         }
       }
+      testID="RNE__Input__view-wrapper"
     >
       <Text
         style={
@@ -278,6 +286,7 @@ exports[`login settings screen save with trim 1`] = `
         Heroku App Name
       </Text>
       <View
+        collapsable={false}
         style={
           Object {
             "alignItems": "center",
@@ -294,16 +303,13 @@ exports[`login settings screen save with trim 1`] = `
       >
         <TextInput
           accessibilityLabel="app-name-input"
-          allowFontScaling={true}
           editable={true}
           keyboardType="url"
           onChangeText={[Function]}
           placeholder="aaa-bbb-12345"
           placeholderTextColor="#86939e"
-          rejectResponderTermination={true}
           style={
             Object {
-              "alignSelf": "center",
               "color": "#242424",
               "flex": 1,
               "fontFamily": "SalesforceSans-Regular",
@@ -363,11 +369,18 @@ exports[`login settings screen save with trim 1`] = `
     >
       <View
         style={
-          Object {
-            "borderRadius": 5,
-            "overflow": "hidden",
-          }
+          Array [
+            Object {
+              "overflow": "hidden",
+            },
+            Object {
+              "borderRadius": 2,
+            },
+            undefined,
+            false,
+          ]
         }
+        testID="RNE_BUTTON_WRAPPER"
       >
         <View
           accessibilityRole="button"
@@ -378,6 +391,7 @@ exports[`login settings screen save with trim 1`] = `
             }
           }
           accessible={true}
+          collapsable={false}
           focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
@@ -403,6 +417,7 @@ exports[`login settings screen save with trim 1`] = `
                 "flexDirection": "row",
                 "justifyContent": "center",
                 "padding": 8,
+                "paddingHorizontal": 10,
               }
             }
           >
@@ -412,8 +427,7 @@ exports[`login settings screen save with trim 1`] = `
                   "color": "white",
                   "fontFamily": "SalesforceSans-Regular",
                   "fontSize": 16,
-                  "paddingBottom": 1,
-                  "paddingTop": 2,
+                  "paddingVertical": 1,
                   "textAlign": "center",
                 }
               }
