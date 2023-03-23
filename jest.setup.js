@@ -19,6 +19,6 @@ jest.mock('@react-navigation/native', () => {
   };
 });
 
-jest.mock('react-native-elements/src/icons/Icon', () => 'View');
+jest.mock('@rneui/themed/dist/Icon', () => 'View');
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');

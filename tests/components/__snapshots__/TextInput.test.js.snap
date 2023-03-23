@@ -9,6 +9,7 @@ exports[`<TextInput /> Rendering 1`] = `
       "width": "100%",
     }
   }
+  testID="RNE__Input__view-wrapper"
 >
   <Text
     style={
@@ -49,7 +50,6 @@ exports[`<TextInput /> Rendering 1`] = `
       placeholderTextColor="#86939e"
       style={
         Object {
-          "alignSelf": "center",
           "color": "#242424",
           "flex": 1,
           "fontFamily": "SalesforceSans-Regular",

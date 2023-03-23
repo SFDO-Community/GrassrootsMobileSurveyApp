@@ -8,6 +8,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
       "width": "100%",
     }
   }
+  testID="RNE__Input__view-wrapper"
 >
   <Text
     style={
@@ -49,10 +50,39 @@ exports[`<LoginFormInput /> Rendering 1`] = `
       }
     >
       <View
-        color="#706e6b"
-        name="email-outline"
-        type="material-community"
-      />
+        style={
+          Object {
+            "overflow": "hidden",
+          }
+        }
+        testID="RNE__ICON__CONTAINER"
+      >
+        <View
+          accessibilityRole="button"
+          android_ripple={
+            Object {
+              "borderless": false,
+              "color": "rgba(0, 0, 0, 0.3)",
+              "radius": -5,
+            }
+          }
+          disabled={false}
+          testID="RNE__ICON__CONTAINER_ACTION"
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "justifyContent": "center",
+              }
+            }
+            testID="RNE__ICON"
+          >
+            <Text />
+          </View>
+        </View>
+      </View>
     </View>
     <TextInput
       editable={true}
@@ -62,7 +92,6 @@ exports[`<LoginFormInput /> Rendering 1`] = `
       placeholderTextColor="#86939e"
       style={
         Object {
-          "alignSelf": "center",
           "color": "#242424",
           "flex": 1,
           "fontFamily": "SalesforceSans-Regular",

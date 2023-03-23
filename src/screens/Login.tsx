@@ -115,6 +115,7 @@ export default function Login() {
               onPress={() => login()}
               buttonStyle={styles.loginButtonBackground}
               titleStyle={styles.loginButtonText}
+              testID="login-button"
             />
           </View>
         </View>
