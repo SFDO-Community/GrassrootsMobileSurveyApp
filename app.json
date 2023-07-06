@@ -10,7 +10,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.sfdo.community.grassrootsmobilesurveyapp",
-      "buildNumber": "7"
+      "buildNumber": "8"
     },
     "android": {
       "package": "com.sfdo.community.grassrootsmobilesurveyapp",
@@ -21,7 +21,7 @@
       },
       "permissions": []
     },
-    "version": "0.10.0",
+    "version": "0.10.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
