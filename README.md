@@ -1,4 +1,4 @@
-[![Github Workflow](https://github.com/SFDO-Community-Sprints/GrassrootsSurveyMobileApp/workflows/unit%20test/badge.svg?branch=master)](https://github.com/SFDO-Community-Sprints/GrassrootsSurveyMobileApp/actions?query=workflow%3A%22unit%20test%22)
+[![Github Workflow](https://github.com/SFDO-Community-Sprints/GrassrootsSurveyMobileApp/actions/workflows/unit-test.yml/badge.svg?branch=master)]([https://github.com/SFDO-Community-Sprints/GrassrootsSurveyMobileApp/actions?query=workflow%3A%22unit%20test%22](https://github.com/SFDO-Community/GrassrootsMobileSurveyApp/actions/workflows/unit-test.yml))
 # Grassroots Mobile Survey App
 
 ![](img/screenshot.png)
