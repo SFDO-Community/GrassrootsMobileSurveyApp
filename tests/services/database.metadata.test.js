@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { getRecords, getAllRecords } from '../../src/services/database/database';
 import { getAllAvailableRecordTypes, getPicklistValues } from '../../src/services/database/metadata';
 

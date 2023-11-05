@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import * as SecureStore from 'expo-secure-store';
 
 import { ASYNC_STORAGE_KEYS, SECURE_STORE_KEYS } from '../constants';

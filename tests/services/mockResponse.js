@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
 const mockAuthSuccessResponse = {
   ok: true,
   status: 200,

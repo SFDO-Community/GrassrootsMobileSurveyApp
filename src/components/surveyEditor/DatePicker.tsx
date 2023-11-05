@@ -21,7 +21,7 @@ function DatePicker(props: DatePickerPropType) {
 
   const { t } = useLocalizationContext();
 
-  const { onValueChange, title, value, disabled, fieldLabel, mode } = props;
+  const { onValueChange, value, disabled, fieldLabel, mode } = props;
   const { container, innerContainer, buttonStyle, valueLabel, iconView, placeholderLabel } = styles;
 
   const toSalesforceTimeValue = (date: Date): string => {

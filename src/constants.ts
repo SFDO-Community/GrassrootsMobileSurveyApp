@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { ImageStyle, ViewStyle, Dimensions } from 'react-native';
 import { SQLiteFieldTypeMapping } from './types/sqlite';
 
