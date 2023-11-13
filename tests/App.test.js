@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { render, waitFor } from '@testing-library/react-native';
 
 import App from '../App';
 
@@ -11,8 +11,10 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
 });
 
 describe('<App />', () => {
-  it('Before font loading', () => {
+  it('Before font loading', async () => {
     const screen = render(<App />);
-    expect(screen.toJSON()).toMatchSnapshot();
+    await waitFor(() => {
+      expect(screen.toJSON()).toMatchSnapshot();
+    });
   });
 });
