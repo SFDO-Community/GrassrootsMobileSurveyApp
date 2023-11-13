@@ -3,9 +3,10 @@
 exports[`<LoginSettingsButton /> Rendering 1`] = `
 <View
   accessibilityRole="button"
+  accessible={true}
   color="#01579b"
   iconStyle={
-    Object {
+    {
       "padding": 10,
     }
   }

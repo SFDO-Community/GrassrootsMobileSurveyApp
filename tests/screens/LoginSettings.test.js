@@ -31,7 +31,7 @@ describe('login settings screen', () => {
     expect(screen.getByLabelText('app-name-input')).toBeTruthy();
 
     // save button disabled when blank
-    const saveButton = screen.getByA11yRole('button');
+    const saveButton = screen.getByRole('button');
     expect(saveButton).toBeDisabled();
   });
 
@@ -44,7 +44,7 @@ describe('login settings screen', () => {
 
     const appNameInput = screen.getByLabelText('app-name-input');
     fireEvent.changeText(appNameInput, 'test-app-123');
-    const saveButton = screen.getByA11yRole('button');
+    const saveButton = screen.getByRole('button');
     fireEvent.press(saveButton);
     expect(screen.toJSON()).toMatchSnapshot(); // value='test-app-123'
     await waitFor(() => {
@@ -62,7 +62,7 @@ describe('login settings screen', () => {
     const appNameInput = screen.getByLabelText('app-name-input');
     fireEvent.changeText(appNameInput, '  test-app-123  ');
 
-    const saveButton = screen.getByA11yRole('button');
+    const saveButton = screen.getByRole('button');
     fireEvent.press(saveButton);
 
     expect(screen.toJSON()).toMatchSnapshot(); // value='test-app-123'

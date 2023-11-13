@@ -3,7 +3,7 @@
 exports[`<LoginFormInput /> Rendering 1`] = `
 <View
   style={
-    Object {
+    {
       "paddingHorizontal": 10,
       "width": "100%",
     }
@@ -12,7 +12,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
 >
   <Text
     style={
-      Object {
+      {
         "color": "#86939e",
         "fontFamily": "SalesforceSans-Regular",
         "fontSize": 16,
@@ -25,13 +25,13 @@ exports[`<LoginFormInput /> Rendering 1`] = `
   <View
     collapsable={false}
     style={
-      Object {
+      {
         "alignItems": "center",
         "borderBottomWidth": 1,
         "borderColor": "#86939e",
         "flexDirection": "row",
-        "transform": Array [
-          Object {
+        "transform": [
+          {
             "translateX": 0,
           },
         ],
@@ -40,7 +40,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
   >
     <View
       style={
-        Object {
+        {
           "alignItems": "center",
           "height": 40,
           "justifyContent": "center",
@@ -51,7 +51,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "overflow": "hidden",
           }
         }
@@ -60,7 +60,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
         <View
           accessibilityRole="button"
           android_ripple={
-            Object {
+            {
               "borderless": false,
               "color": "rgba(0, 0, 0, 0.3)",
               "radius": -5,
@@ -71,7 +71,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
         >
           <View
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "backgroundColor": "transparent",
                 "justifyContent": "center",
@@ -91,7 +91,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
       placeholder="yourname@example.com"
       placeholderTextColor="#86939e"
       style={
-        Object {
+        {
           "color": "#242424",
           "flex": 1,
           "fontFamily": "SalesforceSans-Regular",
@@ -106,7 +106,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
   </View>
   <Text
     style={
-      Object {
+      {
         "color": "#c23934",
         "fontFamily": "SalesforceSans-Regular",
         "fontSize": 12,

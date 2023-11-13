@@ -15,9 +15,6 @@
     "test": "jest --coverage",
     "rebuild": "rm -rf node_modules && yarn install"
   },
-  "jest": {
-    "preset": "jest-expo"
-  },
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.18.2",
     "@react-native-community/datetimepicker": "^7.2.0",
@@ -59,9 +56,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@testing-library/jest-native": "^4.0.2",
-    "@testing-library/react": "^11.0.4",
-    "@testing-library/react-native": "^7.2.0",
+    "@testing-library/jest-native": "^5.4.3",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/react-native": "^12.3.2",
     "@types/expo__vector-icons": "^9.0.1",
     "@types/react": "^18.2.33",
     "@typescript-eslint/eslint-plugin": "^6.9.1",

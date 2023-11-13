@@ -9,9 +9,9 @@ describe('<LoginSettingsButton />', () => {
     expect(screen.toJSON()).toMatchSnapshot();
   });
 
-  it('button can be pressed', () => {
+  it('button can be pressed', async () => {
     const screen = render(<LoginSettingsButton navigation={global.mockedNavigation} />);
-    const button = screen.getByA11yRole('button');
+    const button = screen.getByRole('button');
     fireEvent.press(button);
 
     expect(global.mockedNavigation.navigate.mock.calls.length).toBe(1);

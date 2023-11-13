@@ -15,6 +15,7 @@ export function LoginSettingsButton(props: LoginSettingsButtonProps) {
   return (
     <Icon
       accessibilityRole="button"
+      accessible
       iconStyle={{ padding: 10 }}
       name="settings"
       size={22}

@@ -43,7 +43,7 @@ describe('<SurveyTypePicker />', () => {
       </LocalizationContext.Provider>
     );
 
-    const menu = await screen.findByA11yRole('menubar');
+    const menu = await screen.getByRole('menubar');
     expect(menu.props.data).toHaveLength(2);
     expect(screen.toJSON()).toMatchSnapshot();
   });
