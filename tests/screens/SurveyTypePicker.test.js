@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { render, waitFor } from '@testing-library/react-native';
 
 import i18n from '../../src/config/i18n';
 import { LocalizationContext } from '../../src/context/localizationContext';
@@ -43,7 +43,7 @@ describe('<SurveyTypePicker />', () => {
       </LocalizationContext.Provider>
     );
 
-    const menu = await screen.getByRole('menubar');
+    const menu = await screen.findByRole('menubar');
     expect(menu.props.data).toHaveLength(2);
     expect(screen.toJSON()).toMatchSnapshot();
   });

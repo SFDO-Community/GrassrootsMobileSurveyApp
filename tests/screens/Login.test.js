@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, act, userEvent } from '@testing-library/react-native';
+import { render, fireEvent, act, userEvent, waitFor } from '@testing-library/react-native';
 
 import i18n from '../../src/config/i18n';
 import { LocalizationContext } from '../../src/context/localizationContext';
@@ -71,7 +71,9 @@ describe('login screen', () => {
     await user.press(loginButton);
 
     // invalid email error should be rendered
-    expect(screen.getByText(translate('ENTER_VALID_EMAIL'))).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByText(translate('ENTER_VALID_EMAIL'))).toBeTruthy();
+    });
   });
 
   it('validate blank password', async () => {
@@ -89,7 +91,9 @@ describe('login screen', () => {
     await user.press(loginButton);
 
     // password error should be rendered
-    expect(screen.getByText(translate('ENTER_PASSWORD'))).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByText(translate('ENTER_PASSWORD'))).toBeTruthy();
+    });
   });
 
   it('authenticate success', async () => {
@@ -114,6 +118,8 @@ describe('login screen', () => {
     });
 
     // expect to show modal
-    expect(screen.queryByTestId('modal')).toHaveProp('visible', true);
+    await waitFor(() => {
+      expect(screen.queryByTestId('modal')).toHaveProp('visible', true);
+    });
   });
 });

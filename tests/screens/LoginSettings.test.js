@@ -11,6 +11,7 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
   const KeyboardAwareScrollView = ({ children }) => children;
   return { KeyboardAwareScrollView };
 });
+jest.useFakeTimers(); // To avoid "Warning: An update to ForwardRef inside a test was not wrapped in act(...)."
 
 describe('login settings screen', () => {
   const locale = i18n.locale;
@@ -29,7 +30,6 @@ describe('login settings screen', () => {
 
     // expect one input field
     expect(screen.getByLabelText('app-name-input')).toBeTruthy();
-
     // save button disabled when blank
     const saveButton = screen.getByRole('button');
     expect(saveButton).toBeDisabled();
