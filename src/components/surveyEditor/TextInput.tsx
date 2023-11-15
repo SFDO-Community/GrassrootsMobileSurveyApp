@@ -23,7 +23,7 @@ function TextInput(props: TextInputPropType) {
       // ref={ref => (this.textField = ref)}
       multiline={multiline ? multiline : false}
       numberOfLines={multiline ? 4 : 1}
-      value={value}
+      defaultValue={value}
       label={title}
       autoCapitalize="none"
       onChangeText={onValueChange}
