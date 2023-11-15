@@ -3,7 +3,7 @@
 exports[`<TextHeading /> Rendering 1`] = `
 <Text
   style={
-    Object {
+    {
       "color": "#2b2826",
       "fontFamily": "SalesforceSans-Regular",
       "fontSize": 16,

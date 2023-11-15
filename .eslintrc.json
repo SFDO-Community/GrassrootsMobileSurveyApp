@@ -28,9 +28,58 @@
       }
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/ban-ts-ignore": "warn",
+    "@typescript-eslint/ban-ts-comment": "warn",
+    "@typescript-eslint/naming-convention": [
+      "error",
+        {
+          "selector": "variable",
+          "modifiers": ["const"],
+          "format": ["strictCamelCase","StrictPascalCase","UPPER_CASE"],
+          "leadingUnderscore": "allow",
+          "filter": {
+            "regex": "ISO|SObject|SQL",
+            "match": false
+          }
+        },
+        {
+          "selector": "function",
+          "format": ["strictCamelCase", "StrictPascalCase"],
+          "leadingUnderscore": "allow"
+        },
+        {
+          "selector": "accessor",
+          "format": ["strictCamelCase"]
+        },
+        {
+          "selector": "parameter",
+          "format": ["strictCamelCase"],
+          "leadingUnderscore": "allow"
+        },
+        {
+          "selector": "typeAlias",
+          "format": ["StrictPascalCase", "UPPER_CASE"],
+          "filter": {
+            "regex": "SQLite",
+            "match": false
+          }
+        },
+        {
+          "selector": "class",
+          "format": ["StrictPascalCase"]
+        },
+        {
+          "selector": "interface",
+          "format": ["StrictPascalCase"],
+          "filter": {
+            "regex": "SQL|SObject",
+            "match": false
+          }
+        }
+    ],
+    "@typescript-eslint/prefer-as-const": "warn",
     "react/no-unescaped-entities": ["error", { "forbid": [">", "}"] }],
     "react/prop-types": ["error", { "ignore": ["navigation"] }]
   }

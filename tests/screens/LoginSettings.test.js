@@ -11,6 +11,7 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
   const KeyboardAwareScrollView = ({ children }) => children;
   return { KeyboardAwareScrollView };
 });
+jest.useFakeTimers(); // To avoid "Warning: An update to ForwardRef inside a test was not wrapped in act(...)."
 
 describe('login settings screen', () => {
   const locale = i18n.locale;
@@ -29,9 +30,8 @@ describe('login settings screen', () => {
 
     // expect one input field
     expect(screen.getByLabelText('app-name-input')).toBeTruthy();
-
     // save button disabled when blank
-    const saveButton = screen.getByA11yRole('button');
+    const saveButton = screen.getByRole('button');
     expect(saveButton).toBeDisabled();
   });
 
@@ -44,7 +44,7 @@ describe('login settings screen', () => {
 
     const appNameInput = screen.getByLabelText('app-name-input');
     fireEvent.changeText(appNameInput, 'test-app-123');
-    const saveButton = screen.getByA11yRole('button');
+    const saveButton = screen.getByRole('button');
     fireEvent.press(saveButton);
     expect(screen.toJSON()).toMatchSnapshot(); // value='test-app-123'
     await waitFor(() => {
@@ -62,7 +62,7 @@ describe('login settings screen', () => {
     const appNameInput = screen.getByLabelText('app-name-input');
     fireEvent.changeText(appNameInput, '  test-app-123  ');
 
-    const saveButton = screen.getByA11yRole('button');
+    const saveButton = screen.getByRole('button');
     fireEvent.press(saveButton);
 
     expect(screen.toJSON()).toMatchSnapshot(); // value='test-app-123'

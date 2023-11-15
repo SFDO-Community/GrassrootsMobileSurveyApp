@@ -44,6 +44,7 @@ export default function SurveyTypePicker({ navigation }: Props) {
       <View>
         <FlatList
           accessibilityRole="menubar"
+          accessible
           keyExtractor={(item, index) => {
             return index.toString();
           }}

@@ -3,7 +3,7 @@
 exports[`<TextIcon /> Rendering 1`] = `
 <View
   style={
-    Object {
+    {
       "alignItems": "center",
       "flexDirection": "row",
       "justifyContent": "flex-start",
@@ -14,7 +14,7 @@ exports[`<TextIcon /> Rendering 1`] = `
   <View
     color="#000000"
     iconStyle={
-      Object {
+      {
         "padding": 10,
       }
     }
@@ -24,7 +24,7 @@ exports[`<TextIcon /> Rendering 1`] = `
   />
   <Text
     style={
-      Object {
+      {
         "fontFamily": "SalesforceSans-Regular",
         "fontSize": 16,
         "lineHeight": 22,

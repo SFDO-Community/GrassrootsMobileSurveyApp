@@ -4,7 +4,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
 <View
   accessibilityIgnoresInvertColors={true}
   style={
-    Object {
+    {
       "backgroundColor": "white",
       "flex": 1,
     }
@@ -13,19 +13,19 @@ exports[`<SurveyTypePicker /> render 1`] = `
   <Image
     source={1}
     style={
-      Array [
-        Object {
+      [
+        {
           "bottom": 0,
           "left": 0,
           "position": "absolute",
           "right": 0,
           "top": 0,
         },
-        Object {
+        {
           "height": undefined,
           "width": undefined,
         },
-        Object {
+        {
           "resizeMode": "contain",
           "top": 857.7142857142858,
         },
@@ -36,9 +36,10 @@ exports[`<SurveyTypePicker /> render 1`] = `
     <RCTScrollView
       ItemSeparatorComponent={[Function]}
       accessibilityRole="menubar"
+      accessible={true}
       data={
-        Array [
-          Object {
+        [
+          {
             "active": true,
             "developerName": "Test_1",
             "label": "Test 1",
@@ -46,7 +47,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
             "master": false,
             "recordTypeId": "0125h000000kNJMAA1",
           },
-          Object {
+          {
             "active": true,
             "developerName": "Test_2",
             "label": "Test 2",
@@ -69,15 +70,24 @@ exports[`<SurveyTypePicker /> render 1`] = `
       removeClippedSubviews={false}
       renderItem={[Function]}
       scrollEventThrottle={50}
-      stickyHeaderIndices={Array []}
-      viewabilityConfigCallbackPairs={Array []}
+      stickyHeaderIndices={[]}
+      viewabilityConfigCallbackPairs={[]}
     >
       <View>
         <View
+          onFocusCapture={[Function]}
           onLayout={[Function]}
           style={null}
         >
           <View
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
             accessible={true}
             focusable={true}
             onClick={[Function]}
@@ -88,7 +98,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "backgroundColor": "white",
                 "minHeight": 44,
               }
@@ -96,7 +106,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
           >
             <View
               style={
-                Object {
+                {
                   "flex": 1,
                   "justifyContent": "space-around",
                   "marginLeft": 20,
@@ -105,7 +115,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
             >
               <Text
                 style={
-                  Object {
+                  {
                     "color": "#2b2826",
                     "fontFamily": "SalesforceSans-Regular",
                     "fontSize": 16,
@@ -119,7 +129,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
           </View>
           <View
             style={
-              Object {
+              {
                 "backgroundColor": "#dedcdb",
                 "borderBottomColor": "#bcbbc1",
                 "borderBottomWidth": 0.5,
@@ -127,8 +137,8 @@ exports[`<SurveyTypePicker /> render 1`] = `
             }
             testID="RNE__Divider"
             theme={
-              Object {
-                "colors": Object {
+              {
+                "colors": {
                   "background": "#ffffff",
                   "black": "#242424",
                   "disabled": "hsl(208, 8%, 90%)",
@@ -141,8 +151,8 @@ exports[`<SurveyTypePicker /> render 1`] = `
                   "grey4": "#bdc6cf",
                   "grey5": "#e1e8ee",
                   "greyOutline": "#bbb",
-                  "platform": Object {
-                    "android": Object {
+                  "platform": {
+                    "android": {
                       "error": "#f44336",
                       "grey": "rgba(0, 0, 0, 0.54)",
                       "primary": "#2196f3",
@@ -151,7 +161,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
                       "success": "#4caf50",
                       "warning": "#ffeb3b",
                     },
-                    "default": Object {
+                    "default": {
                       "error": "#ff3b30",
                       "grey": "#7d7d7d",
                       "primary": "#007aff",
@@ -160,7 +170,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
                       "success": "#4cd964",
                       "warning": "#ffcc00",
                     },
-                    "ios": Object {
+                    "ios": {
                       "error": "#ff3b30",
                       "grey": "#7d7d7d",
                       "primary": "#007aff",
@@ -169,7 +179,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
                       "success": "#4cd964",
                       "warning": "#ffcc00",
                     },
-                    "web": Object {
+                    "web": {
                       "error": "#ff190c",
                       "grey": "#393e42",
                       "primary": "#2089dc",
@@ -186,7 +196,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
                   "warning": "#faad14",
                   "white": "#ffffff",
                 },
-                "spacing": Object {
+                "spacing": {
                   "lg": 12,
                   "md": 8,
                   "sm": 4,
@@ -198,10 +208,19 @@ exports[`<SurveyTypePicker /> render 1`] = `
           />
         </View>
         <View
+          onFocusCapture={[Function]}
           onLayout={[Function]}
           style={null}
         >
           <View
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
             accessible={true}
             focusable={true}
             onClick={[Function]}
@@ -212,7 +231,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "backgroundColor": "white",
                 "minHeight": 44,
               }
@@ -220,7 +239,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
           >
             <View
               style={
-                Object {
+                {
                   "flex": 1,
                   "justifyContent": "space-around",
                   "marginLeft": 20,
@@ -229,7 +248,7 @@ exports[`<SurveyTypePicker /> render 1`] = `
             >
               <Text
                 style={
-                  Object {
+                  {
                     "color": "#2b2826",
                     "fontFamily": "SalesforceSans-Regular",
                     "fontSize": 16,
@@ -242,13 +261,6 @@ exports[`<SurveyTypePicker /> render 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            Object {
-              "height": 0,
-            }
-          }
-        />
       </View>
     </RCTScrollView>
   </View>

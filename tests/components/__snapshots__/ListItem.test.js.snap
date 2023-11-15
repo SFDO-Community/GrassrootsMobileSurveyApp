@@ -2,6 +2,14 @@
 
 exports[`<LoginFormInput /> Rendering 1`] = `
 <View
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
   accessible={true}
   focusable={true}
   onClick={[Function]}
@@ -12,7 +20,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "white",
       "minHeight": 44,
     }
@@ -20,7 +28,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
 >
   <View
     style={
-      Object {
+      {
         "flex": 1,
         "justifyContent": "space-around",
         "marginLeft": 20,
@@ -29,7 +37,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
   >
     <Text
       style={
-        Object {
+        {
           "color": "#2b2826",
           "fontFamily": "SalesforceSans-Regular",
           "fontSize": 16,
@@ -43,7 +51,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
     </Text>
     <Text
       style={
-        Object {
+        {
           "color": "#706e6b",
           "fontFamily": "SalesforceSans-Regular",
           "fontSize": 12,
@@ -56,7 +64,7 @@ exports[`<LoginFormInput /> Rendering 1`] = `
     </Text>
     <View
       style={
-        Object {
+        {
           "backgroundColor": "transparent",
           "borderRadius": 3,
           "borderRightColor": "transparent",
@@ -67,8 +75,8 @@ exports[`<LoginFormInput /> Rendering 1`] = `
           "height": 0,
           "position": "absolute",
           "right": 0,
-          "transform": Array [
-            Object {
+          "transform": [
+            {
               "rotate": "90deg",
             },
           ],

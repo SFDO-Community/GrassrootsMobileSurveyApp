@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { fetchRetriable } from '../../src/services/salesforce/connection';
 import { mockLoginResponse, mockQuerySuccessResponse, mockQueryFailureResponse } from './mockResponse';
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { buildLayoutDetail } from '../../src/services/describe';
 import { getRecords } from '../../src/services/database/database';
 

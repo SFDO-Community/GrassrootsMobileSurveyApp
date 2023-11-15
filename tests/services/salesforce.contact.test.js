@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { getCurrentFieldWorker, storeContacts } from '../../src/services/salesforce/contact';
 import { fetchSalesforceRecords } from '../../src/services/salesforce/core';
 

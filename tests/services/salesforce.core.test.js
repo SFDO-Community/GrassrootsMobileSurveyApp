@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { fetchSalesforceRecords } from '../../src/services/salesforce/core';
 import { mockResolvedQueryResult } from './mockResponse';
 
