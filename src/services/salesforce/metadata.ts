@@ -18,7 +18,14 @@ import {
 } from '../../types/metadata';
 
 import { logger } from '../../utility/logger';
-import { DB_TABLE, SURVEY_OBJECT, BACKGROUND_SURVEY_FIELDS } from '../../constants';
+import {
+  DB_TABLE,
+  SURVEY_OBJECT,
+  BACKGROUND_SURVEY_FIELDS,
+  SUPPORTED_LANGUAGE_CODES,
+  DEFAULT_LANGUAGE_CODE,
+  AVAILABLE_LANGUAGE_CMDT,
+} from '../../constants';
 
 /**
  * @description Query record types by REST API (describe layouts) and save the results to local database.
@@ -162,4 +169,20 @@ export const storeLocalization = async () => {
     };
   });
   await saveRecords(DB_TABLE.LOCALIZATION, localizations, undefined);
+};
+
+/**
+ * description Retrieve Salesforce 'AvailableLanguage__mdt' records and get the common part of it and Salesforce's supported language
+ */
+export const getAvailableLanguages = async () => {
+  const query = `SELECT DeveloperName FROM ${AVAILABLE_LANGUAGE_CMDT}`;
+  const availableLanguages = await fetchSalesforceRecords(query);
+  if (availableLanguages.length === 0) {
+    return [DEFAULT_LANGUAGE_CODE];
+  }
+  const result = SUPPORTED_LANGUAGE_CODES.filter(l => availableLanguages.includes(l));
+  if (result.length === 0) {
+    return [DEFAULT_LANGUAGE_CODE];
+  }
+  return result;
 };

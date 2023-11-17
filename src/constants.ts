@@ -54,6 +54,7 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
 export const SURVEY_OBJECT = 'GRMS__Survey__c';
 export const FIELD_WORKER_CONTACT_FIELD_ON_SURVEY = 'GRMS__FieldWorker__c';
 export const SURVEY_DATE_FIELD = 'GRMS__SurveyDate__c';
+export const AVAILABLE_LANGUAGE_CMDT = 'GRMS__AvailableLanguage__mdt';
 export const RECORD_TYPE_ID_FIELD = 'RecordTypeId';
 export const BACKGROUND_SURVEY_FIELDS = [
   { fieldName: 'Name', fieldType: 'string' },
@@ -81,3 +82,26 @@ export const L10N_PREFIX = {
   PageLayoutSection: 'PAGE_LAYOUT_SECTION_',
   PageLayoutItem: 'PAGE_LAYOUT_ITEM_',
 };
+
+export const DEFAULT_LANGUAGE_CODE = 'en_US';
+export const SUPPORTED_LANGUAGE_CODES = [
+  DEFAULT_LANGUAGE_CODE,
+  'zh_CN',
+  'zh_TW',
+  'da',
+  'nl_NL',
+  'fi',
+  'fr',
+  'de',
+  'it',
+  'ja',
+  'ko',
+  'no',
+  'pt_BR',
+  'ru',
+  'es',
+  'es_MX',
+  'sv',
+  'th',
+  'ne',
+];
