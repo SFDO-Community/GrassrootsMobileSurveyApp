@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
-import FlashMessage from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 
 import Router from './src/Router';
 import { initializeStorage } from './src/utility/storage';
 import { LocalizationContextProvider } from './src/context/localizationContext';
 import { AuthContextProvider } from './src/context/authContext';
 import { SurveyEditorContextProvider } from './src/context/surveyEditorContext';
+import { toastConfig } from './src/components/Toast';
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -32,8 +33,8 @@ export default function App() {
           <Router />
         </SurveyEditorContextProvider>
       </AuthContextProvider>
-      <FlashMessage position="top" />
       <StatusBar style="dark" />
+      <Toast config={toastConfig} />
     </LocalizationContextProvider>
   ) : null;
 }
