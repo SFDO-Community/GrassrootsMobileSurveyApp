@@ -8,6 +8,7 @@ import { retrieveAllMetadata } from '../../services/describe';
 import { clearLocal } from '../../services/session';
 import { useLocalizationContext } from '../../context/localizationContext';
 import { useAuthContext } from '../../context/authContext';
+import { storeAvailableLanguages } from '../../services/database/localization';
 
 import { TextIcon } from '..';
 
@@ -59,6 +60,7 @@ export default function Welcome({ isVisible, setVisible }: WelcomeModalProps) {
           await storeContacts();
           setContactIconColor(APP_THEME.APP_SUCCESS_COLOR);
 
+          await storeAvailableLanguages();
           await retrieveAllMetadata();
           setSurveyMetaIconColor(APP_THEME.APP_SUCCESS_COLOR);
 

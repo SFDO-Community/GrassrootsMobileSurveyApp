@@ -26,6 +26,7 @@ export const ASYNC_STORAGE_KEYS = {
   SALESFORCE_INSTANCE_URL: '@SalesforceInstanceURL',
   FIELD_WORKER_CONTACT_ID: '@FieldWorkerContactId',
   FIELD_TYPE: '@FieldType',
+  LANGUAGES: '@Languages',
 };
 
 export const SECURE_STORE_KEYS = {
