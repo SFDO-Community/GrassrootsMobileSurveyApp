@@ -4,12 +4,14 @@ import i18n from 'i18n-js';
 import ne from './locale/ne_IN.json';
 import en from './locale/en_US.json';
 
+import { DEFAULT_SF_LANGUAGE } from '../constants';
+
 //expo-localization gives the result in a language-region format
 const deviceLocale: string =
   Localization.locale.indexOf('-') !== 0 ? Localization.locale.split('-')[0] : Localization.locale;
 
-i18n.defaultLocale = deviceLocale === 'ne' ? deviceLocale : 'en';
-i18n.locale = deviceLocale === 'ne' ? deviceLocale : 'en';
+i18n.defaultLocale = deviceLocale === 'ne' ? deviceLocale : DEFAULT_SF_LANGUAGE.code.split('_')[0];
+i18n.locale = deviceLocale === 'ne' ? deviceLocale : DEFAULT_SF_LANGUAGE.code.split('_')[0];
 i18n.fallbacks = true;
 i18n.translations = { en, ne };
 

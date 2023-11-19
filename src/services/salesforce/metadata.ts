@@ -22,8 +22,8 @@ import {
   DB_TABLE,
   SURVEY_OBJECT,
   BACKGROUND_SURVEY_FIELDS,
-  SUPPORTED_LANGUAGE_CODES,
-  DEFAULT_LANGUAGE_CODE,
+  SUPPORTED_SF_LANGUAGES,
+  DEFAULT_SF_LANGUAGE,
   AVAILABLE_LANGUAGE_CMDT,
 } from '../../constants';
 
@@ -176,13 +176,13 @@ export const storeLocalization = async () => {
  */
 export const getAvailableLanguages = async () => {
   const query = `SELECT DeveloperName FROM ${AVAILABLE_LANGUAGE_CMDT}`;
-  const availableLanguages = await fetchSalesforceRecords(query);
-  if (availableLanguages.length === 0) {
-    return [DEFAULT_LANGUAGE_CODE];
+  const availableLanguageCodes = await fetchSalesforceRecords(query);
+  if (availableLanguageCodes.length === 0) {
+    return [DEFAULT_SF_LANGUAGE];
   }
-  const result = SUPPORTED_LANGUAGE_CODES.filter(l => availableLanguages.includes(l));
+  const result = SUPPORTED_SF_LANGUAGES.filter(l => availableLanguageCodes.includes(l.code));
   if (result.length === 0) {
-    return [DEFAULT_LANGUAGE_CODE];
+    return [DEFAULT_SF_LANGUAGE];
   }
   return result;
 };

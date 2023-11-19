@@ -57,29 +57,29 @@ describe('getAvailableLanguages', () => {
     fetchSalesforceRecords.mockImplementation(() => Promise.resolve(['en_US', 'fr']));
     const result = await getAvailableLanguages();
     expect(result.length).toBe(2);
-    expect(result[0]).toBe('en_US');
-    expect(result[1]).toBe('fr');
+    expect(result[0].code).toBe('en_US');
+    expect(result[1].code).toBe('fr');
   });
 
   it('positive (without English)', async () => {
     fetchSalesforceRecords.mockImplementation(() => Promise.resolve(['it', 'ja']));
     const result = await getAvailableLanguages();
     expect(result.length).toBe(2);
-    expect(result[0]).toBe('it');
-    expect(result[1]).toBe('ja');
+    expect(result[0].code).toBe('it');
+    expect(result[1].code).toBe('ja');
   });
 
   it('no custom metadata records', async () => {
     fetchSalesforceRecords.mockImplementation(() => Promise.resolve([]));
     const result = await getAvailableLanguages();
     expect(result.length).toBe(1);
-    expect(result[0]).toBe('en_US');
+    expect(result[0].code).toBe('en_US');
   });
 
   it('invalid custom metadata records', async () => {
     fetchSalesforceRecords.mockImplementation(() => Promise.resolve(['aaaaa']));
     const result = await getAvailableLanguages();
     expect(result.length).toBe(1);
-    expect(result[0]).toBe('en_US');
+    expect(result[0].code).toBe('en_US');
   });
 });

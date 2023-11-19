@@ -84,25 +84,29 @@ export const L10N_PREFIX = {
   PageLayoutItem: 'PAGE_LAYOUT_ITEM_',
 };
 
-export const DEFAULT_LANGUAGE_CODE = 'en_US';
-export const SUPPORTED_LANGUAGE_CODES = [
-  DEFAULT_LANGUAGE_CODE,
-  'zh_CN',
-  'zh_TW',
-  'da',
-  'nl_NL',
-  'fi',
-  'fr',
-  'de',
-  'it',
-  'ja',
-  'ko',
-  'no',
-  'pt_BR',
-  'ru',
-  'es',
-  'es_MX',
-  'sv',
-  'th',
-  'ne',
+export const DEFAULT_SF_LANGUAGE = {
+  name: 'English',
+  code: 'en_US',
+};
+export const SUPPORTED_SF_LANGUAGES = [
+  { name: 'Chinese (Simplified)', code: 'zh_CN' },
+  { name: 'Chinese (Traditional)', code: 'zh_TW' },
+  { name: 'Danish', code: 'da' },
+  { name: 'Dutch', code: 'nl_NL' },
+  DEFAULT_SF_LANGUAGE,
+  { name: 'Finnish', code: 'fi' },
+  { name: 'French', code: 'fr' },
+  { name: 'German', code: 'de' },
+  { name: 'Italian', code: 'it' },
+  { name: 'Japanese', code: 'ja' },
+  { name: 'Korean', code: 'ko' },
+  { name: 'Norwegian', code: 'no' },
+  { name: 'Portuguese (Brazil)', code: 'pt_BR' },
+  { name: 'Russian', code: 'ru' },
+  { name: 'Spanish', code: 'es' },
+  { name: 'Spanish (Mexico)', code: 'es_MX' },
+  { name: 'Swedish', code: 'sv' },
+  { name: 'Thai', code: 'th' },
+  { name: 'Nepali', code: 'ne' }, // For HaydenHall ❤️🇳🇵
 ];
+
