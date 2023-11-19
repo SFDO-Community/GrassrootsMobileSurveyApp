@@ -109,4 +109,3 @@ export const SUPPORTED_SF_LANGUAGES = [
   { name: 'Thai', code: 'th' },
   { name: 'Nepali', code: 'ne' }, // For HaydenHall ❤️🇳🇵
 ];
-
