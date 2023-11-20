@@ -51,7 +51,7 @@ export default function SurveyTypePicker({ navigation }: Props) {
           data={recordTypes}
           renderItem={({ item }) => (
             <ListItem
-              title={t(`${L10N_PREFIX.RecordType}${item.developerName}`)}
+              title={t(`${L10N_PREFIX.RecordType}${item.recordTypeId}`)}
               onPress={() => {
                 logger('DEBUG', 'SurveyTypePicker', item.recordTypeId);
                 navigation.navigate('SurveyEditor', {

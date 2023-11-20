@@ -13,8 +13,8 @@ import { getRecords } from '../services/database/database';
 import { buildLayoutDetail } from '../services/describe';
 import { notifyError, notifySuccess } from '../utility/notification';
 import { upsertLocalSurvey } from '../services/database/localSurvey';
-// constatns
-import { APP_THEME, APP_FONTS, DB_TABLE, SYNC_STATUS_UNSYNCED } from '../constants';
+// constants
+import { APP_THEME, APP_FONTS, DB_TABLE, SYNC_STATUS_UNSYNCED, L10N_PREFIX } from '../constants';
 // types
 import { SurveyLayout } from '../types/survey';
 import { SQLiteSurvey, SQLiteRecordType } from '../types/sqlite';
@@ -53,10 +53,10 @@ export default function SurveyEditor({ route, navigation }: Props) {
   useEffect(() => {
     setDoneButtonDisabled(true);
     const fetch = async () => {
+      let result;
       if (MODE === 'NEW') {
         dispatchSurvey({ type: 'LOAD', detail: { _syncStatus: SYNC_STATUS_UNSYNCED } });
-        const result = await buildLayoutDetail(route.params.selectedLayoutId);
-        setLayout(result);
+        result = await buildLayoutDetail(route.params.selectedLayoutId);
       } else if (MODE === 'EDIT' || MODE === 'VIEW') {
         // query existing survey from local database
         const storedSurveys: Array<SQLiteSurvey> = await getRecords(
@@ -69,9 +69,11 @@ export default function SurveyEditor({ route, navigation }: Props) {
         );
         console.log(JSON.stringify(storedSurveys[0])); // TODO: REMOVE
         dispatchSurvey({ type: 'LOAD', detail: storedSurveys[0] });
-        const result = await buildLayoutDetail(storedRecordTypes[0].layoutId);
-        setLayout(result);
+        result = await buildLayoutDetail(storedRecordTypes[0].layoutId);
       }
+      setLayout({
+        sections: result.sections.map(s => ({ ...s, title: t(`${L10N_PREFIX.PageLayoutSectionId}${s.id}`) })),
+      });
     };
     fetch();
     setDoneButtonDisabled(false);
