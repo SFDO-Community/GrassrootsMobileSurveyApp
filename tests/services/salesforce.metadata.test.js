@@ -54,7 +54,9 @@ describe('storePageLayoutSections', () => {
 
 describe('getAvailableLanguages', () => {
   it('positive (with English)', async () => {
-    fetchSalesforceRecords.mockImplementation(() => Promise.resolve(['en_US', 'fr']));
+    fetchSalesforceRecords.mockImplementation(() =>
+      Promise.resolve([{ DeveloperName: 'en_US' }, { DeveloperName: 'fr' }])
+    );
     const result = await getAvailableLanguages();
     expect(result.length).toBe(2);
     expect(result[0].code).toBe('en_US');
@@ -62,11 +64,15 @@ describe('getAvailableLanguages', () => {
   });
 
   it('positive (without English)', async () => {
-    fetchSalesforceRecords.mockImplementation(() => Promise.resolve(['it', 'ja']));
+    fetchSalesforceRecords.mockImplementation(() =>
+      Promise.resolve([{ DeveloperName: 'it' }, { DeveloperName: 'ja' }])
+    );
     const result = await getAvailableLanguages();
-    expect(result.length).toBe(2);
-    expect(result[0].code).toBe('it');
-    expect(result[1].code).toBe('ja');
+    console.log(result);
+    expect(result.length).toBe(3);
+    expect(result[0].code).toBe('en_US');
+    expect(result[1].code).toBe('it');
+    expect(result[2].code).toBe('ja');
   });
 
   it('no custom metadata records', async () => {
@@ -77,7 +83,7 @@ describe('getAvailableLanguages', () => {
   });
 
   it('invalid custom metadata records', async () => {
-    fetchSalesforceRecords.mockImplementation(() => Promise.resolve(['aaaaa']));
+    fetchSalesforceRecords.mockImplementation(() => Promise.resolve([{ DeveloperName: 'aaaaa' }]));
     const result = await getAvailableLanguages();
     expect(result.length).toBe(1);
     expect(result[0].code).toBe('en_US');
