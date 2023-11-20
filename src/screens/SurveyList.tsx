@@ -22,7 +22,6 @@ import { useLocalizationContext } from '../context/localizationContext';
 import { AuthContextValue, useAuthContext } from '../context/authContext';
 // util, constants
 import { formatISOStringToCalendarDateString } from '../utility/date';
-import { logger } from '../utility/logger';
 import { notifyError } from '../utility/notification';
 import {
   APP_FONTS,
