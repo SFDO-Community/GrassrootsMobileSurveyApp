@@ -53,7 +53,7 @@ export default function Settings() {
     return (
       <ListItem
         onPress={() => {
-          setLocale(item.code);
+          item.code.includes('_') ? setLocale(item.code.split('_')[0]) : setLocale(item.code);
           logger('FINE', 'Settings', `change locale to: ${item.code}`);
         }}
       >

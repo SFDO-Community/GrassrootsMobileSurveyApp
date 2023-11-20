@@ -6,6 +6,10 @@ import { LocalizationContext } from '../../src/context/localizationContext';
 import Settings from '../../src/screens/Settings';
 
 describe('<Settings />', () => {
+  storage = {
+    load: jest.fn().mockImplementation(() => Promise.resolve([{ name: 'English', code: 'en_US' }])),
+  };
+
   it('render', () => {
     const locale = i18n.locale;
     const localizationContext = {
