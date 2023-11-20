@@ -1,5 +1,6 @@
 import { ImageStyle, ViewStyle, Dimensions } from 'react-native';
 import { SQLiteFieldTypeMapping } from './types/sqlite';
+import { Language } from './types/metadata';
 
 export const APP_FONTS = {
   FONT_REGULAR: 'SalesforceSans-Regular',
@@ -80,15 +81,15 @@ export const DB_TABLE = {
 
 export const L10N_PREFIX = {
   RecordType: 'RECORD_TYPE_',
-  PageLayoutSection: 'PAGE_LAYOUT_SECTION_',
+  PageLayoutSectionId: 'PAGE_LAYOUT_SECTION_',
   PageLayoutItem: 'PAGE_LAYOUT_ITEM_',
 };
 
-export const DEFAULT_SF_LANGUAGE = {
+export const DEFAULT_SF_LANGUAGE: Language = {
   name: 'English',
   code: 'en_US',
 };
-export const SUPPORTED_SF_LANGUAGES = [
+export const SUPPORTED_SF_LANGUAGES: Array<Language> = [
   { name: 'Chinese (Simplified)', code: 'zh_CN' },
   { name: 'Chinese (Traditional)', code: 'zh_TW' },
   { name: 'Danish', code: 'da' },

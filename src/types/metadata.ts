@@ -129,3 +129,8 @@ export interface RecordLayoutSection {
   id: string;
   heading: string;
 }
+
+export type Language = {
+  name: string;
+  code: string;
+};

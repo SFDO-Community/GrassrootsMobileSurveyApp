@@ -17,6 +17,8 @@ import {
   BACKGROUND_IMAGE_STYLE,
   APP_FONTS,
   SECURE_STORE_KEYS,
+  ASYNC_STORAGE_KEYS,
+  DEFAULT_SF_LANGUAGE,
 } from '../constants';
 import { logger } from '../utility/logger';
 import { notifySuccess, notifyError } from '../utility/notification';
@@ -25,11 +27,7 @@ import { buildDictionary } from '../services/dictionary';
 import { hasUnsyncedSurveys } from '../services/database/localSurvey';
 import { storeContacts } from '../services/salesforce/contact';
 import { useAuthContext } from '../context/authContext';
-
-type Language = {
-  name: string;
-  code: string;
-};
+import { Language } from '../types/metadata';
 
 export default function Settings() {
   const [email, setEmail] = useState('');
@@ -37,14 +35,13 @@ export default function Settings() {
   const { t, locale, setLocale } = useLocalizationContext();
   const authContext = useAuthContext();
 
-  const languages: Array<Language> = [
-    { name: 'English', code: 'en' },
-    { name: 'Nepali', code: 'ne' },
-  ];
+  const [languages, setLanguages] = useState<Array<Language>>([DEFAULT_SF_LANGUAGE]);
 
   useEffect(() => {
     const prepare = async () => {
       const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
+      const languages = await storage.load({ key: ASYNC_STORAGE_KEYS.LANGUAGES });
+      setLanguages(languages);
       if (email) {
         setEmail(email);
       }
