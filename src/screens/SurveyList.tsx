@@ -59,8 +59,6 @@ export default function SurveyList({ navigation }: SurveyListProps) {
    */
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
-      logger('INFO', 'SurveyList', `Connection type: ${state.type}`);
-      logger('INFO', 'SurveyList', `Is connected? ${state.isConnected}`);
       setIsNetworkConnected(state.isConnected);
     });
 
@@ -72,8 +70,9 @@ export default function SurveyList({ navigation }: SurveyListProps) {
         await buildDictionary();
         await refreshSurveys();
         setShowsSpinner(false);
-      } catch {
-        notifyError('Unexpected error occcured while loading survey list. Contact your administrator and login again.');
+      } catch (e) {
+        console.log(e);
+        notifyError('Unexpected error occurred while loading survey list. Contact your administrator and login again.');
         await forceLogout(authContext);
       }
     };
