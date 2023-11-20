@@ -159,13 +159,12 @@ export const getLocalizedObjectInfo = async (
   recordTypeId: string,
   salesforceLanguageCode: string
 ): Promise<RecordDefaultsResponse> => {
-  const endPoint =
-    (await buildEndpointUrl()) + `/ui-api/record-defaults/create/${sObjectType}/describe/layouts/${recordTypeId}`;
+  const endPoint = (await buildEndpointUrl()) + `/ui-api/record-defaults/create/${sObjectType}`;
   const response = await fetchRetriable({
     endPoint,
     method: 'GET',
     body: undefined,
-    headers: { 'Accepted-Language': salesforceLanguageCode },
+    headers: { 'Accepted-Language': salesforceLanguageCode, recordTypeId },
   });
   return response;
 };

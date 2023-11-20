@@ -180,9 +180,15 @@ export const getAvailableLanguages = async () => {
   if (availableLanguageCodes.length === 0) {
     return [DEFAULT_SF_LANGUAGE];
   }
-  const result = SUPPORTED_SF_LANGUAGES.filter(l => availableLanguageCodes.includes(l.code));
+  const result = SUPPORTED_SF_LANGUAGES.filter(l =>
+    availableLanguageCodes.map(cmdt => cmdt.DeveloperName).includes(l.code)
+  );
   if (result.length === 0) {
     return [DEFAULT_SF_LANGUAGE];
   }
+  if (result.map(l => l.code).includes(DEFAULT_SF_LANGUAGE.code)) {
+    return result;
+  }
+  result.push(DEFAULT_SF_LANGUAGE);
   return result;
 };

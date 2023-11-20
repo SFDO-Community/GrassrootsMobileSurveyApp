@@ -105,7 +105,12 @@ export interface RecordDefaultsResponse {
   objectInfos: {
     [objectName: string]: {
       recordTypeInfos: object;
-      fields: object;
+      fields: {
+        [apiName: string]: {
+          apiName: string;
+          label: string;
+        };
+      };
     };
   };
   layout: RecordLayout;
