@@ -122,7 +122,7 @@ export const storePageLayoutItems = async (layout: DescribeLayout) => {
       });
     })
     .flat(3);
-  logger('DEBUG', 'storePageLayoutItems | items', pageLayoutItems);
+  logger('FINE', 'storePageLayoutItems | items', pageLayoutItems);
   if (pageLayoutItems.length === 0) {
     return Promise.reject({ error: 'no_editable_fields' });
   }
@@ -146,7 +146,7 @@ export const storePageLayoutSections = async (layout: DescribeLayout) => {
       layoutId: section.parentLayoutId,
       sectionLabel: section.heading,
     }));
-  logger('DEBUG', 'storePageLayoutItems | sections', pageLayoutSections);
+  logger('FINE', 'storePageLayoutSections | sections', pageLayoutSections);
   await saveRecords(DB_TABLE.PAGE_LAYOUT_SECTION, pageLayoutSections, 'id');
 };
 
