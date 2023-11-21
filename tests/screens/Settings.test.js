@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { render, waitFor } from '@testing-library/react-native';
 
 import i18n from '../../src/config/i18n';
 import { LocalizationContext } from '../../src/context/localizationContext';
@@ -10,7 +10,7 @@ describe('<Settings />', () => {
     load: jest.fn().mockImplementation(() => Promise.resolve([{ name: 'English', code: 'en_US' }])),
   };
 
-  it('render', () => {
+  it('render', async () => {
     const locale = i18n.locale;
     const localizationContext = {
       t: jest.fn(),
@@ -23,6 +23,8 @@ describe('<Settings />', () => {
         <Settings />
       </LocalizationContext.Provider>
     );
-    expect(screen.toJSON()).toMatchSnapshot();
+    await waitFor(() => {
+      expect(screen.toJSON()).toMatchSnapshot();
+    });
   });
 });

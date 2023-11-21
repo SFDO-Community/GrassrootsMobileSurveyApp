@@ -30,6 +30,8 @@ jest.mock('../../src/services/describe', () => ({
   retrieveAllMetadata: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
 
+jest.useFakeTimers();
+
 describe('login screen', () => {
   const locale = i18n.locale;
   const localizationContext = {
@@ -87,7 +89,7 @@ describe('login screen', () => {
       </LocalizationContext.Provider>
     );
     const user = await userEvent.setup();
-    
+
     const emailInput = screen.getByPlaceholderText('yourname@example.com');
     await user.type(emailInput, 'hello@example.com');
 
