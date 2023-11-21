@@ -30,6 +30,8 @@ export type StackParamList = {
     selectedRecordTypeId?: string;
     selectedLayoutId?: string;
     _localId?: string;
+    fieldName?: string; // For LookupSearch.tsx
+    title?: string; // For LookupSearch.tsx
   };
   Settings: undefined;
   Lookup: {
