@@ -164,7 +164,7 @@ export const getLocalizedObjectInfo = async (
     endPoint,
     method: 'GET',
     body: undefined,
-    headers: { 'Accepted-Language': salesforceLanguageCode, recordTypeId },
+    headers: { 'Accept-Language': salesforceLanguageCode, recordTypeId },
   });
   return response;
 };
