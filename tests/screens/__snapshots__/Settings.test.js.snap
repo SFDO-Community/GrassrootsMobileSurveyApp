@@ -153,6 +153,18 @@ exports[`<Settings /> render 1`] = `
                 testID="RNE__LISTITEM__padView"
               >
                 <View
+                  color="#01579b"
+                  name="check"
+                  size={20}
+                />
+                <View
+                  style={
+                    {
+                      "paddingLeft": 16,
+                    }
+                  }
+                />
+                <View
                   style={
                     [
                       {
