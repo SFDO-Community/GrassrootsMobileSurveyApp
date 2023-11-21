@@ -21,6 +21,7 @@ import {
   DEFAULT_SF_LANGUAGE,
 } from '../constants';
 import { logger } from '../utility/logger';
+import { toShortLocale } from '../utility';
 import { notifySuccess, notifyError } from '../utility/notification';
 import { storeOnlineSurveys } from '../services/salesforce/survey';
 import { buildDictionary } from '../services/dictionary';
@@ -53,11 +54,11 @@ export default function Settings() {
     return (
       <ListItem
         onPress={() => {
-          item.code.includes('_') ? setLocale(item.code.split('_')[0]) : setLocale(item.code);
+          setLocale(toShortLocale(item.code));
           logger('FINE', 'Settings', `change locale to: ${item.code}`);
         }}
       >
-        {item.code === locale && <Icon name="check" size={20} color={APP_THEME.APP_BASE_COLOR} />}
+        {toShortLocale(item.code) === locale && <Icon name="check" size={20} color={APP_THEME.APP_BASE_COLOR} />}
         <ListItem.Content>
           <ListItem.Title style={{ fontFamily: APP_FONTS.FONT_REGULAR }}>{item.name}</ListItem.Title>
         </ListItem.Content>
