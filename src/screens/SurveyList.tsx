@@ -60,10 +60,9 @@ export default function SurveyList({ navigation }: SurveyListProps) {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsNetworkConnected(state.isConnected);
     });
-
-    setShowsSpinner(true);
     const prepare = async () => {
       try {
+        setShowsSpinner(true);
         const availableRecordTypes = await getAllAvailableRecordTypes();
         setRecordTypes(availableRecordTypes);
         await buildDictionary();
