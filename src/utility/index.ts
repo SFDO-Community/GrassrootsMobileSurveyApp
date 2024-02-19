@@ -12,3 +12,7 @@ export const validateEmail = email => {
 export const toShortLocale = (locale: string) => {
   return locale.includes('_') ? locale.split('_')[0] : locale;
 };
+
+export const sliceByNumber = (array, size) => {
+  return array.flatMap((_, i) => (i % size ? [] : [array.slice(i, i + size)]));
+};
