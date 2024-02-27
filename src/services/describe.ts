@@ -10,14 +10,17 @@ import { SurveyLayout } from '../types/survey';
 import { CompositeLayoutResponse, DescribeLayout } from '../types/metadata';
 
 import { logger } from '../utility/logger';
-import { ASYNC_STORAGE_KEYS, DB_TABLE, SURVEY_OBJECT } from '../constants';
+import { ASYNC_STORAGE_KEYS, DB_TABLE, MIN_PACKAGE_VERSION, SURVEY_OBJECT } from '../constants';
 import { describeLayouts } from './salesforce/core';
+import { validateInstalledPackageVersion } from './salesforce/installedPackage';
 
 /**
  * @description Download record types, all the page layouts, and localization custom metadata.
  */
 export const retrieveAllMetadata = async () => {
   try {
+    // Store package version
+    await validateInstalledPackageVersion();
     // Record types with compact layout title
     await clearTable(DB_TABLE.RECORD_TYPE);
     const recordTypes = await storeRecordTypesWithCompactLayout();
@@ -56,7 +59,9 @@ export const retrieveAllMetadata = async () => {
     await storeLocalization();
   } catch (e) {
     logger('ERROR', 'retrieveAllMetadata', e);
-    if (e.error === 'invalid_record_type') {
+    if (e.error === 'older_version') {
+      throw new Error(`Installed Salesforce package looks old. Update the package to at least ${MIN_PACKAGE_VERSION}`);
+    } else if (e.error === 'invalid_record_type') {
       throw new Error('Invalid record type on Survey object. Contact your administrator.');
     } else if (e.error === 'no_editable_fields') {
       throw new Error('No editable fields on Survey layout. Contact your administrator.');

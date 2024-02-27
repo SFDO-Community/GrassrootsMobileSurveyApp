@@ -31,6 +31,28 @@ export const fetchSalesforceRecords = async (query: string) => {
 };
 
 /**
+ * @description Execute SOQL and return records
+ * @param query SOQL
+ * @return records
+ */
+export const fetchToolingRecords = async (query: string) => {
+  const endPoint = (await buildEndpointUrl()) + `/tooling/query?q=${query}`;
+  const response = await fetchRetriable({ endPoint, method: 'GET', body: undefined });
+  // Error response of Salesforce REST API is array format.
+  const hasError = Array.isArray(response);
+  if (hasError) {
+    logger('ERROR', 'fetchToolingRecords', response);
+    return Promise.reject({ origin: 'query' });
+  }
+  return response.totalSize === 0
+    ? []
+    : response.records.map(r => {
+        delete r.attributes;
+        return r;
+      });
+};
+
+/**
  * @description Retrieve record details using composite resource
  * @param sObjectType
  * @param records

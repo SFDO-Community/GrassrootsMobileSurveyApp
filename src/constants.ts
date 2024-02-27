@@ -69,6 +69,9 @@ export const LOCAL_SURVEY_FIELDS: Array<SQLiteFieldTypeMapping> = [{ name: '_syn
 export const SYNC_STATUS_SYNCED = 'Synced';
 export const SYNC_STATUS_UNSYNCED = 'Unsynced';
 
+export const SUBSCRIBER_PACKAGE_VERSION = '0336g000000kHHoAAM';
+export const MIN_PACKAGE_VERSION = '0.4.0.5';
+
 export const DB_TABLE = {
   RECORD_TYPE: 'RecordType',
   PAGE_LAYOUT_SECTION: 'PageLayoutSection',
