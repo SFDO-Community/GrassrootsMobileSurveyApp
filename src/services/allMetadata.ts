@@ -9,7 +9,7 @@ import { SQLitePicklistValue } from '../types/sqlite';
 import { CompositeLayoutResponse, DescribeLayout } from '../types/metadata';
 
 import { logger } from '../utility/logger';
-import { ASYNC_STORAGE_KEYS, DB_TABLE, METADATA_ERROR, MIN_PACKAGE_VERSION, SURVEY_OBJECT } from '../constants';
+import { ASYNC_STORAGE_KEYS, DB_TABLE, METADATA_ERROR, SURVEY_OBJECT } from '../constants';
 import { describeLayouts } from './salesforce/core';
 import { validateInstalledPackageVersion } from './salesforce/installedPackage';
 
@@ -58,15 +58,9 @@ export const retrieveAllMetadata = async () => {
     await storeLocalization();
   } catch (e) {
     logger('ERROR', 'retrieveAllMetadata', e);
-    if (e.error === METADATA_ERROR.INVALID_PACKAGE_VERSION) {
-      throw new Error(
-        `Salesforce package is not installed or is old. Install at least version ${MIN_PACKAGE_VERSION}.`
-      );
-    } else if (e.error === METADATA_ERROR.INVALID_RECORD_TYPE) {
-      throw new Error('Invalid record type found on Survey object. Contact your administrator.');
-    } else if (e.error === METADATA_ERROR.NO_EDITABLE_FIELDS) {
-      throw new Error('No editable fields on Survey layout. Contact your administrator.');
+    if (e.error) {
+      throw new Error(e.error);
     }
-    throw new Error('Unexpected error occurred while retrieving survey settings. Contact your administrator.');
+    throw new Error(METADATA_ERROR.UNEXPECTED);
   }
 };
