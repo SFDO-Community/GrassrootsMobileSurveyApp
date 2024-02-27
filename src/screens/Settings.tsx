@@ -17,19 +17,18 @@ import {
   BACKGROUND_IMAGE_STYLE,
   APP_FONTS,
   SECURE_STORE_KEYS,
+  ASYNC_STORAGE_KEYS,
+  DEFAULT_SF_LANGUAGE,
 } from '../constants';
 import { logger } from '../utility/logger';
+import { toShortLocale } from '../utility';
 import { notifySuccess, notifyError } from '../utility/notification';
 import { storeOnlineSurveys } from '../services/salesforce/survey';
 import { buildDictionary } from '../services/dictionary';
 import { hasUnsyncedSurveys } from '../services/database/localSurvey';
 import { storeContacts } from '../services/salesforce/contact';
 import { useAuthContext } from '../context/authContext';
-
-type Language = {
-  name: string;
-  code: string;
-};
+import { Language } from '../types/metadata';
 
 export default function Settings() {
   const [email, setEmail] = useState('');
@@ -37,14 +36,13 @@ export default function Settings() {
   const { t, locale, setLocale } = useLocalizationContext();
   const authContext = useAuthContext();
 
-  const languages: Array<Language> = [
-    { name: 'English', code: 'en' },
-    { name: 'Nepali', code: 'ne' },
-  ];
+  const [languages, setLanguages] = useState<Array<Language>>([DEFAULT_SF_LANGUAGE]);
 
   useEffect(() => {
     const prepare = async () => {
       const email = await SecureStore.getItemAsync(SECURE_STORE_KEYS.EMAIL);
+      const languages = await storage.load({ key: ASYNC_STORAGE_KEYS.LANGUAGES });
+      setLanguages(languages);
       if (email) {
         setEmail(email);
       }
@@ -56,11 +54,11 @@ export default function Settings() {
     return (
       <ListItem
         onPress={() => {
-          setLocale(item.code);
+          setLocale(toShortLocale(item.code));
           logger('FINE', 'Settings', `change locale to: ${item.code}`);
         }}
       >
-        {item.code === locale && <Icon name="check" size={20} color={APP_THEME.APP_BASE_COLOR} />}
+        {toShortLocale(item.code) === locale && <Icon name="check" size={20} color={APP_THEME.APP_BASE_COLOR} />}
         <ListItem.Content>
           <ListItem.Title style={{ fontFamily: APP_FONTS.FONT_REGULAR }}>{item.name}</ListItem.Title>
         </ListItem.Content>

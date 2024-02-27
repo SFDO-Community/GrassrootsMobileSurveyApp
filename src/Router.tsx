@@ -30,6 +30,8 @@ export type StackParamList = {
     selectedRecordTypeId?: string;
     selectedLayoutId?: string;
     _localId?: string;
+    fieldName?: string; // For LookupSearch.tsx
+    title?: string; // For LookupSearch.tsx
   };
   Settings: undefined;
   Lookup: {
@@ -137,7 +139,7 @@ export default function Router() {
 
   return loaded ? (
     <NavigationContainer>
-      <RootStack.Navigator mode="modal" headerMode="none">
+      <RootStack.Navigator screenOptions={{ presentation: 'modal', headerShown: false }}>
         {authContext.isLoggedIn ? (
           <RootStack.Screen name="Main" component={MainStackScreen} />
         ) : (

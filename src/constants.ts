@@ -1,5 +1,6 @@
 import { ImageStyle, ViewStyle, Dimensions } from 'react-native';
 import { SQLiteFieldTypeMapping } from './types/sqlite';
+import { Language } from './types/metadata';
 
 export const APP_FONTS = {
   FONT_REGULAR: 'SalesforceSans-Regular',
@@ -26,6 +27,7 @@ export const ASYNC_STORAGE_KEYS = {
   SALESFORCE_INSTANCE_URL: '@SalesforceInstanceURL',
   FIELD_WORKER_CONTACT_ID: '@FieldWorkerContactId',
   FIELD_TYPE: '@FieldType',
+  LANGUAGES: '@Languages',
 };
 
 export const SECURE_STORE_KEYS = {
@@ -54,6 +56,7 @@ export const BACKGROUND_IMAGE_STYLE: ImageStyle = {
 export const SURVEY_OBJECT = 'GRMS__Survey__c';
 export const FIELD_WORKER_CONTACT_FIELD_ON_SURVEY = 'GRMS__FieldWorker__c';
 export const SURVEY_DATE_FIELD = 'GRMS__SurveyDate__c';
+export const AVAILABLE_LANGUAGE_CMDT = 'GRMS__AvailableLanguage__mdt';
 export const RECORD_TYPE_ID_FIELD = 'RecordTypeId';
 export const BACKGROUND_SURVEY_FIELDS = [
   { fieldName: 'Name', fieldType: 'string' },
@@ -78,6 +81,32 @@ export const DB_TABLE = {
 
 export const L10N_PREFIX = {
   RecordType: 'RECORD_TYPE_',
-  PageLayoutSection: 'PAGE_LAYOUT_SECTION_',
+  PageLayoutSectionId: 'PAGE_LAYOUT_SECTION_',
   PageLayoutItem: 'PAGE_LAYOUT_ITEM_',
 };
+
+export const DEFAULT_SF_LANGUAGE: Language = {
+  name: 'English',
+  code: 'en_US',
+};
+export const SUPPORTED_SF_LANGUAGES: Array<Language> = [
+  { name: 'Chinese (Simplified)', code: 'zh_CN' },
+  { name: 'Chinese (Traditional)', code: 'zh_TW' },
+  { name: 'Danish', code: 'da' },
+  { name: 'Dutch', code: 'nl_NL' },
+  DEFAULT_SF_LANGUAGE,
+  { name: 'Finnish', code: 'fi' },
+  { name: 'French', code: 'fr' },
+  { name: 'German', code: 'de' },
+  { name: 'Italian', code: 'it' },
+  { name: 'Japanese', code: 'ja' },
+  { name: 'Korean', code: 'ko' },
+  { name: 'Norwegian', code: 'no' },
+  { name: 'Portuguese (Brazil)', code: 'pt_BR' },
+  { name: 'Russian', code: 'ru' },
+  { name: 'Spanish', code: 'es' },
+  { name: 'Spanish (Mexico)', code: 'es_MX' },
+  { name: 'Swedish', code: 'sv' },
+  { name: 'Thai', code: 'th' },
+  { name: 'Nepali', code: 'ne' }, // For HaydenHall ❤️🇳🇵
+];

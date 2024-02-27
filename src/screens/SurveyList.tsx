@@ -22,7 +22,6 @@ import { useLocalizationContext } from '../context/localizationContext';
 import { AuthContextValue, useAuthContext } from '../context/authContext';
 // util, constants
 import { formatISOStringToCalendarDateString } from '../utility/date';
-import { logger } from '../utility/logger';
 import { notifyError } from '../utility/notification';
 import {
   APP_FONTS,
@@ -59,21 +58,19 @@ export default function SurveyList({ navigation }: SurveyListProps) {
    */
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
-      logger('INFO', 'SurveyList', `Connection type: ${state.type}`);
-      logger('INFO', 'SurveyList', `Is connected? ${state.isConnected}`);
       setIsNetworkConnected(state.isConnected);
     });
-
-    setShowsSpinner(true);
     const prepare = async () => {
       try {
+        setShowsSpinner(true);
         const availableRecordTypes = await getAllAvailableRecordTypes();
         setRecordTypes(availableRecordTypes);
         await buildDictionary();
         await refreshSurveys();
         setShowsSpinner(false);
-      } catch {
-        notifyError('Unexpected error occcured while loading survey list. Contact your administrator and login again.');
+      } catch (e) {
+        console.log(e);
+        notifyError('Unexpected error occurred while loading survey list. Contact your administrator and login again.');
         await forceLogout(authContext);
       }
     };

@@ -2,7 +2,9 @@ import {
   storeRecordTypesWithCompactLayout,
   storePageLayoutItems,
   storePageLayoutSections,
+  getAvailableLanguages,
 } from '../../src/services/salesforce/metadata';
+import { fetchSalesforceRecords } from '../../src/services/salesforce/core';
 
 // mocks
 import { describeCompactLayouts, describeLayoutResult } from '../../src/services/salesforce/core';
@@ -15,6 +17,7 @@ import { DB_TABLE } from '../../src/constants';
 jest.mock('../../src/services/salesforce/core', () => ({
   describeLayoutResult: jest.fn(),
   describeCompactLayouts: jest.fn(),
+  fetchSalesforceRecords: jest.fn(),
 }));
 
 jest.mock('../../src/services/database/database', () => ({
@@ -46,5 +49,43 @@ describe('storePageLayoutSections', () => {
     expect(saveRecords.mock.calls).toHaveLength(1);
     expect(saveRecords.mock.calls[0][0]).toBe(DB_TABLE.PAGE_LAYOUT_SECTION);
     expect(saveRecords.mock.calls[0][2]).toBe('id');
+  });
+});
+
+describe('getAvailableLanguages', () => {
+  it('positive (with English)', async () => {
+    fetchSalesforceRecords.mockImplementation(() =>
+      Promise.resolve([{ DeveloperName: 'en_US' }, { DeveloperName: 'fr' }])
+    );
+    const result = await getAvailableLanguages();
+    expect(result.length).toBe(2);
+    expect(result[0].code).toBe('en_US');
+    expect(result[1].code).toBe('fr');
+  });
+
+  it('positive (without English)', async () => {
+    fetchSalesforceRecords.mockImplementation(() =>
+      Promise.resolve([{ DeveloperName: 'it' }, { DeveloperName: 'ja' }])
+    );
+    const result = await getAvailableLanguages();
+    console.log(result);
+    expect(result.length).toBe(3);
+    expect(result[0].code).toBe('en_US');
+    expect(result[1].code).toBe('it');
+    expect(result[2].code).toBe('ja');
+  });
+
+  it('no custom metadata records', async () => {
+    fetchSalesforceRecords.mockImplementation(() => Promise.resolve([]));
+    const result = await getAvailableLanguages();
+    expect(result.length).toBe(1);
+    expect(result[0].code).toBe('en_US');
+  });
+
+  it('invalid custom metadata records', async () => {
+    fetchSalesforceRecords.mockImplementation(() => Promise.resolve([{ DeveloperName: 'aaaaa' }]));
+    const result = await getAvailableLanguages();
+    expect(result.length).toBe(1);
+    expect(result[0].code).toBe('en_US');
   });
 });

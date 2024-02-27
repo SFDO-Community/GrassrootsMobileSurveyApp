@@ -18,7 +18,14 @@ import {
 } from '../../types/metadata';
 
 import { logger } from '../../utility/logger';
-import { DB_TABLE, SURVEY_OBJECT, BACKGROUND_SURVEY_FIELDS } from '../../constants';
+import {
+  DB_TABLE,
+  SURVEY_OBJECT,
+  BACKGROUND_SURVEY_FIELDS,
+  SUPPORTED_SF_LANGUAGES,
+  DEFAULT_SF_LANGUAGE,
+  AVAILABLE_LANGUAGE_CMDT,
+} from '../../constants';
 
 /**
  * @description Query record types by REST API (describe layouts) and save the results to local database.
@@ -115,7 +122,7 @@ export const storePageLayoutItems = async (layout: DescribeLayout) => {
       });
     })
     .flat(3);
-  logger('DEBUG', 'storePageLayoutItems | items', pageLayoutItems);
+  logger('FINE', 'storePageLayoutItems | items', pageLayoutItems);
   if (pageLayoutItems.length === 0) {
     return Promise.reject({ error: 'no_editable_fields' });
   }
@@ -139,7 +146,7 @@ export const storePageLayoutSections = async (layout: DescribeLayout) => {
       layoutId: section.parentLayoutId,
       sectionLabel: section.heading,
     }));
-  logger('DEBUG', 'storePageLayoutItems | sections', pageLayoutSections);
+  logger('FINE', 'storePageLayoutSections | sections', pageLayoutSections);
   await saveRecords(DB_TABLE.PAGE_LAYOUT_SECTION, pageLayoutSections, 'id');
 };
 
@@ -162,4 +169,24 @@ export const storeLocalization = async () => {
     };
   });
   await saveRecords(DB_TABLE.LOCALIZATION, localizations, undefined);
+};
+
+/**
+ * description Retrieve Salesforce 'AvailableLanguage__mdt' records and get the common part of it and Salesforce's supported language
+ */
+export const getAvailableLanguages = async () => {
+  const query = `SELECT DeveloperName FROM ${AVAILABLE_LANGUAGE_CMDT}`;
+  const availableLanguageCodes = await fetchSalesforceRecords(query);
+  if (availableLanguageCodes.length === 0) {
+    return [DEFAULT_SF_LANGUAGE];
+  }
+  const result = SUPPORTED_SF_LANGUAGES.filter(l => availableLanguageCodes.some(cmdt => cmdt.DeveloperName === l.code));
+  if (result.length === 0) {
+    return [DEFAULT_SF_LANGUAGE];
+  }
+  if (result.map(l => l.code).includes(DEFAULT_SF_LANGUAGE.code)) {
+    return result;
+  }
+  result.unshift(DEFAULT_SF_LANGUAGE);
+  return result;
 };

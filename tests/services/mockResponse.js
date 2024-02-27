@@ -19,6 +19,46 @@ const mockAuthFailureResponse = {
     }),
 };
 
+const mockFieldWorkerContactSuccessResponse = {
+  ok: true,
+  status: 200,
+  json: () =>
+    Promise.resolve({
+      totalSize: 1,
+      done: true,
+      records: [
+        {
+          attributes: {
+            type: 'Contact',
+            url: '/services/data/v58.0/sobjects/Contact/0038B00000HapV9QAJ',
+          },
+          Id: '0038B00000HapV9QAJ',
+          Name: 'Example Worker',
+        },
+      ],
+    }),
+};
+
+const mockCmdtLanguageSuccessResponse = {
+  ok: true,
+  status: 200,
+  json: () =>
+    Promise.resolve({
+      totalSize: 1,
+      done: true,
+      records: [
+        {
+          attributes: {
+            type: 'GRMS__AvailableLanguage__mdt',
+            url: '/services/data/v58.0/sobjects/GRMS__AvailableLanguage__mdt/m008B000000214RQAQ',
+          },
+          Id: 'm008B000000214RQAQ',
+          DeveloperName: 'fr',
+        },
+      ],
+    }),
+};
+
 const mockLoginResponse = {
   success: true,
   access_token:
@@ -61,6 +101,8 @@ const mockQueryFailureResponse = {
 export {
   mockAuthSuccessResponse,
   mockAuthFailureResponse,
+  mockFieldWorkerContactSuccessResponse,
+  mockCmdtLanguageSuccessResponse,
   mockLoginResponse,
   mockQuerySuccessResponse,
   mockQueryFailureResponse,

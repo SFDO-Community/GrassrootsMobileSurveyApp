@@ -100,3 +100,37 @@ export interface CompositeCompactLayoutResult {
   httpStatusCode: number;
   referenceId: string;
 }
+
+export interface RecordDefaultsResponse {
+  objectInfos: {
+    [objectName: string]: {
+      recordTypeInfos: object;
+      fields: {
+        [apiName: string]: {
+          apiName: string;
+          label: string;
+        };
+      };
+    };
+  };
+  layout: RecordLayout;
+}
+
+/**
+ * https://developer.salesforce.com/docs/atlas.en-us.uiapi.meta/uiapi/ui_api_responses_record_layout.htm#ui_api_responses_record_layout
+ */
+export interface RecordLayout {
+  id: string;
+  recordTypeId: string;
+  sections: Array<RecordLayoutSection>;
+}
+
+export interface RecordLayoutSection {
+  id: string;
+  heading: string;
+}
+
+export type Language = {
+  name: string;
+  code: string;
+};

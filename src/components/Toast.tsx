@@ -36,6 +36,7 @@ export const toastConfig = {
       text2Style={{
         fontSize: 12,
       }}
+      text2NumberOfLines={2}
     />
   ),
 };

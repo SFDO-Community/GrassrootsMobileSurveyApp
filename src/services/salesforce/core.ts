@@ -2,7 +2,7 @@ import { fetchRetriable } from './connection';
 
 import { ASYNC_STORAGE_KEYS } from '../../constants';
 import { logger } from '../../utility/logger';
-import { DescribeLayoutResult, CompositeLayoutResponse } from '../../../src/types/metadata';
+import { DescribeLayoutResult, CompositeLayoutResponse, RecordDefaultsResponse } from '../../../src/types/metadata';
 import { formatISOStringToAPIDate } from '../../utility/date';
 
 const SALESFORCE_API_VERSION = 'v49.0';
@@ -14,7 +14,7 @@ const SALESFORCE_API_VERSION = 'v49.0';
  */
 export const fetchSalesforceRecords = async (query: string) => {
   const endPoint = (await buildEndpointUrl()) + `/query?q=${query}`;
-  const response = await fetchRetriable(endPoint, 'GET', undefined);
+  const response = await fetchRetriable({ endPoint, method: 'GET', body: undefined });
   // Error response of Salesforce REST API is array format.
   const hasError = Array.isArray(response);
   if (hasError) {
@@ -51,7 +51,7 @@ export const fetchSalesforceRecordsByIds = async (
       url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/${recordId}?fields=${commaSeparetedFields}`,
     });
   }
-  return await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
+  return await fetchRetriable({ endPoint, method: 'POST', body: JSON.stringify(body) });
 };
 
 /**
@@ -84,7 +84,7 @@ export const createSalesforceRecords = async (sObjectType: string, records) => {
     }),
   };
   logger('DEBUG', 'createSalesforceRecords', body);
-  const response = await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
+  const response = await fetchRetriable({ endPoint, method: 'POST', body: JSON.stringify(body) });
   return response;
 };
 
@@ -97,7 +97,7 @@ export const describeLayoutResult = async (sObjectType: string): Promise<Describ
   const endPoint = (await buildEndpointUrl()) + `/sobjects/${sObjectType}/describe/layouts`;
   logger('DEBUG', 'describeLayoutResult', endPoint);
 
-  const response = await fetchRetriable(endPoint, 'GET', undefined);
+  const response = await fetchRetriable({ endPoint, method: 'GET', body: undefined });
   return response;
 };
 
@@ -121,7 +121,7 @@ export const describeLayouts = async (
     });
   }
 
-  const result = await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
+  const result = await fetchRetriable({ endPoint, method: 'POST', body: JSON.stringify(body) });
   return result;
 };
 
@@ -144,7 +144,29 @@ export const describeCompactLayouts = async (sObjectType: string, recordTypeIds:
     });
   }
 
-  return await fetchRetriable(endPoint, 'POST', JSON.stringify(body));
+  return await fetchRetriable({ endPoint, method: 'POST', body: JSON.stringify(body) });
+};
+
+/**
+ * @description Get localized record types, page layout sections, and items using User Interface API.
+ * https://developer.salesforce.com/docs/atlas.en-us.uiapi.meta/uiapi/ui_api_resources_record_defaults_create.htm
+ * @param sObjectType
+ * @param recordTypeId
+ * @param salesforceLanguageCode
+ */
+export const getLocalizedObjectInfo = async (
+  sObjectType: string,
+  recordTypeId: string,
+  salesforceLanguageCode: string
+): Promise<RecordDefaultsResponse> => {
+  const endPoint = (await buildEndpointUrl()) + `/ui-api/record-defaults/create/${sObjectType}`;
+  const response = await fetchRetriable({
+    endPoint,
+    method: 'GET',
+    body: undefined,
+    headers: { 'Accept-Language': salesforceLanguageCode, recordTypeId },
+  });
+  return response;
 };
 
 /**

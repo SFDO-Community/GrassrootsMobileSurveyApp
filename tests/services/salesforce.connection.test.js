@@ -15,7 +15,7 @@ describe('fetchRetriable', () => {
   it('fisrt success', async () => {
     global.fetch = jest.fn().mockResolvedValueOnce(mockQuerySuccessResponse);
 
-    const response = await fetchRetriable(endPoint, method, undefined);
+    const response = await fetchRetriable({ endPoint, method, body: undefined });
     expect(response.totalSize).toBe(1);
     expect(response.records[0].Id).toBeTruthy();
   });
@@ -26,7 +26,7 @@ describe('fetchRetriable', () => {
       .mockResolvedValueOnce(mockQueryFailureResponse)
       .mockResolvedValueOnce(mockQuerySuccessResponse);
 
-    const response = await fetchRetriable(endPoint, method, undefined);
+    const response = await fetchRetriable({ endPoint, method, body: undefined });
     expect(response.totalSize).toBe(1);
     expect(response.records[0].Id).toBeTruthy();
   });

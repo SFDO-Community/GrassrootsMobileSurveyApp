@@ -5,3 +5,10 @@ export const validateEmail = email => {
   }
   return false;
 };
+
+/**
+ * en_US -> en
+ */
+export const toShortLocale = (locale: string) => {
+  return locale.includes('_') ? locale.split('_')[0] : locale;
+};

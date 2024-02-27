@@ -6,7 +6,11 @@ import { LocalizationContext } from '../../src/context/localizationContext';
 import Login from '../../src/screens/Login';
 // local test utils
 import { translate } from '../localization';
-import { mockAuthSuccessResponse } from '../services/mockResponse';
+import {
+  mockAuthSuccessResponse,
+  mockCmdtLanguageSuccessResponse,
+  mockFieldWorkerContactSuccessResponse,
+} from '../services/mockResponse';
 
 jest.mock('react-native-keyboard-aware-scroll-view', () => {
   const KeyboardAwareScrollView = ({ children }) => children;
@@ -25,6 +29,8 @@ jest.mock('../../src/services/salesforce/survey', () => ({
 jest.mock('../../src/services/describe', () => ({
   retrieveAllMetadata: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
+
+jest.useFakeTimers();
 
 describe('login screen', () => {
   const locale = i18n.locale;
@@ -83,7 +89,7 @@ describe('login screen', () => {
       </LocalizationContext.Provider>
     );
     const user = await userEvent.setup();
-    
+
     const emailInput = screen.getByPlaceholderText('yourname@example.com');
     await user.type(emailInput, 'hello@example.com');
 
@@ -97,7 +103,11 @@ describe('login screen', () => {
   });
 
   it('authenticate success', async () => {
-    global.fetch = jest.fn().mockResolvedValueOnce(mockAuthSuccessResponse);
+    global.fetch = jest
+      .fn()
+      .mockResolvedValueOnce(mockAuthSuccessResponse)
+      .mockResolvedValueOnce(mockFieldWorkerContactSuccessResponse)
+      .mockResolvedValueOnce(mockCmdtLanguageSuccessResponse);
 
     const screen = render(
       <LocalizationContext.Provider value={localizationContext}>
@@ -105,7 +115,7 @@ describe('login screen', () => {
       </LocalizationContext.Provider>
     );
     const user = await userEvent.setup();
-    
+
     const emailInput = screen.getByPlaceholderText('yourname@example.com');
     await user.type(emailInput, 'hello@example.com');
 
