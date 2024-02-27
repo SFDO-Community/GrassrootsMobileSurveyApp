@@ -26,7 +26,7 @@ jest.mock('../../src/services/salesforce/survey', () => ({
   storeOnlineSurveys: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
 
-jest.mock('../../src/services/describe', () => ({
+jest.mock('../../src/services/allMetadata', () => ({
   retrieveAllMetadata: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
 

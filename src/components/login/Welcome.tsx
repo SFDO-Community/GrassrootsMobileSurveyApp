@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 
 import { getCurrentFieldWorker, storeContacts } from '../../services/salesforce/contact';
 import { storeOnlineSurveys } from '../../services/salesforce/survey';
-import { retrieveAllMetadata } from '../../services/describe';
+import { retrieveAllMetadata } from '../../services/allMetadata';
 import { clearLocal } from '../../services/session';
 import { useLocalizationContext } from '../../context/localizationContext';
 import { useAuthContext } from '../../context/authContext';

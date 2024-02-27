@@ -38,7 +38,7 @@ export const syncLocalSurveys = async (localSurveys: Array<any>) => {
     } else if (response.hasErrors) {
       throw new Error(`Upload failed: ${response.results[0].errors[0].message}`);
     } else {
-      throw new Error('Unexpected error occued while uploading. Contact your adminsitrator.');
+      throw new Error('Unexpected error occurred while uploading. Contact your administrator.');
     }
   } catch (e) {
     notifyError(e.message);

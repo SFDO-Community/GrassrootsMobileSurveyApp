@@ -6,7 +6,7 @@ import * as Application from 'expo-application';
 import * as SecureStore from 'expo-secure-store';
 
 import { useLocalizationContext } from '../context/localizationContext';
-import { retrieveAllMetadata } from '../services/describe';
+import { retrieveAllMetadata } from '../services/allMetadata';
 import { forceLogout } from '../services/session';
 import { Loader } from '../components';
 
