@@ -113,3 +113,9 @@ export const SUPPORTED_SF_LANGUAGES: Array<Language> = [
   { name: 'Thai', code: 'th' },
   { name: 'Nepali', code: 'ne' }, // For HaydenHall ❤️🇳🇵
 ];
+
+export const METADATA_ERROR = {
+  INVALID_PACKAGE_VERSION: 'INVALID_PACKAGE_VERSION',
+  NO_EDITABLE_FIELDS: 'NO_EDITABLE_FIELDS',
+  INVALID_RECORD_TYPE: 'INVALID_RECORD_TYPE',
+};

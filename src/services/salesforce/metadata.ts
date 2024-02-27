@@ -25,6 +25,7 @@ import {
   SUPPORTED_SF_LANGUAGES,
   DEFAULT_SF_LANGUAGE,
   AVAILABLE_LANGUAGE_CMDT,
+  METADATA_ERROR,
 } from '../../constants';
 
 /**
@@ -39,7 +40,7 @@ export const storeRecordTypesWithCompactLayout = async () => {
     response.recordTypeMappings[0].developerName === 'Master' &&
     response.recordTypeMappings[0].master === false
   ) {
-    return Promise.reject({ error: 'invalid_record_type' });
+    return Promise.reject({ error: METADATA_ERROR.INVALID_RECORD_TYPE });
   }
   const recordTypes: Array<SQLiteRawRecordType> = response.recordTypeMappings.map(r => ({
     developerName: r.developerName,
@@ -124,7 +125,7 @@ export const storePageLayoutItems = async (layout: DescribeLayout) => {
     .flat(3);
   logger('FINE', 'storePageLayoutItems | items', pageLayoutItems);
   if (pageLayoutItems.length === 0) {
-    return Promise.reject({ error: 'no_editable_fields' });
+    return Promise.reject({ error: METADATA_ERROR.NO_EDITABLE_FIELDS });
   }
   await saveRecords(DB_TABLE.PAGE_LAYOUT_ITEM, pageLayoutItems, undefined);
 
