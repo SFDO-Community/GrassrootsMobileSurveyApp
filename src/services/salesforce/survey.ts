@@ -61,13 +61,13 @@ export const storeOnlineSurveys = async () => {
     fieldsMap.delete(RECORD_TYPE_ID_FIELD);
   }
   // Query salesforce records and save them to local
-  const commaSeparetedFields = Array.from(fieldsMap.values())
+  const commaSeparatedFields = Array.from(fieldsMap.values())
     .map(f => f.fieldName)
     .join(',');
 
   const contactId = await storage.load({ key: ASYNC_STORAGE_KEYS.FIELD_WORKER_CONTACT_ID });
   const surveys = await fetchSalesforceRecords(
-    `SELECT ${commaSeparetedFields} FROM ${SURVEY_OBJECT} WHERE ${FIELD_WORKER_CONTACT_FIELD_ON_SURVEY} = '${contactId}'`
+    `SELECT ${commaSeparatedFields} FROM ${SURVEY_OBJECT} WHERE ${FIELD_WORKER_CONTACT_FIELD_ON_SURVEY} = '${contactId}'`
   );
   if (surveys.length === 0) {
     return;
@@ -126,11 +126,11 @@ export const fetchSurveysWithTitleFields = async (surveyIds: Array<string>): Pro
   if (titleFieldSet.size === 0) {
     return new Map(surveyIds.map(surveyId => [surveyId, {}]));
   }
-  const commaSeparetedFields = Array.from(titleFieldSet).join(',');
+  const commaSeparatedFields = Array.from(titleFieldSet).join(',');
   const compositeResult: CompositeObjectResponse | CompositeGenericErrorResponse = await fetchSalesforceRecordsByIds(
     SURVEY_OBJECT,
     surveyIds,
-    commaSeparetedFields
+    commaSeparatedFields
   );
   logger('DEBUG', 'fetchSurveysWithTitleFields', compositeResult);
   if (implementsCompositeGenericErrorResponse(compositeResult)) {
