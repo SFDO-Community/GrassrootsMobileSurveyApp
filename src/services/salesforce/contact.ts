@@ -2,7 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 
 import { fetchSalesforceRecords } from './core';
 import { clearTable, prepareTable, saveRecords } from '../database/database';
-import { DB_TABLE, ASYNC_STORAGE_KEYS, SECURE_STORE_KEYS } from '../../constants';
+import { DB_TABLE, ASYNC_STORAGE_KEYS, SECURE_STORE_KEYS, CONTACT_ERROR } from '../../constants';
 
 import { logger } from '../../utility/logger';
 import { SQLiteContact, SQLiteFieldTypeMapping } from '../../types/sqlite';
@@ -19,13 +19,13 @@ export const getCurrentFieldWorker = async () => {
     logger('DEBUG', 'getCurrentFieldWorker', records);
     if (records.length !== 1) {
       return Promise.reject({
-        message: 'Field worker record is not found or duplicated. Check your Salesforce org.',
+        message: CONTACT_ERROR.INVALID_FIELD_WORKER_RECORD,
       });
     }
     return records[0];
   } catch (e) {
     logger('ERROR', 'getCurrentFieldWorker', e);
-    throw new Error('Unexpected error occurred while retrieving your contact record. Contact your administrator.');
+    throw new Error(CONTACT_ERROR.UNEXPECTED);
   }
 };
 
@@ -65,12 +65,8 @@ export const storeContacts = async () => {
     return contacts;
   } catch (error) {
     if (error.origin === 'query') {
-      throw new Error(
-        'Unexpected error occurred while retrieving field worker-client relationship records. Contact your administrator.'
-      );
+      throw new Error(CONTACT_ERROR.JUNCTION_QUERY);
     }
-    throw new Error(
-      'Unexpected error occurred while saving field worker-client relationship records. Contact your administrator.'
-    );
+    throw new Error(CONTACT_ERROR.JUNCTION_UNEXPECTED);
   }
 };

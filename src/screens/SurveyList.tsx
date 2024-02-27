@@ -70,7 +70,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
         setShowsSpinner(false);
       } catch (e) {
         console.log(e);
-        notifyError('Unexpected error occurred while loading survey list. Contact your administrator and login again.');
+        notifyError(t('SURVEY_LIST_LOADING_ERROR'));
         await forceLogout(authContext);
       }
     };

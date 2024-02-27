@@ -12,7 +12,7 @@ import { storeAvailableLanguages } from '../../services/database/localization';
 
 import { TextIcon } from '..';
 
-import { APP_THEME, ASYNC_STORAGE_KEYS } from '../../constants';
+import { APP_THEME, ASYNC_STORAGE_KEYS, MIN_PACKAGE_VERSION, METADATA_ERROR } from '../../constants';
 import { logger } from '../../utility/logger';
 import { notifyError } from '../../utility/notification';
 
@@ -69,7 +69,11 @@ export default function Welcome({ isVisible, setVisible }: WelcomeModalProps) {
           setLoading(false);
         } catch (error) {
           logger('ERROR', 'Welcome', `${error}`);
-          notifyError(error.message);
+          const errorMessage =
+            error.message === METADATA_ERROR.INVALID_PACKAGE_VERSION
+              ? t(error.message) + MIN_PACKAGE_VERSION
+              : t(error.message);
+          notifyError(errorMessage);
           await clearLocal();
           setVisible(false);
         }

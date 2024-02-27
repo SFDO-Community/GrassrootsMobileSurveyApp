@@ -69,7 +69,7 @@ export default function Settings() {
   const isInternetReachable = async () => {
     const netInfo = await NetInfo.fetch();
     if (!netInfo.isInternetReachable) {
-      notifyError('No network connection. Confirm your network connectivity and try again.');
+      notifyError(t('SETTINGS_NO_INTERNET'));
       return false;
     }
     return true;
@@ -110,7 +110,7 @@ export default function Settings() {
               return;
             }
             if (await hasUnsyncedSurveys()) {
-              notifyError('You cannot reload metadata and surveys until all the surveys are synced.');
+              notifyError(t('SETTINGS_REFRESH_NOT_READY'));
               return;
             }
             setShowsSpinner(true);
@@ -119,9 +119,9 @@ export default function Settings() {
               await retrieveAllMetadata();
               await storeOnlineSurveys();
               await buildDictionary();
-              notifySuccess('Successfully refreshed metadata.');
+              notifySuccess(t('SETTINGS_REFRESH_SUCCESS'));
             } catch (e) {
-              notifyError('Unexpected error occcured while refreshing. Contact your administrator and login again.');
+              notifyError(t('SETTINGS_REFRESH_ERROR'));
               await forceLogout(authContext);
             } finally {
               setShowsSpinner(false);
