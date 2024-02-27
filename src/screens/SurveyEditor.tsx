@@ -10,7 +10,7 @@ import { useLocalizationContext } from '../context/localizationContext';
 import { useSelector, useDispatch } from '../context/surveyEditorContext';
 // services
 import { getRecords } from '../services/database/database';
-import { buildLayoutDetail } from '../services/describe';
+import { buildLayoutDetail } from '../services/layout';
 import { notifyError, notifySuccess } from '../utility/notification';
 import { upsertLocalSurvey } from '../services/database/localSurvey';
 // constants
