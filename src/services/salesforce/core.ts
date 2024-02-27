@@ -4,9 +4,10 @@ import { ASYNC_STORAGE_KEYS } from '../../constants';
 import { logger } from '../../utility/logger';
 import { DescribeLayoutResult, CompositeLayoutResponse, RecordDefaultsResponse } from '../../../src/types/metadata';
 import { formatISOStringToAPIDate } from '../../utility/date';
+import { sliceByNumber } from '../../utility';
 
 const SALESFORCE_API_VERSION = 'v49.0';
-
+const MAX_NUM_OF_OPERATION = 25;
 /**
  * @description Execute SOQL and return records
  * @param query SOQL
@@ -109,19 +110,27 @@ export const describeLayouts = async (
   recordTypeIds: Array<string>
 ): Promise<CompositeLayoutResponse> => {
   const endPoint = (await buildEndpointUrl()) + '/composite';
-  const body = {
-    allOrNone: true,
-    compositeRequest: [],
-  };
-  for (const recordTypeId of recordTypeIds) {
-    body.compositeRequest.push({
-      method: 'GET',
-      referenceId: recordTypeId,
-      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/describe/layouts/${recordTypeId}`,
-    });
+  const recordTypeIdsBundle = sliceByNumber(recordTypeIds, MAX_NUM_OF_OPERATION);
+  let result: CompositeLayoutResponse;
+  for (const currentRecordTypeIds of recordTypeIdsBundle) {
+    const body = {
+      allOrNone: true,
+      compositeRequest: [],
+    };
+    for (const recordTypeId of currentRecordTypeIds) {
+      body.compositeRequest.push({
+        method: 'GET',
+        referenceId: recordTypeId,
+        url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/describe/layouts/${recordTypeId}`,
+      });
+    }
+    const currentResult = await fetchRetriable({ endPoint, method: 'POST', body: JSON.stringify(body) });
+    if (!result) {
+      result = currentResult;
+    } else {
+      result.compositeResponse = result.compositeResponse.concat(currentResult.compositeResponse);
+    }
   }
-
-  const result = await fetchRetriable({ endPoint, method: 'POST', body: JSON.stringify(body) });
   return result;
 };
 
@@ -132,19 +141,28 @@ export const describeLayouts = async (
  */
 export const describeCompactLayouts = async (sObjectType: string, recordTypeIds: Array<string>) => {
   const endPoint = (await buildEndpointUrl()) + '/composite';
-  const body = {
-    allOrNone: true,
-    compositeRequest: [],
-  };
-  for (const recordTypeId of recordTypeIds) {
-    body.compositeRequest.push({
-      method: 'GET',
-      referenceId: recordTypeId,
-      url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/describe/compactLayouts/${recordTypeId}`,
-    });
+  const recordTypeIdsBundle = sliceByNumber(recordTypeIds, MAX_NUM_OF_OPERATION);
+  let result;
+  for (const currentRecordTypeIds of recordTypeIdsBundle) {
+    const body = {
+      allOrNone: true,
+      compositeRequest: [],
+    };
+    for (const recordTypeId of currentRecordTypeIds) {
+      body.compositeRequest.push({
+        method: 'GET',
+        referenceId: recordTypeId,
+        url: `/services/data/${SALESFORCE_API_VERSION}/sobjects/${sObjectType}/describe/compactLayouts/${recordTypeId}`,
+      });
+    }
+    const currentResult = await fetchRetriable({ endPoint, method: 'POST', body: JSON.stringify(body) });
+    if (!result) {
+      result = currentResult;
+    } else {
+      result.compositeResponse = result.compositeResponse.concat(currentResult.compositeResponse);
+    }
   }
-
-  return await fetchRetriable({ endPoint, method: 'POST', body: JSON.stringify(body) });
+  return result;
 };
 
 /**
