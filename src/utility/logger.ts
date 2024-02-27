@@ -14,6 +14,11 @@ export function logger(loggingLevel: LoggingLevel, name: string, message: string
     return;
   }
   const formattedLoggingLevel = `[${loggingLevel}]`.padEnd(7, ' ');
-  const formattedMessage = typeof message === 'object' ? '\n' + JSON.stringify(message, undefined, '  ') : message;
+  const formattedMessage =
+    message instanceof Error
+      ? JSON.stringify(message, Object.getOwnPropertyNames(message))
+      : typeof message === 'object'
+      ? '\n' + JSON.stringify(message, undefined, '  ')
+      : message;
   console.log(`${formattedLoggingLevel} ${new Date().toString()} | ${name} | ${formattedMessage}`);
 }
