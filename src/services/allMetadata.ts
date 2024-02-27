@@ -60,7 +60,7 @@ export const retrieveAllMetadata = async () => {
     logger('ERROR', 'retrieveAllMetadata', e);
     if (e.error === METADATA_ERROR.INVALID_PACKAGE_VERSION) {
       throw new Error(
-        `Salesforce package is not installed or the installed package looks old. Update the package to at least version ${MIN_PACKAGE_VERSION}.`
+        `Salesforce package is not installed or is old. Install at least version ${MIN_PACKAGE_VERSION}.`
       );
     } else if (e.error === METADATA_ERROR.INVALID_RECORD_TYPE) {
       throw new Error('Invalid record type found on Survey object. Contact your administrator.');
