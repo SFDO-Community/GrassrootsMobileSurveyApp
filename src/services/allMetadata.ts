@@ -4,13 +4,12 @@ import {
   storePageLayoutSections,
   storeLocalization,
 } from './salesforce/metadata';
-import { saveRecords, getRecords, clearTable } from './database/database';
-import { SQLitePageLayoutSection, SQLitePageLayoutItem, SQLitePicklistValue } from '../types/sqlite';
-import { SurveyLayout } from '../types/survey';
+import { saveRecords, clearTable } from './database/database';
+import { SQLitePicklistValue } from '../types/sqlite';
 import { CompositeLayoutResponse, DescribeLayout } from '../types/metadata';
 
 import { logger } from '../utility/logger';
-import { ASYNC_STORAGE_KEYS, DB_TABLE, MIN_PACKAGE_VERSION, SURVEY_OBJECT } from '../constants';
+import { ASYNC_STORAGE_KEYS, DB_TABLE, METADATA_ERROR, MIN_PACKAGE_VERSION, SURVEY_OBJECT } from '../constants';
 import { describeLayouts } from './salesforce/core';
 import { validateInstalledPackageVersion } from './salesforce/installedPackage';
 
@@ -59,58 +58,15 @@ export const retrieveAllMetadata = async () => {
     await storeLocalization();
   } catch (e) {
     logger('ERROR', 'retrieveAllMetadata', e);
-    if (e.error === 'older_version') {
-      throw new Error(`Installed Salesforce package looks old. Update the package to at least ${MIN_PACKAGE_VERSION}`);
-    } else if (e.error === 'invalid_record_type') {
-      throw new Error('Invalid record type on Survey object. Contact your administrator.');
-    } else if (e.error === 'no_editable_fields') {
+    if (e.error === METADATA_ERROR.INVALID_PACKAGE_VERSION) {
+      throw new Error(
+        `Salesforce package is not installed or the installed package looks old. Update the package to at least version ${MIN_PACKAGE_VERSION}.`
+      );
+    } else if (e.error === METADATA_ERROR.INVALID_RECORD_TYPE) {
+      throw new Error('Invalid record type found on Survey object. Contact your administrator.');
+    } else if (e.error === METADATA_ERROR.NO_EDITABLE_FIELDS) {
       throw new Error('No editable fields on Survey layout. Contact your administrator.');
     }
-    throw new Error('Unexpected error occured while retrieving survey settings. Contact your administrator.');
+    throw new Error('Unexpected error occurred while retrieving survey settings. Contact your administrator.');
   }
-};
-
-/**
- * Construct page layout object from locally stored page layout sections and items
- * @param layoutId
- */
-export const buildLayoutDetail = async (layoutId: string): Promise<SurveyLayout> => {
-  // sections in the layout
-  const sections: Array<SQLitePageLayoutSection> = await getRecords(
-    DB_TABLE.PAGE_LAYOUT_SECTION,
-    `where layoutId='${layoutId}'`
-  );
-  // items used in the sections
-  const sectionIds = sections.map(s => s.id);
-  const items: Array<SQLitePageLayoutItem> = await getRecords(
-    DB_TABLE.PAGE_LAYOUT_ITEM,
-    `where sectionId in (${sectionIds.map(id => `'${id}'`).join(',')})`
-  );
-  logger('FINE', 'buildLayoutDetail', items);
-
-  // group items by section id
-  const sectionIdToItems = items.reduce(
-    (result, item) => ({
-      ...result,
-      [item.sectionId]: [...(result[item.sectionId] || []), item],
-    }),
-    {}
-  );
-
-  const layout: SurveyLayout = {
-    sections: sections.map(s => ({
-      id: s.id,
-      title: s.sectionLabel,
-      data: sectionIdToItems[s.id]
-        ? sectionIdToItems[s.id].map(item => ({
-            name: item.fieldName,
-            label: item.fieldLabel,
-            type: item.fieldType,
-            required: !!item.required,
-          }))
-        : [],
-    })),
-  };
-
-  return layout;
 };
