@@ -1,4 +1,4 @@
-import { buildLayoutDetail } from '../../src/services/allMetadata';
+import { buildLayoutDetail } from '../../src/services/layout';
 import { getRecords } from '../../src/services/database/database';
 
 jest.mock('../../src/services/database/database', () => ({
