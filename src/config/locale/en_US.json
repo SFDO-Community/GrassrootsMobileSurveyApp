@@ -71,5 +71,5 @@
     "SURVEY_EDITOR_CREATE_SUCCESS": "Created a new survey!",
     "SURVEY_SYNC_SUCCESS": "Successfully uploaded!",
     "SURVEY_SYNC_ERROR_API": "Upload failed: ",
-    "SURVEY_SYNC_ERROR_UNEXPECTED": "Unexpected error occurred while uploading. Contact your administrator.",
+    "SURVEY_SYNC_ERROR_UNEXPECTED": "Unexpected error occurred while uploading. Contact your administrator."
 }
