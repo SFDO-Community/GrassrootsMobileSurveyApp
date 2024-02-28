@@ -29,7 +29,7 @@ describe('getCurrentFieldWorker', () => {
     try {
       await getCurrentFieldWorker();
     } catch (e) {
-      expect(e.message).toMatch('not found or duplicated');
+      expect(e.message).toMatch('CONTACT_ERROR_INVALID_FIELD_WORKER_RECORD');
     }
   });
 
@@ -39,7 +39,7 @@ describe('getCurrentFieldWorker', () => {
     try {
       await getCurrentFieldWorker();
     } catch (e) {
-      expect(e.message).toMatch('not found or duplicated');
+      expect(e.message).toMatch('CONTACT_ERROR_INVALID_FIELD_WORKER_RECORD');
     }
   });
 
@@ -49,7 +49,7 @@ describe('getCurrentFieldWorker', () => {
     try {
       await getCurrentFieldWorker();
     } catch (e) {
-      expect(e.message).toMatch('Unexpected');
+      expect(e.message).toMatch('CONTACT_ERROR_UNEXPECTED');
     }
   });
 });
