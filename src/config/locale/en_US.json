@@ -62,8 +62,14 @@
     "METADATA_ERROR_UNEXPECTED": "Unexpected error occurred while retrieving survey settings. Contact your administrator.",
     "SETTINGS_REFRESH_NOT_READY": "You cannot reload metadata and surveys until all the surveys are synced.",
     "SETTINGS_REFRESH_ERROR": "Successfully refreshed metadata!",
-    "SETTINGS_REFRESH_SUCCESS": "'Unexpected error occurred while refreshing. Contact your administrator and login again.",
-    "SETTINGS_NO_INTERNET": "'No network connection. Confirm your network connectivity and try again.'",
+    "SETTINGS_REFRESH_SUCCESS": "Unexpected error occurred while refreshing. Contact your administrator and login again.",
+    "SETTINGS_NO_INTERNET": "No network connection. Confirm your network connectivity and try again.",
     "SURVEY_LIST_LOADING_ERROR": "Unexpected error occurred while loading survey list. Contact your administrator and login again.",
-    "SURVEY_EDITOR_REQUIRED_FIELDS": "Please enter required fields."
+    "SURVEY_EDITOR_REQUIRED_FIELDS": "Please enter required fields.",
+    "LOGIN_SETTING_SAVE_SUCCESS": "Successfully saved!",
+    "SURVEY_EDITOR_UPDATE_SUCCESS": "Updated the survey!",
+    "SURVEY_EDITOR_CREATE_SUCCESS": "Created a new survey!",
+    "SURVEY_SYNC_SUCCESS": "Successfully uploaded!",
+    "SURVEY_SYNC_ERROR_API": "Upload failed: ",
+    "SURVEY_SYNC_ERROR_UNEXPECTED": "Unexpected error occurred while uploading. Contact your administrator.",
 }

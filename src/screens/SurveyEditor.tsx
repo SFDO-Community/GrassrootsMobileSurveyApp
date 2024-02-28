@@ -103,7 +103,7 @@ export default function SurveyEditor({ route, navigation }: Props) {
             const record = { ...survey, RecordTypeId: recordTypeId };
             await upsertLocalSurvey(record);
             dispatchSurvey({ type: 'CLEAR' });
-            notifySuccess(`${survey._localId ? 'Updated the survey!' : 'Created a new survey!'}`);
+            notifySuccess(`${survey._localId ? t('SURVEY_EDITOR_UPDATE_SUCCESS') : t('SURVEY_EDITOR_CREATE_SUCCESS')}`);
             navigation.navigate('SurveyList');
           }}
           disabled={doneButtonDisabled}
