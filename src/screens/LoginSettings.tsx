@@ -35,7 +35,7 @@ export default function LoginSettings() {
     const trimmed = herokuAppName.trim();
     setHerokuAppName(trimmed);
     await SecureStore.setItemAsync(SECURE_STORE_KEYS.HEROKU_APP_NAME, trimmed);
-    notifySuccess('Successfully saved!');
+    notifySuccess(t('LOGIN_SETTING_SAVE_SUCCESS'));
   };
 
   return (

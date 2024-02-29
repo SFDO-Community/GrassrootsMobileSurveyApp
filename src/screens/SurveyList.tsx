@@ -22,7 +22,7 @@ import { useLocalizationContext } from '../context/localizationContext';
 import { AuthContextValue, useAuthContext } from '../context/authContext';
 // util, constants
 import { formatISOStringToCalendarDateString } from '../utility/date';
-import { notifyError } from '../utility/notification';
+import { notifyError, notifySuccess } from '../utility/notification';
 import {
   APP_FONTS,
   APP_THEME,
@@ -30,6 +30,7 @@ import {
   SURVEY_DATE_FIELD,
   SYNC_STATUS_UNSYNCED,
   SYNC_STATUS_SYNCED,
+  SYNC_ERROR,
 } from '../constants';
 // types
 import { StackParamList } from '../Router';
@@ -70,7 +71,7 @@ export default function SurveyList({ navigation }: SurveyListProps) {
         setShowsSpinner(false);
       } catch (e) {
         console.log(e);
-        notifyError('Unexpected error occurred while loading survey list. Contact your administrator and login again.');
+        notifyError(t('SURVEY_LIST_LOADING_ERROR'));
         await forceLogout(authContext);
       }
     };
@@ -218,8 +219,17 @@ export default function SurveyList({ navigation }: SurveyListProps) {
           text: t('SYNC'),
           onPress: async () => {
             setShowsSpinner(true);
-            await syncLocalSurvey(item._localId);
-            await refreshSurveys();
+            try {
+              await syncLocalSurvey(item._localId);
+              await refreshSurveys();
+              notifySuccess(t('SURVEY_SYNC_SUCCESS'));
+            } catch (e) {
+              if (e.type === SYNC_ERROR.API) {
+                notifyError(t(SYNC_ERROR.API) + e.message);
+              } else {
+                notifyError(t(SYNC_ERROR.UNEXPECTED));
+              }
+            }
             setShowsSpinner(false);
           },
         },

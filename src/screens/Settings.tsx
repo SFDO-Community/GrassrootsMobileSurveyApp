@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ImageBackground } from 'react-native';
 import { Card, Icon, Divider, ListItem, Text } from '@rneui/themed';
 import NetInfo from '@react-native-community/netinfo';
-import * as Application from 'expo-application';
+import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
 
 import { useLocalizationContext } from '../context/localizationContext';
@@ -69,7 +69,7 @@ export default function Settings() {
   const isInternetReachable = async () => {
     const netInfo = await NetInfo.fetch();
     if (!netInfo.isInternetReachable) {
-      notifyError('No network connection. Confirm your network connectivity and try again.');
+      notifyError(t('SETTINGS_NO_INTERNET'));
       return false;
     }
     return true;
@@ -95,7 +95,7 @@ export default function Settings() {
         <Card.Title style={{ fontFamily: APP_FONTS.FONT_BOLD }}>{t('INFORMATION')}</Card.Title>
         <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
         <Text style={{ textAlign: 'center', paddingTop: 15, paddingBottom: 15 }}>
-          {t('VERSION')} {Application.nativeApplicationVersion}
+          {t('VERSION')} {Constants.expoConfig.version}
         </Text>
         <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
         <Text style={{ textAlign: 'center', paddingTop: 15 }}>
@@ -110,7 +110,7 @@ export default function Settings() {
               return;
             }
             if (await hasUnsyncedSurveys()) {
-              notifyError('You cannot reload metadata and surveys until all the surveys are synced.');
+              notifyError(t('SETTINGS_REFRESH_NOT_READY'));
               return;
             }
             setShowsSpinner(true);
@@ -119,9 +119,9 @@ export default function Settings() {
               await retrieveAllMetadata();
               await storeOnlineSurveys();
               await buildDictionary();
-              notifySuccess('Successfully refreshed metadata.');
+              notifySuccess(t('SETTINGS_REFRESH_SUCCESS'));
             } catch (e) {
-              notifyError('Unexpected error occcured while refreshing. Contact your administrator and login again.');
+              notifyError(t('SETTINGS_REFRESH_ERROR'));
               await forceLogout(authContext);
             } finally {
               setShowsSpinner(false);

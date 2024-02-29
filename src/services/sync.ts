@@ -1,10 +1,10 @@
 import { CompositeObjectCreateResultItem } from '../types/survey';
 import { logger } from '../utility/logger';
-import { notifySuccess, notifyError } from '../utility/notification';
+import { notifyError } from '../utility/notification';
 import { getRecords } from './database/database';
 import { updateSurveyStatusSynced } from './database/localSurvey';
 import { fetchSurveysWithTitleFields, uploadSurveyListToSalesforce } from './salesforce/survey';
-import { DB_TABLE } from '../constants';
+import { DB_TABLE, SYNC_ERROR } from '../constants';
 
 export const syncLocalSurvey = async (localId: string) => {
   const survey = await getRecords(DB_TABLE.SURVEY, `WHERE _localId = '${localId}'`);
@@ -12,7 +12,7 @@ export const syncLocalSurvey = async (localId: string) => {
 };
 
 /**
- * @description Upload local surveys, handle respnose from Salesforce,
+ * @description Upload local surveys, handle response from Salesforce,
  * and then show toast message.
  */
 export const syncLocalSurveys = async (localSurveys: Array<any>) => {
@@ -33,12 +33,11 @@ export const syncLocalSurveys = async (localSurveys: Array<any>) => {
         refreshedSurveys.push({ _localId, ...surveyIdToRefreshedSurveysMap.get(surveyId) });
       });
       await updateSurveyStatusSynced(refreshedSurveys);
-      notifySuccess(`${response.results.length === 1 ? 'Survey is' : 'Surveys are'} successfully uploaded!`);
       return;
     } else if (response.hasErrors) {
-      throw new Error(`Upload failed: ${response.results[0].errors[0].message}`);
+      return Promise.reject({ type: SYNC_ERROR.API, message: response.results[0].errors[0].message });
     } else {
-      throw new Error('Unexpected error occurred while uploading. Contact your administrator.');
+      return Promise.reject({ type: SYNC_ERROR.UNEXPECTED });
     }
   } catch (e) {
     notifyError(e.message);

@@ -6,11 +6,12 @@ import { useLocalizationContext } from '../../context/localizationContext';
 
 import { syncLocalSurveys } from '../../services/sync';
 
-import { APP_THEME, SYNC_STATUS_UNSYNCED } from '../../constants';
+import { APP_THEME, SYNC_STATUS_UNSYNCED, SYNC_ERROR } from '../../constants';
 import { SurveyListItem } from '../../types/survey';
 
 import { clearDatabase } from '../../services/database/database';
 import { clearStorage } from '../../utility/storage';
+import { notifySuccess, notifyError } from '../../utility/notification';
 
 type SurveyListRightButtonProps = SyncButtonProps & SettingsButtonProps;
 
@@ -54,8 +55,17 @@ export function SyncButton(props: SyncButtonProps) {
           text: t('OK'),
           onPress: async () => {
             props.setShowsSpinner(true);
-            await syncLocalSurveys(localSurveys);
-            await props.refreshSurveys();
+            try {
+              await syncLocalSurveys(localSurveys);
+              await props.refreshSurveys();
+              notifySuccess(t('SURVEY_SYNC_SUCCESS'));
+            } catch (e) {
+              if (e.type === SYNC_ERROR.API) {
+                notifyError(t(SYNC_ERROR.API) + e.message);
+              } else {
+                notifyError(t(SYNC_ERROR.UNEXPECTED));
+              }
+            }
             props.setShowsSpinner(false);
           },
         },
