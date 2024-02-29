@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ImageBackground } from 'react-native';
 import { Card, Icon, Divider, ListItem, Text } from '@rneui/themed';
 import NetInfo from '@react-native-community/netinfo';
-import * as Application from 'expo-application';
+import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
 
 import { useLocalizationContext } from '../context/localizationContext';
@@ -95,7 +95,7 @@ export default function Settings() {
         <Card.Title style={{ fontFamily: APP_FONTS.FONT_BOLD }}>{t('INFORMATION')}</Card.Title>
         <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
         <Text style={{ textAlign: 'center', paddingTop: 15, paddingBottom: 15 }}>
-          {t('VERSION')} {Application.nativeApplicationVersion}
+          {t('VERSION')} {Constants.expoConfig.version}
         </Text>
         <Divider style={{ backgroundColor: APP_THEME.APP_BORDER_COLOR }} />
         <Text style={{ textAlign: 'center', paddingTop: 15 }}>
