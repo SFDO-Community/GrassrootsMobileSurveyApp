@@ -151,7 +151,6 @@ export default function SurveyList({ navigation }: SurveyListProps) {
         <View style={styles.addButtonStyle}>
           <Icon
             reverse
-            raised
             name="md-add"
             type="ionicon"
             size={22}
@@ -317,7 +316,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: APP_THEME.APP_WHITE,
   },
-  addButtonStyle: { position: 'absolute', bottom: 30, right: 30 },
+  addButtonStyle: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+  },
   backTextWhite: {
     color: APP_THEME.APP_WHITE,
     fontFamily: APP_FONTS.FONT_REGULAR,
