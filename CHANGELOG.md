@@ -1,3 +1,19 @@
+# 0.13.2 - Feb 29th, 2024
+* Fix `View has a shadow set but cannot calculate shadow efficiently.` warning
+* Fix escaped single quote in field label
+* Retrieve available language custom metadata in setting screen
+
+# 0.13.1 - Feb 28th, 2024
+* Refactor labels
+
+# 0.13.0 - Feb 27th, 2024
+* Accept more than 25 record types
+* Add Salesforce package dependency check
+
+# 0.12.0 - Nov 21st, 2024
+* Update translation mechanism to get translation workbench settings
+* Update expo version to 49.0
+
 # 0.7.0 - May 16th, 2022
 * Accept email address including '+' character such as `hello+123@example.com` on login screen
 * Disable sync button when there are no unsynced surveys
