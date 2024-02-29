@@ -29,6 +29,7 @@ import { hasUnsyncedSurveys } from '../services/database/localSurvey';
 import { storeContacts } from '../services/salesforce/contact';
 import { useAuthContext } from '../context/authContext';
 import { Language } from '../types/metadata';
+import { storeAvailableLanguages } from '../services/database/localization';
 
 export default function Settings() {
   const [email, setEmail] = useState('');
@@ -116,6 +117,7 @@ export default function Settings() {
             setShowsSpinner(true);
             try {
               await storeContacts();
+              await storeAvailableLanguages();
               await retrieveAllMetadata();
               await storeOnlineSurveys();
               await buildDictionary();
