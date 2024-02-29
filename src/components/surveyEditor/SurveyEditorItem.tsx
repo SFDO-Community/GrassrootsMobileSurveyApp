@@ -33,7 +33,7 @@ function SurveyEditorItem({ navigation, title, name, type, required }: SurveyIte
     return (
       <View style={styles.labelContainer}>
         {required && <Text style={{ color: APP_THEME.APP_ERROR_COLOR }}>*</Text>}
-        <Text style={styles.labelStyle}>{t(`${L10N_PREFIX.PageLayoutItem}${name}`)}</Text>
+        <Text style={styles.labelStyle}>{t(`${L10N_PREFIX.PageLayoutItem}${name}`).replace('&#39;', "'")}</Text>
       </View>
     );
   };
